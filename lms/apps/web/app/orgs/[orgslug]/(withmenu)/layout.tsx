@@ -42,7 +42,7 @@ function OrgFooter() {
           <Link href="https://learnhouse.app" target="_blank" rel="noopener noreferrer">
             <Image
               src="/lrn.svg"
-              alt="LearnHouse"
+              alt="SIRIUS"
               width={24}
               height={24}
               style={{ height: 'auto' }}

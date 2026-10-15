@@ -1,5 +1,5 @@
 """
-Admin API Router: headless access to LearnHouse via API tokens.
+Admin API Router: headless access to SIRIUS via API tokens.
 
 All endpoints are scoped by org_slug and require API token authentication
 (Bearer lh_...). The token's organization must match the org_slug in the URL.
@@ -948,7 +948,7 @@ def _support_url() -> str:
     The old `{platform}/dashboard/support` path 404s (the platform dashboard is
     gone on .io), so use a support mailto that can never break.
     """
-    return "mailto:hello@learnhouse.app"
+    return "mailto:berdinov04@gmail.com"
 
 
 def _render_magic_link_error(title: str, message: str) -> HTMLResponse:
@@ -963,7 +963,7 @@ def _render_magic_link_error(title: str, message: str) -> HTMLResponse:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LearnHouse sign-in link</title>
+<title>SIRIUS sign-in link</title>
 <style>
   body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
          background: #f6f7f9; color: #111827; margin: 0;

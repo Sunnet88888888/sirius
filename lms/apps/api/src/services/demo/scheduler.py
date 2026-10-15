@@ -9,7 +9,7 @@ Two deliberate differences from the nudge scheduler:
 * It ticks on an interval rather than at a fixed hour, because the demo is
   meant to be recent rather than daily.
 * It is **not** gated on SaaS mode. A self-hosted install demonstrating
-  LearnHouse to its own stakeholders wants the demo as much as the hosted
+  SIRIUS to its own stakeholders wants the demo as much as the hosted
   product does.
 
 Correctness does not depend on only one replica running it. The sync is

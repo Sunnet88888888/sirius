@@ -4,7 +4,7 @@
 #  | |__|  __/ (_| | |  | | | |  _  | (_) | |_| \__ \  __/
 #  |_____\___|\__,_|_|  |_| |_|_| |_|\___/ \__,_|___/\___|
 #
-#  LearnHouse · open-source learning platform · FastAPI entrypoint
+#  SIRIUS · open-source learning platform · FastAPI entrypoint
 #
 #  ↳ learnhouse.app · github.com/learnhouse/learnhouse
 #  ↳ Created and maintained by @swve © 2022–present
@@ -179,7 +179,7 @@ app.include_router(v1_router)
 
 @app.get("/")
 async def root():
-    return {"Message": "Welcome to LearnHouse ✨"}
+    return {"Message": "Welcome to SIRIUS ✨"}
 
 
 if __name__ == "__main__":

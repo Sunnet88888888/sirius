@@ -100,7 +100,7 @@ export default function ErrorActions({ resolutions, reset, eventId, loginNext }:
   const loginHref = loginNext
     ? `/login?next=${encodeURIComponent(loginNext)}`
     : '/login'
-  const supportHref = getPlatformUrl('/contact') || 'mailto:support@learnhouse.io'
+  const supportHref = getPlatformUrl('/contact') || 'mailto:berdinov04@gmail.com'
 
   return (
     <div className="flex flex-wrap justify-center gap-3">

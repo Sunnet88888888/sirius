@@ -1,7 +1,7 @@
 """
 Zapier integration router.
 
-These endpoints are called by the Zapier Platform (not the LearnHouse dashboard)
+These endpoints are called by the Zapier Platform (not the SIRIUS dashboard)
 and MUST be authenticated via an API token (``Authorization: Bearer lh_...``).
 The token carries the organization scope; no ``org_id`` appears in the URL.
 

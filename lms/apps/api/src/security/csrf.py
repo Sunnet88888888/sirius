@@ -86,7 +86,7 @@ class CSRFProtectionMiddleware(BaseHTTPMiddleware):
     Middleware that validates Origin header on state-changing requests.
 
     This protects against CSRF attacks by ensuring that requests come from
-    allowed origins. The allowed origins are configured in the LearnHouse config.
+    allowed origins. The allowed origins are configured in the SIRIUS config.
     """
 
     def __init__(self, app):

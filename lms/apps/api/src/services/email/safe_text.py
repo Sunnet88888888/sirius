@@ -17,7 +17,7 @@ _WHITESPACE_RUN = re.compile(r"\s+")
 
 def email_org_name(value: Optional[str]) -> str:
     """Link-free org name for email copy and subjects."""
-    return sanitize_display_name(value, fallback="A LearnHouse organization")
+    return sanitize_display_name(value, fallback="A SIRIUS organization")
 
 
 def email_user_name(value: Optional[str]) -> str:

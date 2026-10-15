@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Unified migration script for LearnHouse database updates.
+Unified migration script for SIRIUS database updates.
 
 This script handles all migrations:
 1. Communities and discussions permissions for roles
@@ -848,7 +848,7 @@ def run_playgrounds_migration():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='LearnHouse Database Migration Script',
+        description='SIRIUS Database Migration Script',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -871,7 +871,7 @@ Examples:
     args = parser.parse_args()
 
     print("=" * 60)
-    print("LearnHouse Database Migration Script")
+    print("SIRIUS Database Migration Script")
     print("=" * 60)
 
     if args.show:

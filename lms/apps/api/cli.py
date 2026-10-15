@@ -46,7 +46,7 @@ def _to_sync_url(url: str) -> str:
 def install(
     short: Annotated[bool, typer.Option(help="Install with predefined values")] = False
 ):
-    """Install LearnHouse: schema, default elements, organization, and admin user.
+    """Install SIRIUS: schema, default elements, organization, and admin user.
 
     Typer entry point; uses asyncio.run because no loop is running yet.
     Programmatic async callers (FastAPI lifespan, etc.) should await

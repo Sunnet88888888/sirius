@@ -207,7 +207,7 @@ def check_refresh_rate_limit(request: Request) -> Tuple[bool, int]:
     /auth/refresh requires an already-valid, server-signed refresh JWT, so
     there is nothing here an attacker can brute-force.
 
-    The limit is keyed per IP, and schools/companies (LearnHouse's core
+    The limit is keyed per IP, and schools/companies (SIRIUS's core
     audience) put hundreds of users behind a single NAT address. The previous
     60/minute ceiling was reached by a few dozen people signing in at the same
     time (start of a class, Monday morning), and every request over the line

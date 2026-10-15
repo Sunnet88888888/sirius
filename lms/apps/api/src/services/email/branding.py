@@ -17,7 +17,7 @@ The pieces, and where each one comes from:
                       absolute URL.
 * ``brand_color``:    ``customization.general.color``; tints the CTA button.
 * ``powered_by``:     ``customization.general.watermark``; renders the small
-                      "Powered by LearnHouse" footer line. Always on for the
+                      "Powered by SIRIUS" footer line. Always on for the
                       open-source edition and for SaaS free-plan orgs; a paid
                       SaaS plan or an Enterprise licence may turn it off.
 """
@@ -98,7 +98,7 @@ def resolve_org_brand_color(org_config) -> Optional[str]:
 
 
 def resolve_org_powered_by(org_config) -> bool:
-    """Whether this org's mail carries the "Powered by LearnHouse" line.
+    """Whether this org's mail carries the "Powered by SIRIUS" line.
 
     Always shown on the open-source edition: attribution is part of the OSS
     deal, whatever the stored ``watermark`` flag says. On SaaS it is always
