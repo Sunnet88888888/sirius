@@ -380,12 +380,7 @@ const OrgEditAutomations: React.FC = () => {
               >
                 Manage Zaps
               </a>
-              <a
-                href="https://zapier.com/apps/learnhouse/integrations"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
+              <Button
                   variant="outline"
                   size="sm"
                   className="border-gray-200 text-gray-700 hover:bg-gray-50"
@@ -393,7 +388,6 @@ const OrgEditAutomations: React.FC = () => {
                   Connect
                   <ExternalLink size={12} className="ms-1.5" />
                 </Button>
-              </a>
             </div>
           </div>
 

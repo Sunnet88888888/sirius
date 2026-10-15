@@ -146,7 +146,7 @@ export default function AuthBrandingPanel({ org, welcomeText, title, subtitle }:
               and for the no-org apex panel (platform shows no logo on the image). */}
           {!isEnterprise && !noOrg && (
             <div className="login-topbar">
-              <Link prefetch href="https://learnhouse.app" target="_blank">
+              <Link prefetch href="/">
                 <img
                   src="/lrn.svg"
                   alt="SIRIUS"

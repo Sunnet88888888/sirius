@@ -215,7 +215,7 @@
     "organizations": "المؤسسات",
     "billing": "الفوترة",
     "create_organization": "إنشاء مؤسسة",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "تعذّر حذف هذه المؤسسة. يرجى المحاولة مرة أخرى.",
     "org_actions": "إجراءات المؤسسة",
     "manage_upgrade": "إدارة / ترقية",

@@ -215,7 +215,7 @@
     "organizations": "องค์กร",
     "billing": "การเรียกเก็บเงิน",
     "create_organization": "สร้างองค์กร",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "ไม่สามารถลบองค์กรนี้ได้ กรุณาลองอีกครั้ง",
     "org_actions": "การจัดการองค์กร",
     "manage_upgrade": "จัดการ / อัปเกรด",

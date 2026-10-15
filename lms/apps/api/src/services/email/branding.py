@@ -33,7 +33,7 @@ from fastapi import Request
 _HEX_COLOR_RE = re.compile(r"^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$")
 
 # Site of the platform, for the "Powered by" footer link.
-POWERED_BY_URL = "https://www.learnhouse.io"
+POWERED_BY_URL = ""
 
 
 def normalize_brand_color(raw: Any) -> Optional[str]:
@@ -106,20 +106,8 @@ def resolve_org_powered_by(org_config) -> bool:
     them, but a plan downgrade leaves the old value in place). A paid SaaS
     plan or an Enterprise licence honours the org's ``watermark`` toggle.
     """
-    from src.core.deployment_mode import get_deployment_mode
-
-    mode = get_deployment_mode()
-    if mode == "oss":
-        return True
-
-    config = getattr(org_config, "config", None)
-    if not isinstance(config, dict):
-        return True
-
-    plan = config.get("plan") or _section(config, "cloud").get("plan") or "free"
-    if mode == "saas" and plan == "free":
-        return True
-    return _general_section(config).get("watermark") is not False
+    # SIRIUS: no "powered by" line in any mail, whatever the stored flag says.
+    return False
 
 
 @dataclass(frozen=True)

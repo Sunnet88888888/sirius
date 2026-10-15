@@ -15,13 +15,8 @@ function Watermark() {
     const plan = usePlan()
     const watermarkConfig = org?.config?.config?.customization?.general?.watermark ?? org?.config?.config?.general?.watermark
 
-    // Visibility rules, in priority order:
-    //   1. EE         → always hidden (white-label is part of the EE license).
-    //   2. SaaS free  → always shown (free tier is branded).
-    //   3. Otherwise  → respect the admin's toggle (default on).
-    if (mode === 'ee') return null
-    const showWatermark = plan === 'free' || watermarkConfig !== false
-    if (!showWatermark) return null
+    // SIRIUS: no watermark.
+    return null
 
     return (
         <div className='fixed bottom-8 end-8 z-50'>

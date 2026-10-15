@@ -215,7 +215,7 @@
     "organizations": "Організації",
     "billing": "Платежі",
     "create_organization": "Створити організацію",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "Не вдалося видалити цю організацію. Спробуйте ще раз.",
     "org_actions": "Дії з організацією",
     "manage_upgrade": "Керувати / Покращити",

@@ -18,7 +18,7 @@ export async function sendWelcomeAccountMail(args: { email: string; username?: s
       'Invite learners and track their progress.',
       'Brand your school and share it with the world.',
     ],
-    cta: { label: 'Get started', href: 'https://www.learnhouse.io/home' },
+    cta: { label: 'Get started', href: process.env.NEXT_PUBLIC_LEARNHOUSE_BACKEND_URL || '/' },
   })
 }
 

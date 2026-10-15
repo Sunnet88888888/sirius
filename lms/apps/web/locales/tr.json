@@ -215,7 +215,7 @@
     "organizations": "Organizasyonlar",
     "billing": "Faturalandırma",
     "create_organization": "Organizasyon oluştur",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "Bu organizasyon silinemedi. Lütfen tekrar deneyin.",
     "org_actions": "Organizasyon işlemleri",
     "manage_upgrade": "Yönet / Yükselt",

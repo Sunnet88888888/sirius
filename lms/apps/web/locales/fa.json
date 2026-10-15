@@ -216,7 +216,7 @@
     "organizations": "سازمان‌ها",
     "billing": "صورت‌حساب",
     "create_organization": "ایجاد سازمان",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "حذف این سازمان ممکن نشد. لطفاً دوباره تلاش کنید.",
     "org_actions": "اقدامات سازمان",
     "manage_upgrade": "مدیریت / ارتقا",

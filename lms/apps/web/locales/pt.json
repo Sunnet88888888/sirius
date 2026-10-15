@@ -215,7 +215,7 @@
     "organizations": "Organizações",
     "billing": "Faturação",
     "create_organization": "Criar organização",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "Não foi possível eliminar esta organização. Tente novamente.",
     "org_actions": "Ações da organização",
     "manage_upgrade": "Gerir / Fazer upgrade",

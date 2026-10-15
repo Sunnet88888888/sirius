@@ -215,7 +215,7 @@
     "organizations": "조직",
     "billing": "결제",
     "create_organization": "조직 만들기",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "이 조직을 삭제할 수 없습니다. 다시 시도해 주세요.",
     "org_actions": "조직 작업",
     "manage_upgrade": "관리 / 업그레이드",

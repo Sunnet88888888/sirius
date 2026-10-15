@@ -13,11 +13,12 @@ import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import { getPlatformUrl } from '@services/config/config'
 
-const TERMS_URL = getPlatformUrl('/terms') || 'https://www.learnhouse.io/terms'
-const PRIVACY_URL = getPlatformUrl('/privacy') || 'https://www.learnhouse.io/privacy'
+const TERMS_URL = getPlatformUrl('/terms') || ''
+const PRIVACY_URL = getPlatformUrl('/privacy') || ''
 
 export function AuthFooter({ className = '' }: { className?: string }) {
   const { t } = useTranslation()
+  if (!TERMS_URL || !PRIVACY_URL) return null
   return (
     <div className={`pb-8 pt-6 text-center px-6 ${className}`}>
       <p className="text-[13px] text-black/30 font-medium">
@@ -62,8 +63,9 @@ export function CopyrightFooter({
     <footer className={`w-full py-6 px-6 ${className}`}>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-x-5 gap-y-2 text-[13px] font-medium">
         <p className={base}>
-          {t('common.copyright', { defaultValue: '© {{year}} SIRIUS, Inc.', year })}
+          {t('common.copyright', { defaultValue: '© {{year}} SIRIUS', year })}
         </p>
+        {TERMS_URL && PRIVACY_URL && (
         <nav className="flex items-center gap-x-5">
           <Link
             href={TERMS_URL}
@@ -82,6 +84,7 @@ export function CopyrightFooter({
             {t('auth.privacy_policy', { defaultValue: 'Privacy Policy' })}
           </Link>
         </nav>
+        )}
       </div>
     </footer>
   )

@@ -215,7 +215,7 @@
     "organizations": "Organizácie",
     "billing": "Fakturácia",
     "create_organization": "Vytvoriť organizáciu",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "Túto organizáciu sa nepodarilo odstrániť. Skúste to znova.",
     "org_actions": "Akcie organizácie",
     "manage_upgrade": "Spravovať / Inovovať",

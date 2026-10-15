@@ -121,7 +121,7 @@ function useContentReady(activityType: string, activitySubType?: string) {
 function EmbedActivityClient({ activityId, courseuuid, orgslug, bgcolor }: EmbedActivityClientProps) {
   const { t } = useTranslation()
   const searchParams = useSearchParams()
-  const showLearnHouseLogo = searchParams.get('showlearnhouselogo') !== 'false'
+  const showLearnHouseLogo = false // SIRIUS: no external badge
   const textColor = searchParams.get('textcolor')
 
   const { data: activity, isLoading: activityLoading } = useActivity(activityId)

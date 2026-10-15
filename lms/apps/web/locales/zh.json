@@ -215,7 +215,7 @@
     "organizations": "组织",
     "billing": "账单",
     "create_organization": "创建组织",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "无法删除此组织。请重试。",
     "org_actions": "组织操作",
     "manage_upgrade": "管理 / 升级",

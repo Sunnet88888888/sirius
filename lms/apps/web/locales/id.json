@@ -215,7 +215,7 @@
     "organizations": "Organisasi",
     "billing": "Tagihan",
     "create_organization": "Buat organisasi",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "Tidak dapat menghapus organisasi ini. Silakan coba lagi.",
     "org_actions": "Tindakan organisasi",
     "manage_upgrade": "Kelola / Tingkatkan",

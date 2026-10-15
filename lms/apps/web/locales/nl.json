@@ -215,7 +215,7 @@
     "organizations": "Organisaties",
     "billing": "Facturering",
     "create_organization": "Organisatie aanmaken",
-    "copyright": "© {{year}} SIRIUS, Inc.",
+    "copyright": "© {{year}} SIRIUS",
     "delete_organization_error": "Kan deze organisatie niet verwijderen. Probeer het opnieuw.",
     "org_actions": "Organisatieacties",
     "manage_upgrade": "Beheren / Upgraden",
