@@ -45,6 +45,7 @@ from src.security.api_token_utils import (
     require_authenticated_user_or_api_token,
     require_non_api_token_user,
 )
+from src.security.features_utils.hidden import require_feature_visible
 from src.security.features_utils.plan_check import require_plan, require_plan_for_boards, require_plan_for_certifications, require_plan_for_community, require_plan_for_usergroups, require_plan_for_playgrounds
 
 
@@ -256,7 +257,7 @@ v1_router.include_router(
     boards_router_module.router,
     prefix="/boards",
     tags=["boards"],
-    dependencies=[Depends(get_non_api_token_user), Depends(require_plan_for_boards("personal", "Boards"))]
+    dependencies=[Depends(require_feature_visible("boards")), Depends(get_non_api_token_user), Depends(require_plan_for_boards("personal", "Boards"))]
 )
 v1_router.include_router(
     boards_router_module.internal_router,
@@ -327,19 +328,19 @@ v1_router.include_router(
     boards_playground.router,
     prefix="/boards",
     tags=["boards", "boards-playground"],
-    dependencies=[Depends(require_authenticated_user), Depends(require_plan_for_boards("personal", "Boards"))]
+    dependencies=[Depends(require_feature_visible("boards")), Depends(require_authenticated_user), Depends(require_plan_for_boards("personal", "Boards"))]
 )
 v1_router.include_router(
     playgrounds_router_module.router,
     prefix="/playgrounds",
     tags=["playgrounds"],
-    dependencies=[Depends(require_authenticated_user), Depends(require_plan_for_playgrounds("personal", "Playgrounds"))]
+    dependencies=[Depends(require_feature_visible("playgrounds")), Depends(require_authenticated_user), Depends(require_plan_for_playgrounds("personal", "Playgrounds"))]
 )
 v1_router.include_router(
     playgrounds_generator_router.router,
     prefix="/playgrounds",
     tags=["playgrounds", "playgrounds-generator"],
-    dependencies=[Depends(require_authenticated_user), Depends(require_plan_for_playgrounds("personal", "Playgrounds"))]
+    dependencies=[Depends(require_feature_visible("playgrounds")), Depends(require_authenticated_user), Depends(require_plan_for_playgrounds("personal", "Playgrounds"))]
 )
 
 v1_router.include_router(

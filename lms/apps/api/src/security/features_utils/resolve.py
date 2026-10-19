@@ -5,6 +5,7 @@ Central feature resolution logic (v2 config).
 """
 
 from src.core.deployment_mode import get_deployment_mode, EE_ONLY_FEATURES
+from src.security.features_utils.hidden import is_feature_hidden
 from src.security.features_utils.plans import (
     FEATURE_PLAN_REQUIREMENTS,
     get_plan_feature_config,
@@ -117,6 +118,12 @@ def resolve_feature(feature: str, config: dict, org_id: int = 0, _extras: dict |
     """
     mode = get_deployment_mode()
     required_plan = FEATURE_PLAN_REQUIREMENTS.get(feature)
+
+    # Platform-level switch (SIRIUS_HIDDEN_FEATURES): off for everyone, and
+    # "available" stays True so the UI shows no upgrade prompt. `hidden` tells
+    # the web app to leave the feature out of menus entirely.
+    if is_feature_hidden(feature):
+        return {"enabled": False, "available": True, "limit": 0, "required_plan": None, "hidden": True}
 
     # Always-on features without limits: enabled in all modes, unlimited, no admin toggle
     if feature in ALWAYS_ON_FEATURES and feature not in ALWAYS_ON_WITH_LIMITS:

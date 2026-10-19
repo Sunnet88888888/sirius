@@ -24,3 +24,9 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Rollback: `deploy.sh --rollback 936eb76`.
 - 2026-10-19 (later): finished the remaining strings; `locales/tk.json` now has all 5,212 keys. Review file regenerated in `docs/i18n/turkmen-review.tsv`.
 
+## 2026-10-19 - Hide Boards and Playgrounds (branch feat/hide-boards-playgrounds)
+- Merged feat/turkmen into main (already running as sirius-lms:02e385e).
+- Goal: Boards and Playgrounds are not needed for now; keep code and data.
+- Done: `SIRIUS_HIDDEN_FEATURES` switch (backend resolve + route dependency, web menu), tests, docs/features/hidden-features.md. Server `.env` gets `SIRIUS_HIDDEN_FEATURES=boards,playgrounds`.
+- Rollback: remove the variable from `/opt/learnhouse/.env` and recreate the app container; or `deploy.sh --rollback 02e385e`.
+

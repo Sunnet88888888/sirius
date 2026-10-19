@@ -865,7 +865,7 @@ function DashLeftMenu() {
                         </Link>
                       </HoverMenuItem>
                     )}
-                    {!showBoards && (
+                    {!showBoards && !rf?.boards?.hidden && (
                       <HoverMenuItem asChild>
                         <Link href="/dash/boards" className="flex items-center gap-2 px-3 py-2 text-sm text-white/30 hover:text-white/50 hover:bg-white/[0.05] cursor-pointer transition-colors">
                           <ChalkboardSimple size={16} weight="fill" />
@@ -873,7 +873,7 @@ function DashLeftMenu() {
                         </Link>
                       </HoverMenuItem>
                     )}
-                    {!showPlaygrounds && (
+                    {!showPlaygrounds && !rf?.playgrounds?.hidden && (
                       <HoverMenuItem asChild>
                         <Link href="/dash/playgrounds" className="flex items-center gap-2 px-3 py-2 text-sm text-white/30 hover:text-white/50 hover:bg-white/[0.05] cursor-pointer transition-colors">
                           <Cube size={16} weight="fill" />

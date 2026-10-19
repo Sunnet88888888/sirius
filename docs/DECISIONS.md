@@ -9,3 +9,5 @@
 7. **Theme default is light.** Dark is opt-in through the toggle until every screen has been checked in it.
 8. **The student code workspace is a presentation component.** `CodeTaskWorkspace` has no saving or grading logic. It receives everything from `TaskCodeObject`, so autosave, submit gating and hidden-test rules stay in one place. Teacher and grading views are unchanged.
 9. **Turkmen is machine-drafted.** Student-facing and daily teacher screens were done first, then the rest. Missing keys fall back to English. A review file with English and Turkmen side by side is kept in `docs/i18n/` for a native speaker.
+10. **Hide, do not delete, features we do not need yet.** A platform-level environment switch (`SIRIUS_HIDDEN_FEATURES`) turns a feature off for everyone and removes it from menus, instead of an org admin toggle (which an admin could flip back) or removing code (which makes upstream updates and later re-enabling hard).
+
