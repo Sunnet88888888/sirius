@@ -16,3 +16,10 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Not yet checked on the server with real data: a real code task through Run, autosave and submit.
 - Rollback: `deploy.sh --rollback <previous sha>`; no database changes in this job.
 
+## 2026-10-19 - Turkmen interface language (branch feat/turkmen)
+- Goal: add Turkmen and translate the interface.
+- Done: registered `tk` (languages list, lazy loader), `locales/tk.json` with about 2,950 of 5,211 strings; checked automatically that every translation keeps the same placeholders ({{count}}, tags) and contains no Cyrillic look-alike letters; identical English strings reuse one translation.
+- Tests: web unit tests 402 pass (existing tests untouched; `common.turkmen` added to ar.json because a test requires ar.json to cover every English key).
+- Deployed from the branch with `deploy.sh feat/turkmen`.
+- Rollback: `deploy.sh --rollback 936eb76`.
+
