@@ -292,6 +292,9 @@ function AssignmentStudentActivity() {
 
         return (
           <div className='flex flex-col space-y-2' key={task.assignment_task_uuid}>
+            {/* CODE tasks show their statement, hint and reference file inside the
+                split workspace, so the stacked header is skipped for them. */}
+            {task.assignment_type !== 'CODE' && (
             <div className='flex flex-col md:flex-row md:justify-between py-2 space-y-2 md:space-y-0'>
               <div className='flex flex-wrap space-x-2 font-semibold text-slate-800'>
                 <p>{t('assignments.task')} {index + 1} : </p>
@@ -328,6 +331,7 @@ function AssignmentStudentActivity() {
                 </Link>}
               </div>
             </div>
+            )}
             {isGraded && !isUngraded && taskSubmission && (
               <div className={`relative overflow-hidden rounded-xl nice-shadow border ${
                 taskPassed

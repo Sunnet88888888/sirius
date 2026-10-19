@@ -10,6 +10,9 @@ import {
 } from '@components/Contexts/Assignments/AssignmentsTaskContext'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import AssignmentBoxUI from '@components/Objects/Activities/Assignment/AssignmentBoxUI'
+import CodeTaskWorkspace from '@components/Objects/Activities/Assignment/CodeTaskWorkspace'
+import { useOrg } from '@components/Contexts/OrgContext'
+import { getTaskRefFileDir } from '@services/media/media'
 import {
   getAssignmentTask,
   getAssignmentTaskSubmissionsUser,
@@ -33,7 +36,6 @@ import {
   ChevronDown,
   ChevronRight,
   ShieldCheck,
-  Lock,
   Settings2,
 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
@@ -187,6 +189,7 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
   const assignment = useAssignments() as any
   const taskSubmissionsMap = useAssignmentTaskSubmissions()
   const queryClient = useQueryClient()
+  const org = useOrg() as any
 
   // Student lock, derived exactly like the sibling task types (see
   // TaskShortAnswerObject) and like AssignmentBoxUI's own `canStudentSave`:
@@ -692,6 +695,17 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
   }
 
   const selectedLang = getLanguageById(contents.language_id)
+  const referenceFileHref =
+    assignmentTaskOutsideProvider?.reference_file && assignmentTaskUUID
+      ? getTaskRefFileDir(
+          org?.org_uuid,
+          assignment?.course_object?.course_uuid,
+          assignment?.activity_object?.activity_uuid,
+          assignment?.assignment_object?.assignment_uuid,
+          assignmentTaskUUID,
+          assignmentTaskOutsideProvider.reference_file
+        )
+      : undefined
   const hiddenTestCount = contents.test_cases.filter((tc) => tc.hidden).length
 
   return (
@@ -945,108 +959,60 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
 
         {/* === STUDENT VIEW === */}
         {view === 'student' && (
-          <>
-            {/* Language badge */}
-            <div className="flex items-center space-x-2">
-              <span className="px-2 py-0.5 text-xs font-semibold bg-slate-100 text-slate-600 rounded-full">
-                {selectedLang?.name || 'Unknown'}
-              </span>
-              {/* Hidden-test badge only if the task allows showing the count */}
-              {hiddenTestCount > 0 && contents.show_hidden_test_count !== false && (
-                <span className="px-2 py-0.5 text-xs font-semibold bg-amber-100 text-amber-700 rounded-full">
-                  {hiddenTestCount} hidden test{hiddenTestCount > 1 ? 's' : ''}
-                </span>
-              )}
-            </div>
-
-            {/* Code Editor, locked once the submission is SUBMITTED/GRADED.
-                Auto-save is switched off at that point (AssignmentBoxUI's
-                `canStudentSave`), so any further typing would be silently lost
-                on reload and would not reach the grader. Mirrors the read-only
-                treatment of the other task types. */}
-            <div dir="ltr" className={`rounded-md overflow-hidden ${cmClassName}`}>
-              {cmTheme && (
-                <CodeMirror
-                  value={code}
-                  onChange={(val) => {
-                    if (!canStudentSave) return
-                    interactedRef.current = true
-                    setCode(val)
-                  }}
-                  extensions={studentCmExtensions}
-                  theme={cmTheme}
-                  style={cmStyles}
-                  height="300px"
-                  readOnly={!canStudentSave}
-                  editable={canStudentSave}
-                  basicSetup={{ lineNumbers: true, foldGutter: false }}
-                />
-              )}
-            </div>
-            {!canStudentSave && (
-              <div className="flex items-center space-x-1.5 text-[10px] text-slate-500 bg-slate-100 rounded-md px-2 py-1 w-fit">
-                <Lock size={11} />
-                <span>
-                  {submissionIsGraded
-                    ? t('dashboard.assignments.editor.task_editor.code.locked_graded_hint', {
-                        defaultValue: 'This submission has been graded; your code is read-only.',
-                      })
-                    : t('dashboard.assignments.editor.task_editor.code.locked_submitted_hint', {
-                        defaultValue: 'You have submitted this assignment; your code is read-only.',
-                      })}
-                </span>
-              </div>
-            )}
-            {antiPasteEnabled && (
-              <div className="flex items-center space-x-1.5 text-[10px] text-amber-600 bg-amber-50 rounded-md px-2 py-1 w-fit">
-                <span>🔒</span>
-                <span>{t('dashboard.assignments.editor.task_editor.general.paste_blocked_hint')}</span>
-              </div>
-            )}
-
-            {/* Run Button: only if the task allows students to run */}
-            {contents.allow_student_run !== false && (
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={runCode}
-                  disabled={isRunning}
-                  className="flex items-center space-x-1.5 px-3 py-1.5 text-sm font-semibold bg-emerald-600 text-white rounded-md hover:bg-emerald-700 disabled:opacity-50"
-                >
-                  {isRunning ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} />}
-                  <span>{isRunning ? 'Running...' : 'Run Tests'}</span>
-                </button>
-              </div>
-            )}
-
-            {/* Submission gating notice: when the teacher requires passing
-                all visible tests before save. */}
-            {submissionGatedByPassing && !allVisiblePassing && (
-              <div className="flex items-center space-x-1.5 text-[11px] text-amber-700 bg-amber-50 border border-amber-200 rounded-md px-2.5 py-1.5 w-fit">
-                <ShieldCheck size={13} />
-                <span>{t('dashboard.assignments.editor.task_editor.code.must_pass_hint')}</span>
-              </div>
-            )}
-
-            {/* Results: hidden tests are never run client-side, so they are
-                listed as "not shown" rather than counted as failures. */}
-            {showResults && (
-              <TestResultsPanel
-                results={results}
-                testCases={contents.test_cases}
-                view="student"
-                showDetailsOnFail={contents.show_test_details_on_fail !== false}
-                maskedTestCases={contents.test_cases.filter(
-                  (tc) => tc.hidden && !results.some((r) => r.id === tc.id)
-                )}
-                showMaskedCount={contents.show_hidden_test_count !== false}
-              />
-            )}
-
-            {/* The student-side "reference solution" panel used to live here.
-                It was removed together with its teacher toggle: `solution_code`
-                is stripped server-side for every student, so the panel could
-                never render for a learner. */}
-          </>
+          <CodeTaskWorkspace
+            title={assignmentTaskOutsideProvider?.description ?? ''}
+            hint={assignmentTaskOutsideProvider?.hint || undefined}
+            referenceFileHref={referenceFileHref}
+            languageName={selectedLang?.name || 'Unknown'}
+            // Hidden tests arrive with stdin / expectedStdout stripped by the
+            // API; the workspace only ever shows the visible ones.
+            testCases={contents.test_cases}
+            showHiddenTestCount={contents.show_hidden_test_count !== false}
+            showDetailsOnFail={contents.show_test_details_on_fail !== false}
+            code={code}
+            onCodeChange={(val) => {
+              // Editor is read-only once SUBMITTED/GRADED (auto-save is off
+              // then, so typing would be silently lost); the workspace also
+              // guards this, but keep the rule next to canStudentSave.
+              if (!canStudentSave) return
+              interactedRef.current = true
+              setCode(val)
+            }}
+            onReset={() => {
+              if (!canStudentSave) return
+              interactedRef.current = true
+              setCode(contents.starter_code ?? '')
+            }}
+            readOnly={!canStudentSave}
+            lockedMessage={
+              !canStudentSave
+                ? submissionIsGraded
+                  ? t('dashboard.assignments.editor.task_editor.code.locked_graded_hint', {
+                      defaultValue: 'This submission has been graded; your code is read-only.',
+                    })
+                  : t('dashboard.assignments.editor.task_editor.code.locked_submitted_hint', {
+                      defaultValue: 'You have submitted this assignment; your code is read-only.',
+                    })
+                : undefined
+            }
+            antiPasteHint={
+              antiPasteEnabled
+                ? t('dashboard.assignments.editor.task_editor.general.paste_blocked_hint')
+                : undefined
+            }
+            mustPassHint={
+              submissionGatedByPassing
+                ? t('dashboard.assignments.editor.task_editor.code.must_pass_hint')
+                : undefined
+            }
+            cmExtensions={studentCmExtensions}
+            cmTheme={cmTheme}
+            allowRun={contents.allow_student_run !== false}
+            isRunning={isRunning}
+            onRun={runCode}
+            results={visibleResults}
+            hasRun={showResults || results.length > 0}
+          />
         )}
 
         {/* === GRADING VIEW === */}
