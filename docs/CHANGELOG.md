@@ -2,3 +2,5 @@
 
 ## Unreleased
 - Initial import of the platform source into this repository.
+- Dark theme for the whole app, with a toggle (header, login page, dashboard user menu). Default stays light.
+- Student code tasks open in a split workspace: description and examples left, editor right, test results below the editor.
