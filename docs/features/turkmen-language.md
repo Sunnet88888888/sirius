@@ -4,13 +4,10 @@
 Turkmen (Türkmen, `tk`, Latin script) is available in the language menu next to the other interface languages. Any text without a Turkmen translation is shown in English.
 
 ## Coverage
-About 57% of the interface strings are translated (see `docs/i18n/turkmen-review.tsv` for the exact list):
-- Complete: common labels, login and sign-up, account and profile, courses and course pages, lessons, assignments (student side), search, certificates, communities (forums), library, roles, time and validation messages.
-- Teacher dashboard: navigation, home, course structure/settings/access/contributors, assignments (list, editor, submissions, analytics, create and edit), users, user groups, roles, invitations, dashboard search.
-- Not translated yet (shown in English): organization settings (branding, landing page, SEO, domains, SSO, API, audit logs), billing and plans, payments, analytics pages, podcasts, playgrounds, boards, onboarding, import and migration tools, the long help texts in the editor blocks.
+Every interface string has a Turkmen translation (5,212 of 5,212 keys). About 500 of them reuse the translation of an identical English string from another screen; a few names stay as they are (YouTube, Markdown, SCORM, API). The exact list is in `docs/i18n/turkmen-review.tsv`.
 
 ## Quality
-The text was drafted by an AI model. It has not been reviewed by a native speaker. Known weak spots: technical vocabulary (assignment, submission, grading), word choice between `okuwçy` (pupil) and `talyp` (student), and long explanatory sentences. Use `docs/i18n/turkmen-review.tsv` (key, English, Turkmen) to review and send corrections.
+The text was drafted by an AI model. It has not been reviewed by a native speaker. Known weak spots: strings that reuse the translation of an identical English string in a different context, technical vocabulary (assignment, submission, grading), word choice between `okuwçy` (pupil) and `talyp` (student), and long explanatory sentences. Use `docs/i18n/turkmen-review.tsv` (key, English, Turkmen) to review and send corrections.
 
 ## Files
 - `lms/apps/web/locales/tk.json`: the translation.

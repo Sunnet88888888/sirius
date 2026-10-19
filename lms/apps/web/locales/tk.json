@@ -144,6 +144,398 @@
     "flashcards_question": "Bu sapak barada kartoçkalar döret",
     "examples_question": "Bu sapagy amaly mysallarda düşündir"
   },
+  "analytics": {
+    "subtitle": "Okuwçylaryňyz we mazmunyňyz barada maglumatlar",
+    "tabs": {
+      "overview": "Syn",
+      "advanced": "Ösen"
+    },
+    "not_configured": {
+      "title": "Analitika düzülmedi",
+      "description": "Analitika Tinybird birikmesini talap edýär. Ony işjeňleşdirmek üçin <code>LEARNHOUSE_TINYBIRD_INGEST_TOKEN</code> we <code>LEARNHOUSE_TINYBIRD_READ_TOKEN</code> daşky gurşaw üýtgeýjilerini belläň."
+    },
+    "advanced_gate": {
+      "requires": "Talap edýär:",
+      "upgrade_description": "Ösen analitikany açmak üçin täzeläň"
+    },
+    "common": {
+      "no_data": "Entek maglumat ýok",
+      "views": "Görmekler",
+      "enrollments": "Ýazylmalar",
+      "completions": "Tamamlamalar",
+      "score": "Utuk",
+      "unique_users": "ýeke-täk ulanyjy",
+      "loading": "Ýüklenýär...",
+      "users": "Ulanyjylar",
+      "course": "Kurs",
+      "date": "Sene",
+      "user": "Ulanyjy",
+      "type": "Görnüşi",
+      "expand": "Giňelt",
+      "days": "Gün"
+    },
+    "export": {
+      "json": "JSON ýükle",
+      "csv": "CSV ýükle",
+      "downloading": "Eksport edilýär...",
+      "button": "Eksport et"
+    },
+    "overview": {
+      "last_5_minutes": "Soňky 5 minut",
+      "signups": "Hasaba durmalar",
+      "enrollments": "Ýazylmalar",
+      "completions": "Tamamlamalar",
+      "daily_active_users": "Gündelik işjeň ulanyjylar",
+      "active_users": "Işjeň ulanyjylar",
+      "countries": "Ýurtlar",
+      "top_countries": "Iň köp ýurtlar",
+      "desktop": "Kompýuter",
+      "mobile": "Telefon",
+      "tablet": "Planşet",
+      "top_referrers": "Iň köp salgylanýanlar",
+      "top_referrer": "Iň köp salgylanýan",
+      "enrollment_funnel": "Ýazylma woronkasy",
+      "page_views": "Sahypa görmekler",
+      "course_views": "Kurs görmekler",
+      "view_to_enroll": "Görmek → Ýazylmak",
+      "enroll_to_complete": "Ýazylmak → Tamamlamak",
+      "page_to_complete": "Sahypa → Tamamlamak",
+      "conv_rate": "Öwrülişik göterimi",
+      "top_courses": "Iň gowy kurslar",
+      "activity_engagement": "Sapak gatnaşygy",
+      "avg_time": "Ortaça wagt",
+      "live_now": "Häzir onlaýn",
+      "submissions": "Tabşyrylanlar",
+      "devices": "Enjamlar",
+      "activity": "Sapak",
+      "activities": "Sapaklar",
+      "courses": "Kurslar"
+    },
+    "modals": {
+      "live_users": {
+        "title": "Göni ulanyjylar",
+        "description": "Soňky 5 minutda işjeň bolan ulanyjylar"
+      },
+      "signups": {
+        "title": "Hasaba durmalar",
+        "description": "Soňky {{days}} günde täze ulanyjy hasaba durmalary"
+      },
+      "enrollments": {
+        "title": "Ýazylmalar",
+        "description": "Soňky {{days}} günde kurs ýazylmalary"
+      },
+      "completions": {
+        "title": "Tamamlamalar",
+        "description": "Soňky {{days}} günde kurs tamamlamalary"
+      },
+      "live_users_table": {
+        "current_page": "Häzirki sahypa",
+        "country": "Ýurt",
+        "last_seen": "Soňky görnen wagty",
+        "device": "Enjam"
+      },
+      "signups_table": {
+        "method": "Usul",
+        "email": "E-poçta"
+      }
+    },
+    "advanced_widgets": {
+      "org_growth_trend": {
+        "title": "Guramaçylygyň ösüş tendensiýasy",
+        "description": "Hepdelik hasaba durmalar, ýazylmalar, tamamlamalar"
+      },
+      "new_vs_returning": {
+        "title": "Täze we gaýdyp gelen ulanyjylar",
+        "description": "Ösüş we saklamak saglygy"
+      },
+      "cohort_retention": {
+        "title": "Topar saklamasy",
+        "description": "Hasaba durmak hepdesinden soň işjeň ulanyjylaryň %",
+        "cohort": "Topar",
+        "size": "Ölçeg"
+      },
+      "peak_usage": {
+        "title": "Iň köp ulanylýan sagatlar",
+        "description": "Gün we sagat boýunça wakalaryň möçberi",
+        "days": {
+          "mon": "Duş",
+          "tue": "Siş",
+          "wed": "Çar",
+          "thu": "Pen",
+          "fri": "Ann",
+          "sat": "Şen",
+          "sun": "Ýek"
+        },
+        "events": "waka"
+      },
+      "course_dropoff": {
+        "title": "Kursdan çykyş",
+        "description": "Ulanyjylaryň her kursda nirede duruşy"
+      },
+      "time_to_completion": {
+        "title": "Tamamlamaga çenli wagt",
+        "description": "Her kursy tamamlamak üçin median gün sany"
+      },
+      "completion_velocity": {
+        "title": "Tamamlamak tizligi",
+        "description": "Sapak tamamlamalarynyň arasyndaky ortaça gün"
+      },
+      "content_type_effectiveness": {
+        "title": "Mazmun görnüşiniň netijeliligi",
+        "description": "Sapak görnüşi boýunça tamamlamak göterimi"
+      },
+      "course_effectiveness_matrix": {
+        "title": "Kursuň netijelilik matrisasy",
+        "description": "Sapak sany we tamamlamak göterimi (ýazylmalar boýunça ölçegli)"
+      },
+      "community_correlation": {
+        "title": "Jemgyýet baglanyşygy",
+        "description": "Tamamlamak göterimi: pikir alyşýanlar we alyşmaýanlar",
+        "discussion_users": "Pikir alyşýan ulanyjylar",
+        "non_discussion_users": "Pikir alyşmaýan ulanyjylar"
+      },
+      "learner_engagement_score": {
+        "title": "Okuwçynyň gatnaşyk utugy",
+        "description": "Toplumlaýyn gatnaşyk boýunça iň gowy okuwçylar",
+        "user_id": "Ulanyjy ID-si"
+      },
+      "user_progress_snapshot": {
+        "title": "Ulanyjy ösüşiniň suraty",
+        "description": "Her kurs boýunça her tamamlamak aralygyndaky ulanyjylar"
+      },
+      "grade_distribution": {
+        "title": "Baha paýlanyşy",
+        "description": "Tabşyryk bahalarynyň gistogrammasy"
+      },
+      "search_effectiveness": {
+        "title": "Gözlegiň netijeliligi",
+        "description": "Iň köp soraglar we netijesiz göterimi",
+        "query": "Sorag",
+        "zero_results": "Netijesiz %",
+        "searches": "Gözlegler"
+      },
+      "certification_rate": {
+        "title": "Şahadatnama göterimi",
+        "description": "Şahadatnamany alýan tamamlaýjylaryň %"
+      }
+    },
+    "course_analytics": {
+      "not_configured_title": "Analitika düzülmedi",
+      "not_configured_desc": "Analitika Tinybird-iň düzülmegini talap edýär. Administratoryňyz bilen habarlaşyň.",
+      "common": {
+        "no_data": "Entek maglumat ýok",
+        "no_enrollments": "Entek ýazylma ýok",
+        "daily_avg": "Gündelik ortaça",
+        "latest_day": "Soňky gün",
+        "peak": "Iň ýokary",
+        "peak_day": "Iň ýokary gün",
+        "rate": "Göterim",
+        "views": "Görmekler",
+        "enrollments": "Ýazylmalar",
+        "completions": "Tamamlamalar",
+        "completion_rate": "Tamamlamak göterimi",
+        "conversion": "Öwrülişik",
+        "avg_time": "Ortaça wagt",
+        "total_views": "Jemi görmekler",
+        "total_completions": "Jemi tamamlamalar",
+        "avg_rate": "Ortaça göterim",
+        "needs_attention": "Üns gerek",
+        "total_samples": "Jemi nusgalar",
+        "more_expand": "+{{count}} ýene (giňeltmek üçin basyň)",
+        "pct_of_total": "Jeminiň %",
+        "bar_width_hint": "Sütüniň giňligi = otnositel görmekler",
+        "rate_high": ">70%",
+        "rate_mid": "40–70%",
+        "rate_low": "<40%",
+        "low_conversion": "pes öwrülişik",
+        "avg_completion": "ortaça tamamlamak",
+        "avg_prefix": "ortaça {{value}}",
+        "unknown_activity": "Näbelli sapak",
+        "loading": "Ýüklenýär...",
+        "total": "Jemi",
+        "type": "Görnüşi",
+        "activities_count": "{{count}} sapak"
+      },
+      "units": {
+        "done": "tamamlandy",
+        "views": "görmek",
+        "enrolled": "ýazyldy",
+        "learner": "okuwçy",
+        "learners": "okuwçy",
+        "events": "waka",
+        "total_views": "jemi görmek",
+        "total_completions": "jemi tamamlamak",
+        "total_dropoffs": "jemi çykyş",
+        "peak_active": "iň köp işjeň",
+        "conversion": "öwrülişik",
+        "retention": "saklamak",
+        "in_cohort": "toparda",
+        "active_learners": "işjeň okuwçy",
+        "recent_enrollments": "soňky ýazylma",
+        "transitions": "geçiş",
+        "median_days": "median gün",
+        "claim_rate": "alyş göterimi",
+        "claimed": "alnan",
+        "unique": "ýeke-täk",
+        "time": "wagt",
+        "avg_per_day": "ortaça / gün",
+        "busiest_time": "iň köp işjeň wagt",
+        "minutes": "minut",
+        "hours": "sagat",
+        "days": "gün",
+        "done_before": "öň tamamlanan",
+        "sample": "nusga",
+        "samples": "nusga",
+        "min": "min",
+        "avg_per_learner": "Okuwçy üçin ortaça",
+        "total": "jemi",
+        "completed": "tamamlandy"
+      },
+      "overview_stats": {
+        "views": "Görmekler",
+        "enrollments": "Ýazylmalar",
+        "completions": "Tamamlamalar",
+        "completion_rate": "Tamamlamak göterimi"
+      },
+      "activity_type_breakdown": {
+        "title": "Sapak görnüşleriniň bölünişi",
+        "subtitle": "Mazmun görnüşi boýunça paýlanyş we tamamlamak göterimleri"
+      },
+      "engagement_by_type": {
+        "title": "Mazmun görnüşi boýunça gatnaşyk",
+        "subtitle": "Sapak görnüşi boýunça okuwçy gatnaşyk görkezijileri",
+        "total_events": "Jemi wakalar",
+        "total_learners": "Jemi okuwçylar"
+      },
+      "peak_hours": {
+        "title": "Iň köp okaýan sagatlar",
+        "subtitle": "Okuwçylaryň bu kursda iň işjeň wagty",
+        "peak_time": "Iň işjeň wagt",
+        "peak_events": "Iň köp wakalar",
+        "days": {
+          "mon": "Duş",
+          "tue": "Siş",
+          "wed": "Çar",
+          "thu": "Pen",
+          "fri": "Ann",
+          "sat": "Şen",
+          "sun": "Ýek"
+        },
+        "events_tooltip": "{{day}} {{hour}}: {{count}} waka",
+        "less": "Az",
+        "more": "Köp"
+      },
+      "enrollment_trend": {
+        "title": "Ýazylma tendensiýasy",
+        "subtitle": "Wagt boýunça gündelik täze ýazylmalar"
+      },
+      "active_learners": {
+        "title": "Işjeň okuwçylar",
+        "subtitle": "Bu kursda gündelik ýeke-täk işjeň okuwçylar"
+      },
+      "unique_viewers": {
+        "title": "Kurs görüjiler",
+        "subtitle": "Bu kurs sahypasyna gündelik ýeke-täk gelýänler",
+        "total_views": "Jemi görmekler",
+        "peak_viewers": "Iň köp görüjiler"
+      },
+      "view_to_enrollment": {
+        "title": "Görmek → Ýazylmak",
+        "subtitle": "Näçe görüjiniň ýazylan okuwçy bolýandygy"
+      },
+      "daily_completions": {
+        "title": "Gündelik tamamlamalar",
+        "subtitle": "Günde sapak tamamlamalary"
+      },
+      "activity_funnel": {
+        "title": "Sapak tamamlamak woronkasy",
+        "subtitle": "Her sapak üçin görmekler we tamamlamalar"
+      },
+      "time_per_activity": {
+        "title": "Her sapak üçin sarp edilen wagt",
+        "subtitle": "Okuwçylaryň her sapakda sarp edýän ortaça wagty"
+      },
+      "activity_dropoff": {
+        "title": "Çykyş nokatlary",
+        "subtitle": "Okuwçylaryň öňe gitmegi duruzýan ýerleri (soňky tamamlanan sapak)",
+        "total_dropoffs": "Jemi çykyşlar",
+        "dropoff_points": "Çykyş nokatlary"
+      },
+      "avg_session_duration": {
+        "title": "Okuwçy üçin gündelik wagt",
+        "subtitle": "Her okuwçynyň günde sarp edýän ortaça wagty",
+        "total_time": "Jemi wagt",
+        "avg_per_day": "Günde ortaça",
+        "minutes_label": "Minut"
+      },
+      "learner_progress": {
+        "title": "Okuwçy ösüşi",
+        "subtitle": "Okuwçylaryň näçe sapagy tamamlandygy",
+        "total_across_brackets": "Ähli ösüş aralyklary boýunça jemi {{count}} okuwçy"
+      },
+      "learner_retention": {
+        "title": "Okuwçy saklamasy",
+        "subtitle": "Ilkinji sapakdan soň gaýdyp gelýän okuwçylaryň %",
+        "cohort_size": "Toparyň ölçegi",
+        "current_retention": "Häzirki saklamak",
+        "days_since_first": "Ilkinji sapakdan bäri günler",
+        "day_label": "{{day}}-nji gün"
+      },
+      "completion_velocity": {
+        "title": "Tamamlamak tizligi",
+        "subtitle": "Sapak tamamlamalarynyň arasyndaky ortaça wagt",
+        "not_enough_data": "Entek ýeterlik maglumat ýok",
+        "need_transitions": "Tizligi hasaplamak üçin iň az 3 sapak geçişi gerek",
+        "not_enough_data_short": "Maglumat ýeterlik däl",
+        "need_transitions_short": "3+ geçiş gerek",
+        "avg_between": "tamamlamalaryň arasynda ortaça {{unit}}",
+        "transitions_tracked": "yzarlanan geçişler",
+        "raw_hours_avg": "çig sagat ortaça",
+        "description": "Okuwçylaryň bir sapakdan indikisine nähili çalt geçýändigini ölçeýär. Pes bolsa gowy: okuwçylar mazmunyň içinden has çalt geçýär diýmekdir."
+      },
+      "time_to_completion": {
+        "title": "Tamamlamaga çenli wagt",
+        "subtitle": "Okuwçylaryň bu kursy gutarmagy näçe wagt alýar",
+        "median_days_to_complete": "tamamlamak üçin median gün",
+        "fast_p25": "Çalt (P25)",
+        "top_25_finish": "Iň gowy 25% gutarýar:",
+        "half_finish": "Ýarysy gutarýar:",
+        "slow_p75": "Haýal (P75)",
+        "pct_75_finish": "75% gutarýar:",
+        "based_on": "{{count}} kurs tamamlamasyna esaslanýar",
+        "days_unit": "gün",
+        "median": "Median"
+      },
+      "certification_rate": {
+        "title": "Şahadatnama göterimi",
+        "subtitle": "Şahadatnamasyny alan tamamlaýjylaryň %",
+        "of_completers_claimed": "tamamlaýjy şahadatnama aldy",
+        "certificates_claimed": "alnan şahadatnamalar",
+        "course_completions": "kurs tamamlamalary"
+      },
+      "top_learners": {
+        "title": "Iň gowy okuwçylar",
+        "subtitle": "Tamamlamalar boýunça iň işjeň okuwçylar",
+        "user_fallback": "Ulanyjy #{{id}}"
+      },
+      "recent_enrollments": {
+        "title": "Soňky ýazylmalar",
+        "subtitle": "Bu kursa ýazylan iň soňky okuwçylar",
+        "count_in_period": "Bu döwürde {{count}} ýazylma"
+      },
+      "pagination": {
+        "range": "{{total}} içinden {{from}}–{{to}}"
+      },
+      "type_labels": {
+        "video": "Wideo",
+        "document": "Resminama",
+        "quiz": "Test",
+        "assignment": "Tabşyryk",
+        "dynamic": "Dinamiki"
+      }
+    },
+    "title": "Analitika"
+  },
   "assignments": {
     "submit_assignment": "Tabşyrygy tabşyr",
     "submit_assignment_confirm": "Tabşyrygyňyzy baha bermek üçin tabşyrmaga ynamyňyz barmy? Tabşyrylandan soň hiç hili üýtgeşme edip bilmersiňiz.",
@@ -382,6 +774,395 @@
     "free_plan_upgrade": "Siz mugt meýilnamadasyňyz. Doly mümkinçilikleri açmak üçin täzeläň.",
     "free_plan_upgrade_button": "Täzele"
   },
+  "billing": {
+    "no_billing_account": "Hasap-faktura hasaby tapylmady. Ilki meýilnama ýazylyň.",
+    "portal_error": "Hasap-faktura portalyny açyp bolmady. Täzeden synanyşyň.",
+    "cancel_success": "Ýazylma hasap-faktura döwri gutarandan soň ýatyrylar.",
+    "cancel_error": "Ýazylmany ýatyryp bolmady. Täzeden synanyşyň.",
+    "checkout_error": "Tölegi başlap bolmady.",
+    "plan_and_usage_subtitle": "Ýazylmaňyzy dolandyryň we serişde ulanylyşyna gözegçilik ediň.",
+    "org_inactive": "Guramaçylygyňyz işjeň däl. Girmegi dikeltmek üçin meýilnamaňyzy täzeläň.",
+    "on_free_plan": "Siz mugt meýilnamada",
+    "free_upsell": "Emeli intellekt mümkinçiliklerini, ýörite domenleri we başgalaryny açmak üçin täzeläň.",
+    "managed_outside": "Bu meýilnama Stripe hasap-fakturasynyň daşynda dolandyrylýar.",
+    "inactive": "Işjeň däl",
+    "canceling": "Ýatyrylýar",
+    "billed_annually": "ýyllyk töleg",
+    "billed_monthly": "aýlyk töleg",
+    "change_plan": "Meýilnamany üýtget",
+    "canceling_ellipsis": "Ýatyrylýar...",
+    "cancel_plan": "Meýilnamany ýatyr",
+    "cycle": "Sikl",
+    "access_until": "Girmek möhleti",
+    "next_payment": "Indiki töleg",
+    "admin_seats": "Administrator ýerleri",
+    "addons": "Goşundylar",
+    "addons_subtitle": "Goşmaça emeli intellekt kreditlerini aýlyk ýazylma hökmünde satyn alyň.",
+    "active_subscriptions": "Işjeň ýazylmalar",
+    "credits": "kredit",
+    "seats": "ýer",
+    "available": "Elýeterli",
+    "per_pack": "bir paket üçin",
+    "recurring_subscription": "gaýtalanýan ýazylma",
+    "what_youre_getting": "Nämäni alýarsyňyz",
+    "pack_immediate": "Töleg edilenden soň derrew güýje girýär",
+    "pack_cancel_anytime": "Islendik wagt ýatyryp bolýar. Hasap-faktura döwri gutarýança işjeň galýar",
+    "pack_credits_reset": "Kreditler her hasap-faktura siklinde täzeden başlaýar",
+    "after_purchase": "Satyn alnandan soň",
+    "pack_redirect_notice": "Tölegi tamamlamak üçin Stripe-e ugrukdyrylarsyňyz. Şol bir görnüşli birnäçe paketi satyn alyp bilersiňiz.",
+    "continue_to_payment": "Tölege geç",
+    "step_choose_plan": "Meýilnama saýla",
+    "step_confirm": "Tassykla",
+    "switch_plan": "Meýilnamany çalyş",
+    "upgrade_plan": "Meýilnamany täzele",
+    "switch_subtitle": "Täze meýilnama saýlaň. Üýtgeşmeler awtomatiki paýlanýar.",
+    "upgrade_subtitle": "Başlamak üçin meýilnama saýlaň.",
+    "your_plan": "Siziň meýilnamaňyz",
+    "downgrade": "Peseltmek",
+    "upgrade_summary": "Täzelemegiň jemi",
+    "downgrade_summary": "Peseltmegiň jemi",
+    "new": "Täze",
+    "annual_total": "Ýyllyk jemi",
+    "monthly_total": "Aýlyk jemi",
+    "prorated_billing": "Paýlanan töleg",
+    "prorated_desc": "Häzirki meýilnamaňyzda ulanylmadyk wagt üçin siziň hasabyňyza goşular we täze meýilnama üçin tapawut alnar. Üýtgeşme derrew güýje girýär.",
+    "subscription_cancellation": "Ýazylmany ýatyrmak",
+    "end_of_cycle_switch": "Sikl soňunda çalyşmak",
+    "cancel_desc": "Ýazylmaňyz häzirki hasap-faktura döwri gutarandan soň ýatyrylar. Şu wagta çenli doly girip bilersiňiz.",
+    "downgrade_desc": "Hasap-faktura döwri gutarýança häzirki meýilnamaňyzy saklarsyňyz. Täze meýilnama häzirki siklyňyz gutarandan soň awtomatiki güýje girer.",
+    "whats_included": "Nämeler girýär",
+    "discount_code": "Arzanladyş kody",
+    "enter_code": "Kody giriziň",
+    "code_applied": "Kod ulanyldy",
+    "invalid_code": "Kod nädogry ýa-da möhleti geçen",
+    "canceling_subscription": "Ýazylma ýatyrylýar...",
+    "switching_plan": "Meýilnama çalşylýar...",
+    "redirecting": "Stripe-e ugrukdyrylýar...",
+    "confirm_cancellation": "Ýatyrmagy tassykla",
+    "confirm_upgrade": "Täzelemegi tassykla",
+    "confirm_downgrade": "Peseltmegi tassykla",
+    "secure_checkout": "Stripe tarapyndan goldanýan howpsuz töleg",
+    "back_to_plans": "Meýilnamalara dolan",
+    "plan_updated": "Meýilnama täzelendi!",
+    "subscription_canceled": "Ýazylma ýatyryldy",
+    "downgrade_scheduled": "Peseltmek meýilleşdirildi",
+    "canceled_desc": "Ýazylmaňyz häzirki hasap-faktura döwri gutarandan soň ýatyrylar. Şu wagta çenli doly girip bilersiňiz.",
+    "back_to_plan_usage": "Meýilnama we ulanylyşa dolan",
+    "pack_purchased": "Goşundy satyn alyndy. Çäkleriňiz täzelendi.",
+    "checkout_success": "Ýazylma täzelendi. Täze meýilnamaňyza hoş geldiňiz!",
+    "checkout_cancelled": "Töleg ýatyryldy. Hiç hili üýtgeşme edilmedi.",
+    "load_failed": "Guramaçylyklaryňyzy ýükläp bilmedik.",
+    "no_permission": "Bu guramaçylyk üçin hasap-fakturany dolandyrmaga rugsadyňyz ýok.",
+    "no_permission_hint": "Meýilnamany diňe guramaçylyk administratory görüp ýa-da üýtgedip biler.",
+    "usage_load_failed": "Ulanylyşy häzir ýükläp bolmady.",
+    "on_named_plan": "Siz {{plan}} meýilnamasynda",
+    "included_in": "{{plan}} meýilnamasyna girýär",
+    "updated_desc": "Siz {{plan}} meýilnamasyna geçirildiňiz. Islendik hasap-faktura sazlamalary indiki fakturaňyzda görünýär.",
+    "scheduled_desc": "Meýilnamaňyz häzirki hasap-faktura siklyňyz gutarandan soň {{plan}} meýilnamasyna geçer. Şu wagta çenli häzirki meýilnamaňyza doly girip bilersiňiz.",
+    "plan_plus_purchased": "Meýilnama: {{plan}} + Satyn alnan: {{purchased}}",
+    "base_plus_purchased": "Esasy: {{base}} + Satyn alnan: {{purchased}}",
+    "pack_ai_desc": "Guramaçylygyňyza {{quantity}} goşmaça emeli intellekt kredit goşuldy",
+    "unlimited_lower": "çäksiz",
+    "limit_reached_upgrade": "Çäge ýetildi: dowam etmek üçin täzeläň",
+    "remaining": "{{n}} galdy",
+    "remaining_nearing": "{{n}} galdy, çäge ýakynlaşýar",
+    "usage_subtitle_free": "Mugt meýilnamalar çäklendirilen. Çäkden geçmek üçin täzeläň.",
+    "usage_subtitle_paid": "Meýilnamaňyz bu mukdarlary öz içine alýar. Agza çäginden geçmäge rugsat berilýär we tölenýär; hiç zat petiklenmeýär.",
+    "members_hint": "Guramaçylygyňyza goşulan her kim.",
+    "members_beyond_plan": "{{included}} girýär · meýilnamaňyzdan {{beyond}} geçýär",
+    "members_within_plan": "Meýilnamaňyza {{included}} girýär",
+    "active_members": "Işjeň agzalar",
+    "active_members_short": "Işjeň agzalar",
+    "active_members_hint": "Agza şu aýda 2+ gün işjeň bolanda sanalýar. Meýilnamaňyza girýän {{included}} ýer mugt; olardan geçýän her işjeň agza üçin aýda $1 tölenýär.",
+    "overage_this_month": "şu aýda häzirlikçe ${{amount}}",
+    "no_extra_charges": "Bu aýda goşmaça töleg ýok",
+    "admin_seats_hint": "Dolandyryş paneline girip bilýän agzalar. Agzalaryňyzyň bir bölegi.",
+    "credits_reset_on": "{{date}} senesinde täzeden başlaýar",
+    "next_invoice": "Indiki faktura",
+    "due_on": "{{date}} çenli",
+    "line_subscription": "Ýazylma",
+    "accruing_this_month": "Şu aýda işjeň agzalar (indiki täzelenmäňizde tölenýär)",
+    "packs_billed_separately": "Goşundylar aýry ýazylmalar we öz meýilnamasy boýunça faktura edilýär.",
+    "invoice_history": "Faktura taryhy",
+    "checkout_settling": "Töleg alyndy. Täze meýilnamaňyz ulanylýar we tizara görüner.",
+    "checkout_settling_delayed": "Töleg alyndy, ýöne meýilnamaňyz entek täzelenmedi. Birneme wagtdan sahypany täzeläň, dowam etse goldaw bilen habarlaşyň.",
+    "plan_and_usage": "Meýilnama we ulanylyş",
+    "billing": "Hasap-fakturalar",
+    "upgrade": "Täzele",
+    "active": "Işjeň",
+    "current_plan": "Häzirki meýilnama",
+    "status": "Ýagdaýy",
+    "usage": "Ulanylyş",
+    "courses": "Kurslar",
+    "members": "Agzalar",
+    "ai_credits": "Emeli intellekt kreditleri",
+    "add": "Goş",
+    "unlimited": "Çäksiz",
+    "cancel": "Ýatyr",
+    "step_done": "Taýyn",
+    "back": "Yza",
+    "current": "Häzirki",
+    "checking": "Barlanýar...",
+    "apply": "Ulan",
+    "back_to_orgs": "Guramaçylyklara dolan",
+    "view": "Gör"
+  },
+  "boards": {
+    "new_board": "Täze tagta",
+    "create_new_board": "Täze tagta döret",
+    "create_new_board_description": "Täze bilelikde işlemek tagtasyny sazlaň",
+    "create_board": "Tagta döret",
+    "board_created": "Tagta döredildi",
+    "board_created_error": "Tagtany döredip bolmady",
+    "search_placeholder": "Tagtalary gözläň...",
+    "no_boards_found": "Tagta tapylmady",
+    "no_search_results": "Tagta tapylmady",
+    "no_boards_yet": "Entek tagta ýok",
+    "no_boards": "Entek tagta ýok",
+    "no_boards_description": "Başlamak üçin ilkinji bilelikde işlemek tagtaňyzy dörediň.",
+    "member_count": "{{count}} agza",
+    "member_count_plural": "{{count}} agza",
+    "open_board": "Tagtany aç",
+    "duplicate_board": "Tagtany köpelt",
+    "duplicate_board_title": "«{{name}}» köpeltmeli",
+    "duplicate_board_confirm": "Bu tagtanyň şol bir sazlamalar bilen nusgasyny döreder.",
+    "duplicating_board": "Tagta köpeldilýär...",
+    "board_duplicated_success": "Tagta köpeldildi",
+    "board_duplicated_error": "Tagtany köpeldip bolmady",
+    "delete_board": "Tagtany poz",
+    "delete_board_title": "«{{name}}» pozmaly",
+    "delete_board_confirm": "Bu tagtany pozmaga ynamyňyz barmy? Bu amaly yzyna gaýtaryp bolmaýar.",
+    "deleting_board": "Tagta pozulýar...",
+    "board_deleted_success": "Tagta pozuldy",
+    "board_deleted_error": "Tagtany pozup bolmady",
+    "delete_boards_title": "Tagtalary poz",
+    "delete_selected_confirm": "{{count}} tagtany pozmaga ynamyňyz barmy? Bu amaly yzyna gaýtaryp bolmaýar.",
+    "deleting_boards": "{{count}} tagta pozulýar...",
+    "boards_deleted_success": "{{count}} tagta pozuldy",
+    "boards_deleted_partial": "{{success}} pozuldy, {{error}} şowsuz",
+    "name_placeholder": "meselem, Taslama meýilnamasy",
+    "description_placeholder": "Gysga beýan...",
+    "back_to_boards": "Tagtalara dolan",
+    "general": {
+      "description": "Tagta barada esasy maglumat",
+      "board_updated": "Tagta täzelendi",
+      "board_updated_error": "Tagtany täzelemek şowsuz boldy",
+      "title": "Umumy",
+      "saving": "Ýatda saklanýar...",
+      "save_changes": "Üýtgeşmeleri ýatda sakla"
+    },
+    "thumbnail": {
+      "description": "Kartoçkalarda görkezilýän tagtanyň gapak suraty",
+      "alt": "Tagtanyň kiçi suraty",
+      "supported_formats": "Goldanylýan formatlar: JPG, JPEG, PNG. Iň köp 8MB.",
+      "thumbnail_updated": "Kiçi surat täzelendi",
+      "title": "Kiçi surat",
+      "uploading": "Ýüklenýär...",
+      "upload_image": "Surat ýükle",
+      "gallery": "Galereýa",
+      "thumbnail_updated_error": "Kiçi suraty ýüklemek şowsuz boldy"
+    },
+    "access": {
+      "title": "Elýeterlilik dolandyryşy",
+      "description": "Bu tagta kimiň girip biljekdigini dolandyryň",
+      "set_to_public": "Açyk et",
+      "set_to_public_confirm": "Giren ähli guramaçylyk agzalary bu tagta girip biler.",
+      "make_board_public": "Tagtany açyk et",
+      "set_to_private": "Ýapyk et",
+      "set_to_private_confirm": "Bu tagta diňe baglanan ulanyjy toparlarynyň agzalary girip biler.",
+      "make_board_private": "Tagtany ýapyk et",
+      "public_description": "Giren ähli guramaçylyk agzalary bu tagta girip biler",
+      "private_description": "Bu tagta diňe baglanan ulanyjy toparlary girip biler",
+      "board_set_public": "Tagta açyk edildi",
+      "board_set_private": "Tagta ýapyk edildi",
+      "access_update_error": "Elýeterliligi täzelemek şowsuz boldy",
+      "user_groups_description": "Bu tagta haýsy ulanyjy toparlarynyň girip biljekdigini dolandyryň",
+      "unlink_confirm": "Bu ulanyjy topary indi bu tagta girip bilmez.",
+      "unlink_user_group": "Ulanyjy toparynyň baglanyşygyny aýyr",
+      "no_user_groups": "Entek baglanan ulanyjy topary ýok",
+      "link_to_user_group_description": "Bu tagta girmäge rugsat bermek üçin ulanyjy toparyny saýlaň",
+      "link_to_usergroup_btn": "Ulanyjy topary bilen bagla",
+      "user_group": "Ulanyjy topary",
+      "no_user_groups_available": "Elýeterli ulanyjy topary ýok",
+      "create_user_group": "Ulanyjy topary döret",
+      "link_error": "Baglamak şowsuz boldy: ",
+      "unlink_error": "Baglanyşygy aýyrmak şowsuz boldy: ",
+      "active": "Işjeň",
+      "public_option": "Açyk",
+      "private_option": "Diňe ulanyjylar",
+      "user_groups": "Ulanyjy toparlary",
+      "actions": "Amallar",
+      "unlink": "Baglanyşygy aýyr",
+      "link_to_user_group": "Ulanyjy topary bilen bagla",
+      "link": "Bagla",
+      "user_group_linked": "Ulanyjy topary baglandy",
+      "user_group_unlinked": "Ulanyjy toparynyň baglanyşygy aýryldy",
+      "unlink_error_generic": "Ulanyjy toparynyň baglanyşygyny aýyrmak şowsuz boldy"
+    },
+    "members": {
+      "description": "Bu tagtada kimiň bilelikde işläp biljekdigini dolandyryň",
+      "remove_confirm": "{{name}} tagtadan aýrylsynmy?",
+      "remove_member": "Agzany aýyr",
+      "member_limit_reached": "Agza çäklerine ýetildi (iň köp 10)",
+      "add_member": "Agza goş",
+      "add_member_description": "Bu tagta goşmak üçin guramaçylyk agzasyny gözläň",
+      "role_label": "Rol:",
+      "adding": "Goşulýar...",
+      "member_added": "Agza goşuldy",
+      "member_added_error": "Agzany goşup bolmady (eýýäm agza bolmagy mümkin)",
+      "member_removed": "Agza aýryldy",
+      "member_removed_error": "Agzany aýryp bolmady",
+      "all_groups": "Ähli toparlar",
+      "title": "Agzalar",
+      "user": "Ulanyjy",
+      "role": "Rol",
+      "actions": "Amallar",
+      "remove": "Aýyr",
+      "no_members": "Entek agza ýok",
+      "search_placeholder": "Ady ýa-da e-poçta boýunça gözläň...",
+      "no_users_found": "Ulanyjy tapylmady",
+      "editor": "Redaktor",
+      "viewer": "Synçy"
+    },
+    "toolbar": {
+      "pan": "Süýşür",
+      "draw": "Çyz",
+      "sticky_note": "Ýelmeýän bellik",
+      "frame": "Çarçuwa",
+      "note": "Bellik",
+      "todo": "Etmeli iş",
+      "sticker": "Stiker",
+      "ai_playground": "Emeli intellekt meýdançasy",
+      "webpage": "Web sahypa",
+      "thin": "Inçe",
+      "thick": "Galyň",
+      "podcast": "Podkast",
+      "select": "Saýla",
+      "add_card": "Kartoçka goş",
+      "youtube": "YouTube",
+      "activity": "Sapak",
+      "embed": "Ýerleşdir",
+      "medium": "Orta",
+      "undo": "Yza al",
+      "redo": "Gaýtala"
+    },
+    "zoom": {
+      "zoom_in": "Ulalt",
+      "zoom_out": "Kiçelt"
+    },
+    "chat": {
+      "placeholder": "Bir zat diýiň..."
+    },
+    "effects": {
+      "title": "Effektler",
+      "inferno": "Dozah",
+      "blizzard": "Boran",
+      "matrix": "Matrisa",
+      "fireworks": "Fiýerwerk",
+      "earthquake": "Ýer titremesi",
+      "black_hole": "Gara deşik",
+      "aurora": "Poliýar şöhle",
+      "lightning": "Ýyldyrym",
+      "glitch": "Bozulma",
+      "nuke": "Ýadro"
+    },
+    "timer": {
+      "set_timer": "Taýmer belle",
+      "set_timer_title": "Taýmer belle",
+      "times_up": "Wagt gutardy!",
+      "resume": "Dowam et",
+      "pause": "Duruz",
+      "restart": "Täzeden başla",
+      "close": "Ýap"
+    },
+    "share": {
+      "share_board": "Tagtany paýlaş",
+      "share_this_board": "Bu tagtany paýlaş"
+    },
+    "youtube_block": {
+      "paste_url": "YouTube URL-ini goýuň",
+      "url_placeholder": "https://youtube.com/watch?v=...",
+      "add": "Goş"
+    },
+    "activity_block": {
+      "select_course": "Kurs saýlaň",
+      "no_activities": "Sapak tapylmady",
+      "unsupported_type": "Goldanylmaýan sapak görnüşi",
+      "no_courses": "Kurs tapylmady"
+    },
+    "embed_block": {
+      "add_embed": "{{name}} ýerleşdirmesini goş",
+      "paste_url": "Ýerleşdirme URL-ini goýuň",
+      "url_help": "YouTube, Figma, CodePen, Spotify we başgalaryndan URL goýuň",
+      "paste_code": "Ýerleşdirme koduny goýuň",
+      "code_help": "Iframe ýa-da ýerleşdirme koduny goýuň",
+      "edit_embed_url": "Ýerleşdirme URL-ini üýtget",
+      "edit_embed_code": "Ýerleşdirme koduny üýtget",
+      "embed": "Ýerleşdir",
+      "url": "URL",
+      "code": "Kod",
+      "remove_embed": "Ýerleşdirmäni aýyr",
+      "edit_embed": "Ýerleşdirmäni üýtget",
+      "apply": "Ulan"
+    },
+    "webpage_block": {
+      "embed_webpage": "Web sahypany ýerleşdir",
+      "url_placeholder": "https://example.com",
+      "blocking_notice": "Käbir sahypalar ýerleşdirmegi petiklemegi mümkin",
+      "reload": "Täzeden ýükle",
+      "open_in_new_tab": "Täze goýumda aç",
+      "add": "Goş"
+    },
+    "playground_block": {
+      "title": "Emeli intellekt meýdançasy",
+      "description": "Emeli intellekt bilen interaktiw elementleri dörediň",
+      "generating": "Interaktiw mazmun döredilýär...",
+      "empty_state": "Döretmek isleýän zadyňyzy beýan ediň we onuň janlanyşyny synlaň",
+      "chat_header": "Emeli intellekt meýdançasy",
+      "prompt_text": "Döretmek üçin interaktiw elementi beýan ediň",
+      "ai_content": "Emeli intellekt döreden mazmun",
+      "check_preview": "Çepdäki öňünden görmegi barlaň",
+      "max_iterations": "Iň köp gaýtalama sanyna ýetildi. Işiňizi ýatda saklaň!",
+      "input_placeholder_refine": "Üýtgeşmeleri ýa-da takyklamalary beýan ediň...",
+      "flashcards": "Kartoçkalar",
+      "chart": "Diagramma",
+      "drawing": "Çyzgy",
+      "calculator": "Kalkulýator",
+      "generate": "Döret",
+      "edit": "Üýtget",
+      "save_close": "Ýatda sakla we ýap",
+      "streaming": "Döredilýär...",
+      "creating": "Döredilýär...",
+      "input_placeholder": "Döretmek isleýän zadyňyzy beýan ediň...",
+      "quiz": "Test",
+      "timeline": "Wagt çyzygy"
+    },
+    "node_actions": {
+      "move_back": "Yza süýşür",
+      "move_forward": "Öňe süýşür",
+      "delete_multiple": "{{count}} elementi poz",
+      "duplicate": "Köpelt",
+      "delete": "Poz"
+    },
+    "pagination": {
+      "results": "«{{query}}» üçin {{count}} netije",
+      "results_plural": "«{{query}}» üçin {{count}} netije",
+      "previous": "Öňki",
+      "next": "Indiki",
+      "page_of": "{{current}}-nji sahypa ({{total}} içinden)"
+    },
+    "boards": "Tagtalar",
+    "try_different_search": "Başga gözleg sözüni synanyşyň",
+    "public": "Açyk",
+    "private": "Ýapyk",
+    "settings": "Sazlamalar",
+    "selected_count": "{{count}} saýlandy",
+    "select_all": "Hemmesini saýla",
+    "clear_selection": "Arassala",
+    "delete_selected": "Saýlananlary poz",
+    "name": "Ady",
+    "description": "Beýany"
+  },
   "certificate": {
     "certificate": "Şahadatnama",
     "my_certificates": "Meniň şahadatnamalarym",
@@ -475,7 +1256,84 @@
       "attach_image": "Ekran suratyny goş"
     },
     "plans": {
-      "label": "Meýilnamalar"
+      "label": "Meýilnamalar",
+      "upgrade_button": "{{plan}} meýilnamasyna täzele",
+      "upgrade_to": "Täzele:",
+      "current_plan": "Häzirki meýilnama",
+      "feature_restricted": {
+        "payments": {
+          "title": "Standart mümkinçilik",
+          "description": "Töleglar diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Töleg işlemegi we girdeji gazanmak mümkinçiliklerini açmak üçin täzeläň."
+        },
+        "usergroups": {
+          "title": "Standart mümkinçilik",
+          "description": "Ulanyjy toparlary diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Elýeterliligi gowy dolandyrmak üçin ulanyjylary toparlara bölmek üçin täzeläň."
+        },
+        "api_access": {
+          "title": "Pro mümkinçilik",
+          "description": "API elýeterliligi diňe Pro meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Guramaçylygyňyzyň maglumatlaryna programmatiki girmegi açmak üçin täzeläň."
+        },
+        "roles": {
+          "title": "Pro mümkinçilik",
+          "description": "Ýörite rollary döretmek diňe Pro meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Belli rugsatly rollary döretmek üçin täzeläň."
+        },
+        "ai": {
+          "title": "Standart mümkinçilik",
+          "description": "Emeli intellekt mümkinçilikleri diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli. Emeli intellekt bilen mazmun döretmegi we okuw kömegini açmak üçin täzeläň."
+        },
+        "communities": {
+          "title": "Standart mümkinçilik",
+          "description": "Jemgyýetler diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Agzalaryňyz üçin pikir alyşma jemgyýetlerini açmak üçin täzeläň."
+        },
+        "podcasts": {
+          "title": "Standart mümkinçilik",
+          "description": "Podkastlar diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Agzalaryňyz bilen podkast döretmek we paýlaşmak üçin täzeläň."
+        },
+        "audit_logs": {
+          "title": "Kärhana mümkinçiligi",
+          "description": "Audit ýazgylary diňe Kärhana meýilnamasyndaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Guramaçylygyňyzyň işjeňligine doly göz ýetirmek üçin täzeläň."
+        },
+        "certifications": {
+          "title": "Pro mümkinçilik",
+          "description": "Şahadatnamalar diňe Pro meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Kurslaryňyzy tamamlan okuwçylara şahadatnama bermek üçin täzeläň."
+        },
+        "seo": {
+          "title": "Standart mümkinçilik",
+          "description": "SEO gowulandyrma gurallary diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli. Gözleg ulgamynda görünişi, sosial paýlaşma öňünden görmeklerini we kurslaryňyz üçin gurluşly maglumatlary düzmek üçin täzeläň."
+        },
+        "sso": {
+          "title": "Kärhana mümkinçiligi",
+          "description": "Ýeke giriş (SSO) diňe Kärhana meýilnamasyndaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Guramaçylygyňyzyň şahsyýet üpjün edijisi arkaly howpsuz tassyklamany işjeňleşdirmek üçin täzeläň."
+        },
+        "custom_domains": {
+          "title": "Standart mümkinçilik",
+          "description": "Ýörite domenler diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Brendli tejribe üçin öz domeniňizi ulanmak üçin täzeläň."
+        },
+        "analytics": {
+          "title": "Standart mümkinçilik",
+          "description": "Analitika diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Okuwçylaryňyz we mazmunyňyz barada maglumatlary açmak üçin täzeläň."
+        },
+        "course_analytics": {
+          "title": "Pro mümkinçilik",
+          "description": "Kurs analitikasy diňe Pro meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Aýry kurslar üçin jikme-jik gatnaşyk maglumatlaryny, ýazylma tendensiýalaryny we okuwçy ösüşini açmak üçin täzeläň."
+        },
+        "boards": {
+          "title": "Standart mümkinçilik",
+          "description": "Tagtalar diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Hakyky wagtda pikir alyşmak we meýilleşdirmek üçin bilelikde işlemek tagtalaryny açmak üçin täzeläň."
+        },
+        "playgrounds": {
+          "title": "Standart mümkinçilik",
+          "description": "Meýdançalar diňe Standart meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Okuwçylaryňyz üçin interaktiw, emeli intellekt döreden tejribeleri döretmek üçin täzeläň."
+        },
+        "scorm": {
+          "title": "Kärhana mümkinçiligi",
+          "description": "SCORM goldawy diňe Kärhana meýilnamasyndaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Kurslaryňyzyň ýanynda SCORM paketlerini import etmek we hödürlemek üçin täzeläň."
+        },
+        "webhooks": {
+          "title": "Pro mümkinçilik",
+          "description": "Awtomatlaşdyrma diňe Pro meýilnamadaky ýa-da has ýokary meýilnamadaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Kurslaryňyzy webhooks we daşarky integrasiýalara birikdirmek üçin täzeläň."
+        }
+      }
     },
     "features": {
       "disabled": {
@@ -921,6 +1779,64 @@
     "cloning_courses": "{{count}} kurs göçürilýär...",
     "courses_cloned_success": "{{count}} kurs üstünlikli göçürildi",
     "courses_cloned_partial": "{{success}} kurs göçürildi, {{error}} şowsuz boldy",
+    "import": {
+      "scorm_package": "SCORM paketi",
+      "scorm_description": "SCORM 1.2 ýa-da SCORM 2004 paketlerini import ediň",
+      "learnhouse_courses": "SIRIUS kurslary",
+      "learnhouse_description": "SIRIUS-dan eksport edilen kurslary import ediň",
+      "upload_package": "Paket ýükle",
+      "configure": "Düz",
+      "click_to_upload": "Ýüklemek üçin basyň ýa-da süýräp taşlaň",
+      "learnhouse_format": "SIRIUS kurs eksporty (.zip)",
+      "learnhouse_info": "SIRIUS kurs eksport paketini (.zip) ýükläň. Haýsy kurslary import etmelidigini saýlap we import saýlawlaryny düzüp bilersiňiz.",
+      "analyze_package": "Paketi derňe",
+      "ready_to_analyze": "Derňemäge taýyn",
+      "invalid_file_format": ".zip faýlyny ýükläň",
+      "analysis_failed": "Paketi derňemek şowsuz boldy",
+      "package_analyzed": "Paket üstünlikli derňeldi",
+      "select_courses": "Import etmek üçin kurslary saýlaň",
+      "has_thumbnail": "Kiçi suraty bar",
+      "options": "Import saýlawlary",
+      "name_prefix": "Kursuň adynyň prefiksi",
+      "name_prefix_placeholder": "meselem Import edilen -",
+      "set_private": "Ýapyk edip belle",
+      "set_unpublished": "Çap edilmedik edip belle",
+      "select_at_least_one": "Import etmek üçin iň az bir kurs saýlaň",
+      "import_courses": "{{count}} kursy import et",
+      "upload_different": "Başga paket ýükle",
+      "importing_courses": "Kurslar import edilýär...",
+      "please_wait": "Bu birneme wagt alyp biler",
+      "import_complete": "Import tamamlandy!",
+      "import_failed": "Import şowsuz boldy",
+      "import_partial": "Import bölekleýin tamamlandy",
+      "import_summary": "{{total}} kursdan {{successful}} üstünlikli import edildi",
+      "select_all": "Hemmesini saýla",
+      "deselect_all": "Saýlawy aýyr",
+      "chapters": "bölüm",
+      "activities": "sapak",
+      "selected": "saýlandy",
+      "created": "Döredildi",
+      "done": "Taýyn",
+      "complete": "Tamamla"
+    },
+    "scorm": {
+      "upload_package": "SCORM paketini ýükle",
+      "package_file": "Paket faýly (.zip)",
+      "click_to_upload": "Ýüklemek üçin basyň ýa-da süýräp taşlaň",
+      "supported_versions": "SCORM 1.2 ýa-da SCORM 2004 paketi",
+      "import_info": "SCORM paketiňizi mazmunyny derňemek üçin ýükläň. Kursy düzüp, sapaklary bölümlere bellemäge mümkinçiligiňiz bolar.",
+      "analyze_package": "Paketi derňe",
+      "package_analyzed": "Paket üstünlikli derňeldi",
+      "assign_scos": "Sapaklary bölümlere bellän",
+      "activity_name": "Sapak",
+      "upload_different": "Başga paket ýükle",
+      "configure": "Düz",
+      "ready_to_analyze": "Derňemäge taýyn",
+      "course_details": "Kursuň jikme-jiklikleri",
+      "chapter_name": "Bölüm",
+      "selected": "saýlandy",
+      "create_course": "Kurs döret"
+    },
     "create": {
       "choose_type": "Täze kurs döret",
       "choose_type_description": "Kursuňyzy nähili döretjekdigiňizi saýlaň",
@@ -987,22 +1903,7 @@
     },
     "sign_in_to_see_courses": "Kurslaryňyzy görmek üçin giriň",
     "sign_in_to_see_courses_description": "Bu akademiýadaky kurslar diňe girenizden soň görünmegi mümkin.",
-    "browse_all_courses": "Ähli kurslary gözden geçir",
-    "import": {
-      "select_all": "Hemmesini saýla",
-      "deselect_all": "Saýlawy aýyr",
-      "chapters": "bölüm",
-      "activities": "sapak",
-      "selected": "saýlandy",
-      "created": "Döredildi",
-      "done": "Taýyn",
-      "complete": "Tamamla"
-    },
-    "scorm": {
-      "chapter_name": "Bölüm",
-      "selected": "saýlandy",
-      "create_course": "Kurs döret"
-    }
+    "browse_all_courses": "Ähli kurslary gözden geçir"
   },
   "dashboard": {
     "nav": {
@@ -1040,6 +1941,7 @@
           "description": "Şahsy sazlamalaryňyzy, parollaryňyzy we e-poçtaňyzy düzüň"
         }
       },
+      "learnhouse_university": "SIRIUS uniwersiteti",
       "welcome_back": "Ýene hoş geldiňiz",
       "plan": "meýilnama",
       "create_course": "Kurs döret",
@@ -1094,6 +1996,10 @@
       "create_course": "Kurs döret",
       "create_new_course": "Täze kurs döret",
       "import_course": "Kursy import et",
+      "import_scorm": "SCORM import et",
+      "import_scorm_description": "Täze kurs döretmek üçin SCORM paketini import ediň",
+      "import_learnhouse": "SIRIUS kursuny import et",
+      "import_learnhouse_description": "SIRIUS-dan eksport edilen kursy import ediň",
       "import_select_type": "Import etmek üçin kursuň görnüşini saýlaň",
       "no_courses": "Entek kurs ýok",
       "create_course_placeholder": "Mazmun goşmak üçin kurs dörediň",
@@ -1303,6 +2209,410 @@
           "cannot_modify_creator": "Döredijiniň roluny ýa-da ýagdaýyny üýtgedip bolmaýar"
         }
       },
+      "seo": {
+        "title": "SEO sazlamalary",
+        "subtitle": "Kursuňyzy gözleg ulgamlary we sosial media paýlaşmasy üçin gowulandyryň",
+        "sections": {
+          "basic": {
+            "title": "Esasy SEO",
+            "subtitle": "Kursuňyzyň gözleg ulgamynyň netijelerinde nähili görünjekdigini düzüň"
+          },
+          "opengraph": {
+            "title": "Open Graph",
+            "subtitle": "Kursuňyzyň sosial mediada (Facebook, LinkedIn we ş.m.) paýlaşylanda nähili görünjekdigini düzüň"
+          },
+          "twitter": {
+            "title": "Twitter kartoçkasy",
+            "subtitle": "Kursuňyzyň Twitter/X-de paýlaşylanda nähili görünjekdigini düzüň"
+          },
+          "robots": {
+            "title": "Robotlar we gurluşly maglumatlar",
+            "subtitle": "Gözleg ulgamynyň indekslemegini dolandyryň we baý fragmentleri işjeňleşdiriň"
+          }
+        },
+        "form": {
+          "title_label": "SEO ady",
+          "title_placeholder": "Gözleg ulgamlary üçin ýörite at giriziň",
+          "title_hint": "Kursuň adyny ulanmak üçin boş goýuň. Maslahat: 50-60 belgi",
+          "description_label": "Meta beýany",
+          "description_placeholder": "Gözleg netijeleri üçin özüne çekiji beýan giriziň",
+          "description_hint": "Kursuň beýanyny ulanmak üçin boş goýuň. Maslahat: 150-160 belgi",
+          "keywords_label": "Açar sözler",
+          "keywords_placeholder": "açar1, açar2, açar3",
+          "keywords_hint": "Kursuňyza degişli açar sözleriň otur bilen aýrylan sanawy",
+          "canonical_url_label": "Esasy URL",
+          "canonical_url_placeholder": "https://example.com/course/your-course",
+          "canonical_url_hint": "Bu kurs başga ýerde köpeldilen bolsa ulanyň. Adaty URL üçin boş goýuň",
+          "og_title_label": "OG ady",
+          "og_title_placeholder": "Sosial media paýlaşmasy üçin ýörite at",
+          "og_description_label": "OG beýany",
+          "og_description_placeholder": "Sosial media paýlaşmasy üçin ýörite beýan",
+          "og_image_label": "OG suratynyň URL-i",
+          "og_image_placeholder": "https://example.com/image.jpg",
+          "og_image_hint": "Sosial paýlaşma üçin ýörite surat URL-i. Kursuň suratyny ulanmak üçin boş goýuň",
+          "twitter_card_label": "Kartoçkanyň görnüşi",
+          "twitter_card_summary": "Gysgaça",
+          "twitter_card_summary_large": "Uly surat bilen gysgaça",
+          "twitter_title_label": "Twitter ady",
+          "twitter_title_placeholder": "Twitter paýlaşmasy üçin ýörite at",
+          "twitter_description_label": "Twitter beýany",
+          "twitter_description_placeholder": "Twitter paýlaşmasy üçin ýörite beýan",
+          "robots_noindex_label": "Gözleg ulgamynyň indekslemegini gadagan et (noindex)",
+          "robots_noindex_hint": "Işjeň bolanda gözleg ulgamlary bu kursy indekslemez",
+          "robots_nofollow_label": "Baglanyşyklara eýermegi gadagan et (nofollow)",
+          "robots_nofollow_hint": "Işjeň bolanda gözleg ulgamlary bu sahypadaky baglanyşyklara eýermez",
+          "enable_jsonld_label": "JSON-LD gurluşly maglumatlaryny işjeňleşdir",
+          "enable_jsonld_hint": "Gözleg netijelerinde baý fragmentler üçin Course schema.org belligini goşýar"
+        },
+        "validation": {
+          "title_max_length": "SEO ady 70 belgi ýa-da az bolmaly",
+          "description_max_length": "Meta beýany 160 belgi ýa-da az bolmaly",
+          "og_title_max_length": "OG ady 70 belgi ýa-da az bolmaly",
+          "og_description_max_length": "OG beýany 200 belgi ýa-da az bolmaly",
+          "twitter_title_max_length": "Twitter ady 70 belgi ýa-da az bolmaly",
+          "twitter_description_max_length": "Twitter beýany 200 belgi ýa-da az bolmaly",
+          "invalid_url": "Dogry URL giriziň"
+        },
+        "errors": {
+          "save_failed": "SEO sazlamalaryny ýatda saklamak şowsuz boldy"
+        }
+      },
+      "certification": {
+        "title": "Kursuň şahadatnamasy",
+        "subtitle": "Bu kursy tamamlan okuwçylar üçin şahadatnamalary işjeňleşdiriň we düzüň",
+        "form": {
+          "certification_name_label": "Şahadatnamanyň ady",
+          "certification_name_required": "Şahadatnama işjeň bolanda hökmany",
+          "certification_name_placeholder": "meselem, Ösen JavaScript şahadatnamasy",
+          "certification_type_label": "Şahadatnamanyň görnüşi",
+          "certification_description_label": "Şahadatnamanyň beýany",
+          "certification_description_required": "Şahadatnama işjeň bolanda hökmany",
+          "certification_description_max_length": "500 belgi ýa-da az bolmaly",
+          "certification_description_placeholder": "Bu şahadatnamanyň nämäni aňladýandygyny we gymmatyny beýan ediň...",
+          "certificate_pattern_label": "Şahadatnamanyň nagyşy",
+          "certificate_instructor_label": "Mugallymyň ady (hökmany däl)",
+          "certificate_instructor_placeholder": "meselem, Aman Amanow",
+          "certification_name_max_length": "100 belgi ýa-da az bolmaly"
+        },
+        "patterns": {
+          "royal": {
+            "name": "Şa",
+            "description": "Täç nagyşly bezegli"
+          },
+          "tech": {
+            "description": "Elektrik shemasyndan ylham alnan nagyşlar",
+            "name": "Tehnologiýa"
+          },
+          "nature": {
+            "name": "Tebigat",
+            "description": "Tebigy ýaprak nagyşlary"
+          },
+          "geometric": {
+            "name": "Geometrik",
+            "description": "Abstrakt şekiller we çyzyklar"
+          },
+          "vintage": {
+            "name": "Gadymy",
+            "description": "Art deco stili"
+          },
+          "waves": {
+            "name": "Tolkunlar",
+            "description": "Akýan suw nagyşlary"
+          },
+          "minimal": {
+            "name": "Minimal",
+            "description": "Arassa we ýönekeý"
+          },
+          "professional": {
+            "name": "Hünärli",
+            "description": "Işewür dizaýn"
+          },
+          "academic": {
+            "name": "Akademiki",
+            "description": "Adaty uniwersitet stili"
+          },
+          "modern": {
+            "name": "Döwrebap",
+            "description": "Häzirki zaman arassa çyzyklary"
+          }
+        },
+        "sections": {
+          "basic_info": {
+            "title": "Esasy maglumat",
+            "subtitle": "Şahadatnamanyň esasy jikme-jikliklerini düzüň"
+          },
+          "certificate_design": {
+            "title": "Şahadatnamanyň dizaýny",
+            "subtitle": "Şahadatnamaňyz üçin bezeg nagyşyny saýlaň"
+          },
+          "preview": {
+            "title": "Şahadatnamany öňünden görmek",
+            "subtitle": "Şahadatnamaňyzy göni öňünden görmek"
+          }
+        },
+        "states": {
+          "disabled": {
+            "title": "Şahadatnama düzülmedi",
+            "message": "Kursy tamamlandan soň okuwçylara şahadatnama bermek üçin şahadatnamany işjeňleşdiriň.",
+            "button": "Şahadatnamany işjeňleşdir",
+            "creating": "Döredilýär..."
+          },
+          "creating": {
+            "title": "Şahadatnama döredilýär...",
+            "message": "Kursuň şahadatnamasy sazlanýança garaşyň."
+          }
+        },
+        "errors": {
+          "loading": "Şahadatnamalary ýüklemekde ýalňyşlyk",
+          "create_failed": "Şahadatnamany döredip bolmady.",
+          "remove_failed": "Şahadatnamany aýryp bolmady."
+        },
+        "toasts": {
+          "create_success": "Şahadatnama üstünlikli döredildi",
+          "create_error": "Şahadatnamany döredip bolmady",
+          "remove_success": "Şahadatnama üstünlikli aýryldy",
+          "remove_error": "Şahadatnamany aýryp bolmady"
+        },
+        "types": {
+          "completion": "Kursy tamamlamak",
+          "achievement": "Üstünlige esaslanýan",
+          "assessment": "Baha bermä esaslanýan",
+          "participation": "Gatnaşyk",
+          "mastery": "Başarnyk ussatlygy",
+          "professional": "Hünär ösüşi",
+          "continuing": "Dowamly bilim",
+          "workshop": "Ussahana gatnaşygy",
+          "specialization": "Hünärleşme"
+        }
+      },
+      "communities": {
+        "no_communities_description": "Pikir alyşmalary başlamak üçin ilkinji jemgyýetiňizi dörediň",
+        "card": {
+          "open_settings": "Sazlamalary aç",
+          "view_community": "Jemgyýeti gör",
+          "quick_edit": "Çalt üýtgetmek"
+        },
+        "settings": {
+          "tabs": {
+            "moderation": "Moderasiýa",
+            "general": "Umumy",
+            "thumbnail": "Kiçi surat",
+            "access": "Elýeterlilik",
+            "course": "Baglanyşykly kurs"
+          },
+          "general": {
+            "title": "Umumy sazlamalar",
+            "subtitle": "Jemgyýetiň adyny, beýanyny we görünmesini dolandyryň"
+          },
+          "thumbnail": {
+            "subtitle": "Jemgyýetiň gapak suratyny täzeläň",
+            "title": "Kiçi surat"
+          },
+          "access": {
+            "title": "Elýeterlilik sazlamalary",
+            "subtitle": "Bu jemgyýete kimiň girip biljekdigini dolandyryň"
+          },
+          "course": {
+            "subtitle": "Bu jemgyýeti kurs bilen baglaň",
+            "title": "Baglanyşykly kurs"
+          },
+          "moderation": {
+            "title": "Moderasiýa",
+            "subtitle": "Mazmun moderasiýasynyň sazlamalaryny düzüň"
+          }
+        },
+        "course": {
+          "subtitle": "Kursa mahsus pikir alyşmalar üçin bu jemgyýeti kurs bilen baglaň",
+          "currently_linked": "Häzir baglanan",
+          "link_button": "Kursy bagla",
+          "course_linked_id": "Kurs baglandy (ID: {{id}})",
+          "course_not_found": "Baglanan kurs indi ýok bolmagy ýa-da oňa girmäge rugsadyňyz ýok bolmagy mümkin",
+          "toasts": {
+            "linking": "Kurs baglanýar...",
+            "link_success": "Kurs üstünlikli baglandy",
+            "link_error": "Kursy baglamak şowsuz boldy",
+            "unlinking": "Kursuň baglanyşygy aýrylýar...",
+            "unlink_success": "Kursuň baglanyşygy üstünlikli aýryldy",
+            "unlink_error": "Kursuň baglanyşygyny aýyrmak şowsuz boldy"
+          },
+          "title": "Baglanyşykly kurs",
+          "unlink": "Baglanyşygy aýyr",
+          "search_placeholder": "Kurslary gözläň...",
+          "no_courses": "Kurs tapylmady"
+        },
+        "general": {
+          "title": "Jemgyýet sazlamalary",
+          "subtitle": "Jemgyýetiňiziň esasy maglumatlaryny täzeläň",
+          "form": {
+            "name_label": "Jemgyýetiň ady",
+            "name_required": "Jemgyýetiň ady hökmany",
+            "name_min_length": "Ady iň az 3 belgi bolmaly",
+            "name_max_length": "Ady 100 belgiden az bolmaly",
+            "name_placeholder": "Jemgyýetiň adyny giriziň",
+            "description_max_length": "Beýany 500 belgiden az bolmaly",
+            "description_placeholder": "Bu jemgyýetiň näme hakdadygyny beýan ediň",
+            "public_label": "Açyk jemgyýet",
+            "public_description": "Bu jemgyýeti hemmeler üçin görünýän ediň",
+            "description_label": "Beýany",
+            "characters_left": "{{count}} belgi galdy"
+          },
+          "toasts": {
+            "updating": "Jemgyýet täzelenýär...",
+            "update_success": "Jemgyýet üstünlikli täzelendi",
+            "update_error": "Jemgyýeti täzelemek şowsuz boldy"
+          }
+        },
+        "thumbnail": {
+          "title": "Jemgyýetiň suraty",
+          "subtitle": "Jemgyýetiňiz üçin gapak suraty ýükläň",
+          "no_thumbnail": "Surat bellenmedi",
+          "supported_formats": "Goldanylýan formatlar: JPG, JPEG, PNG. Iň köp faýl ölçegi: 8MB. Maslahat berilýän gatnaşyk: 16:9",
+          "toasts": {
+            "update_success": "Surat üstünlikli täzelendi",
+            "update_error": "Suraty täzelemek şowsuz boldy",
+            "invalid_type": "Faýl görnüşi nädogry. Diňe PNG ýa-da JPG/JPEG suratlaryny ýükläň",
+            "file_too_large": "Faýlyň ölçegi 8MB çäginden geçýär"
+          },
+          "upload_image": "Surat ýükle",
+          "uploading": "Ýüklenýär..."
+        },
+        "moderation": {
+          "title": "Mazmun moderasiýasy",
+          "subtitle": "Gadagan sözleri, tizlik çäklerini we mazmun düzgünlerini düzüň",
+          "info_title": "Jemgyýet moderasiýasy",
+          "info_description": "Bu düzgünleri bozýan mazmun ýalňyşlyk habary bilen ret ediler we çap edilmez.",
+          "restrictions_title": "Mazmun çäklendirmeleri",
+          "length_title": "Uzynlyk çäkleri",
+          "rate_limits_title": "Tizlik çäkleri",
+          "account_requirements_title": "Hasap talaplary",
+          "blocked_words_section_title": "Gadagan sözler",
+          "block_links_label": "Daşarky baglanyşyklary petikle",
+          "block_links_description": "URL bar pikir alyşmalary ýa-da jogaplary ret et.",
+          "disable_reactions_label": "Reaksiýalary öçür",
+          "disable_reactions_description": "Bu jemgyýetdäki pikir alyşmalarda emoji reaksiýalaryny öçüriň.",
+          "allow_rich_content_label": "Baý mazmuna rugsat ber",
+          "allow_rich_content_description": "Agzalara pikir alyşmalarynda YouTube wideolaryny ýerleşdirmäge rugsat beriň. Diňe YouTube goldanylýar we her ýazgy serwer tarapynda barlanýar. Adaty ýagdaýda öçük; ýeke synp ýaly kiçi, ynamdar jemgyýetler üçin maslahat berilýär.",
+          "min_post_length_label": "Iň az ýazgy uzynlygy",
+          "max_post_length_label": "Iň köp ýazgy uzynlygy",
+          "max_comment_length_label": "Iň köp jogap uzynlygy",
+          "zero_disables": "Öçürmek üçin 0 goýuň.",
+          "slow_mode_label": "Haýal tertip (sekunt)",
+          "slow_mode_hint": "Şol bir ulanyjynyň ýazgylary arasynda iň az garaşmaly wagt. Öçürmek üçin 0.",
+          "max_posts_per_day_label": "Bir ulanyjynyň günde iň köp ýazgysy",
+          "auto_lock_days_label": "Könelen temalary awtomatiki petikle (gün)",
+          "auto_lock_days_hint": "Şu gün sanyndan soň işjeňlik bolmadyk pikir alyşmalary petikläň. Öçürmek üçin 0.",
+          "min_account_age_label": "Hasabyň iň az ýaşy (gün)",
+          "min_account_age_hint": "Hasaby täzeräk bolan ulanyjylar ýazyp bilmeýär. Öçürmek üçin 0.",
+          "require_email_verified_label": "Tassyklanan e-poçtany talap et",
+          "require_email_verified_description": "Bu jemgyýetde diňe tassyklanan e-poçta salgysy bolan ulanyjylar ýazyp biler.",
+          "add_word_label": "Gadagan söz goş",
+          "add_word_placeholder": "Söz ýa-da söz düzümini giriziň...",
+          "batch_add_label": "Sözleri toplumlaýyn goş",
+          "batch_add_description": "Birnäçe sözi bir wagtda otur bilen aýryp goşuň",
+          "batch_add_placeholder": "söz1, söz2, söz3...",
+          "add_all_button": "Hemmesini goş",
+          "blocked_words_label": "Gadagan sözler",
+          "no_blocked_words": "Entek gadagan söz ýok",
+          "no_blocked_words_description": "Mazmun moderasiýasyny işjeňleşdirmek üçin sözleri goşuň",
+          "word_exists_error": "Bu söz eýýäm sanawda bar",
+          "all_words_exist_error": "Ähli sözler eýýäm sanawda ýa-da giriş boş",
+          "toasts": {
+            "saving": "Moderasiýa sazlamalary ýatda saklanýar...",
+            "save_success": "Moderasiýa sazlamalary ýatda saklandy",
+            "save_error": "Moderasiýa sazlamalaryny ýatda saklamak şowsuz boldy"
+          },
+          "add_button": "Goş"
+        },
+        "access": {
+          "title": "Elýeterlilik sazlamalary",
+          "subtitle": "Jemgyýetiňiziň hemmeler üçin elýeterli ýa-da diňe belli ulanyjy toparlary üçin elýeterli bolmalydygyny saýlaň",
+          "public": {
+            "description": "Jemgyýet hemmeler üçin elýeterli. Islendik adam pikir alyşmalary görüp we gatnaşyp biler.",
+            "confirmation_message": "Bu jemgyýetiň hemmeler üçin elýeterli bolmagyny isleýändigiňize ynamyňyz barmy?",
+            "title": "Açyk",
+            "active": "Işjeň",
+            "confirmation_title": "Açyk edip üýtgedilsinmi?",
+            "confirmation_button": "Açyk edip üýtget"
+          },
+          "restricted": {
+            "title": "Çäklendirilen",
+            "description": "Jemgyýet diňe saýlanan ulanyjy toparlarynyň agzalary üçin elýeterli. Girmäge rugsat bermek üçin ulanyjy toparlaryny baglaň.",
+            "confirmation_title": "Çäklendirilen edip üýtgedilsinmi?",
+            "confirmation_message": "Bu jemgyýetiň çäklendirilmegini isleýändigiňize ynamyňyz barmy? Diňe baglanan ulanyjy toparlarynyň agzalary girip biler.",
+            "confirmation_button": "Çäklendirilen edip üýtget",
+            "active": "Işjeň"
+          },
+          "usergroups": {
+            "subtitle": "Bu jemgyýete ulanyjy toparlaryny baglap girmäge rugsat beriň. Bu toparlardaky ulanyjylar görüp we gatnaşyp biler.",
+            "actions": {
+              "link_to_usergroup": "Ulanyjy topary bilen bagla",
+              "delete_link": "Aýyr"
+            },
+            "modals": {
+              "link_title": "Jemgyýeti ulanyjy topary bilen bagla",
+              "link_description": "Bu jemgyýeti baglamak üçin ulanyjy toparyny saýlaň. Bu ulanyjy toparynyň ulanyjylary girip biler.",
+              "unlink_title": "Ulanyjy toparynyň elýeterliligi aýrylsynmy?",
+              "unlink_message": "Bu ulanyjy toparynyň ulanyjylary indi bu jemgyýete girip bilmez.",
+              "unlink_button": "Elýeterliligi aýyr",
+              "warning": "Baglanan ulanyjy toparlarynda bolmadyk ulanyjylar bu jemgyýete elýeterliligini ýitirer",
+              "usergroup_name": "Ulanyjy toparynyň ady",
+              "no_usergroups": "Elýeterli ulanyjy topary ýok",
+              "create_usergroup": "Ulanyjy topary döret",
+              "link_button": "Bagla"
+            },
+            "toasts": {
+              "link_success": "Ulanyjy topary üstünlikli baglandy",
+              "unlink_success": "Ulanyjy toparynyň elýeterliligi üstünlikli aýryldy",
+              "unlink_error": "Ulanyjy toparynyň elýeterliligini aýyrmakda ýalňyşlyk ýüze çykdy",
+              "link_error": "Ýalňyşlyk {{status}}: {{detail}}"
+            },
+            "title": "Ulanyjy toparlary",
+            "table": {
+              "name": "Ady",
+              "actions": "Amallar"
+            }
+          },
+          "toasts": {
+            "update_success": "Elýeterlilik sazlamalary üstünlikli täzelendi",
+            "update_error": "Elýeterlilik sazlamalaryny täzelemek şowsuz boldy"
+          }
+        },
+        "modals": {
+          "create": {
+            "title": "Jemgyýet döret",
+            "description": "Pikir alyşmalar üçin täze jemgyýet dörediň",
+            "form": {
+              "name_label": "Jemgyýetiň ady",
+              "name_placeholder": "Jemgyýetiň adyny giriziň",
+              "description_placeholder": "Bu jemgyýetiň näme hakdadygyny beýan ediň",
+              "public_label": "Bu jemgyýeti açyk ediň (hemmeler üçin görünýär)",
+              "description_label": "Beýany"
+            },
+            "submit": "Jemgyýet döret",
+            "cancel": "Ýatyr"
+          },
+          "edit": {
+            "title": "Jemgyýeti üýtget",
+            "description": "Jemgyýet sazlamalaryny täzeläň"
+          },
+          "delete": {
+            "message": "Bu jemgyýeti pozmaga ynamyňyz barmy? Ähli pikir alyşmalar hemişelik pozular.",
+            "button": "Jemgyýeti poz",
+            "title": "{{name}} pozulsynmy?"
+          }
+        },
+        "toasts": {
+          "creating": "Jemgyýet döredilýär...",
+          "create_success": "Jemgyýet üstünlikli döredildi",
+          "create_error": "Jemgyýeti döredip bolmady",
+          "deleting": "Jemgyýet pozulýar...",
+          "delete_success": "Jemgyýet üstünlikli pozuldy",
+          "delete_error": "Jemgyýeti pozup bolmady"
+        },
+        "title": "Jemgyýetler",
+        "new_community": "Täze jemgyýet",
+        "no_communities": "Entek jemgyýet ýok"
+      },
       "structure": {
         "loading": "Ýüklenýär...",
         "add_chapter_button": "Bölüm goş",
@@ -1407,6 +2717,9 @@
             "creating_uploading": "Sapak döredilýär we faýl ýüklenýär...",
             "update_error": "Sapagy täzelemek şowsuz boldy"
           },
+          "descriptions": {
+            "scorm": "SCORM talaplaryna laýyk okuw paketi"
+          },
           "versioning": {
             "version_history": "Wersiýalar taryhy",
             "current_version": "Häzirki wersiýa:",
@@ -1451,108 +2764,1191 @@
             }
           }
         }
+      }
+    },
+    "organization": {
+      "settings": {
+        "title": "Guramaçylyk sazlamalary",
+        "subtitle": "Guramaçylygyňyzyň profilini we sazlamalaryny dolandyryň",
+        "tabs": {
+          "landing": "Başlangyç sahypa",
+          "branding": "Brend",
+          "ai": "Emeli intellekt",
+          "domains": "Domenler",
+          "api": "API elýeterliligi",
+          "sso": "SSO",
+          "usage": "Ulanylyş",
+          "automations": "Awtomatlaşdyrma",
+          "menu": "Menýu",
+          "danger": "Howply zona",
+          "course_end": "Kursy tamamlamak",
+          "general": "Umumy",
+          "features": "Mümkinçilikler",
+          "other": "Başga",
+          "seo": "SEO"
+        },
+        "pages": {
+          "general": {
+            "subtitle": "Guramaçylyk sazlamalaryňyzy dolandyryň",
+            "title": "Umumy"
+          },
+          "branding": {
+            "title": "Brend",
+            "subtitle": "Guramaçylygyňyzyň görnüş şahsyýetini we sosial görnüşini dolandyryň"
+          },
+          "landing": {
+            "title": "Başlangyç sahypa",
+            "subtitle": "Guramaçylygyňyzyň başlangyç sahypasyny özüňize görä düzüň"
+          },
+          "other": {
+            "subtitle": "Goşmaça guramaçylyk sazlamalaryny dolandyryň",
+            "title": "Başga"
+          },
+          "ai": {
+            "title": "Emeli intellekt mümkinçilikleri",
+            "subtitle": "Guramaçylygyňyz üçin emeli intellekt mümkinçiliklerini düzüň"
+          },
+          "api": {
+            "title": "API elýeterliligi",
+            "subtitle": "API token-lerini we programmatiki elýeterliligi dolandyryň"
+          },
+          "domains": {
+            "title": "Ýörite domenler",
+            "subtitle": "Guramaçylygyňyz üçin ýörite domenleri düzüň"
+          },
+          "features": {
+            "subtitle": "Guramaçylygyňyz üçin mümkinçilikleri işjeňleşdiriň ýa-da öçüriň",
+            "title": "Mümkinçilikler"
+          },
+          "sso": {
+            "title": "Ýeke giriş (SSO)",
+            "subtitle": "Guramaçylygyňyz üçin SSO-ny düzüň"
+          },
+          "usage": {
+            "title": "Ulanylyş",
+            "subtitle": "Guramaçylygyňyzyň serişde ulanylyşyna we meýilnama çäklerine gözegçilik ediň"
+          },
+          "menu": {
+            "title": "Açyk menýu",
+            "subtitle": "Açyk nawigasiýaňyzda görkezilýän baglanyşyklary saýlaň we tertipleşdiriň"
+          },
+          "danger": {
+            "title": "Howply zona",
+            "subtitle": "Bu guramaçylyk üçin yzyna gaýtaryp bolmaýan we weýran ediji amallar"
+          },
+          "seo": {
+            "subtitle": "Gözleg ulgamy üçin gowulandyrma sazlamalaryny dolandyryň"
+          },
+          "course_end": {
+            "title": "Kursy tamamlamak",
+            "subtitle": "Okuwçylar kursy gutaranda görýän ekranyny özüňize görä düzüň"
+          }
+        },
+        "name": "Guramaçylygyň ady",
+        "name_placeholder": "Guramaçylygyň ady",
+        "short_description": "Gysga beýany",
+        "short_description_placeholder": "Guramaçylygyňyzyň gysgaça beýany",
+        "label": "Guramaçylygyň belligi",
+        "label_placeholder": "Guramaçylyk belligini saýlaň",
+        "about": "Guramaçylyk barada",
+        "about_placeholder": "Guramaçylygyňyzyň jikme-jik beýany",
+        "update_success": "Guramaçylyk täzelendi",
+        "update_error": "Guramaçylygy täzelemek şowsuz boldy",
+        "updating": "Guramaçylyk täzelenýär...",
+        "footer_text": "Aşaky tekst",
+        "footer_text_placeholder": "Aşaky teksti giriziň...",
+        "footer_text_desc": "Guramaçylygyňyzyň sahypalarynyň aşagynda görkezilýän ýörite tekst",
+        "email_sender_name": "E-poçta iberijiniň ady",
+        "email_sender_name_placeholder": "Guramaçylygyňyzyň ady",
+        "email_sender_name_desc": "Bu guramaçylyk üçin iberilýän e-poçtalarda alyjylaryň görýän ady: giriş baglanyşyklary, parol täzeden bellemek, çakylyklar, barlag we hoş geldiňiz hatlary. Bu hatlarda logotipiňiz, düwmelerdäki brend reňkiňiz we suw belligi sazlamaňyz hem bolýar. Bu ýerde diňe at üýtgeýär; iberýän salgy platformanyňky bolup galýar, bu hatlaryň SPF we DKIM barlaglaryndan geçmegini üpjün edýär. Platformanyň adaty adyny ulanmak üçin boş goýuň.",
+        "default_language": "Adaty dil",
+        "default_language_desc": "Täze myhmanlaryň adaty ýagdaýda görýän dili we bu guramaçylygyň adyndan iberilýän e-poçtalar üçin ulanylýan dil. Agzalar öz interfeýs dilini henizem üýtgedip bilerler.",
+        "watermark_label": "«SIRIUS bilen döredildi» suw belligi",
+        "watermark_desc": "Guramaçylygyňyzyň sahypalarynda SIRIUS brend suw belligini görkeziň",
+        "watermark_free_plan": "Suw belligi mugt meýilnamada hemişe görkezilýär",
+        "watermark_ee": "Kärhana neşiriniň lisenziýasy bilen ýaşyrylan",
+        "save_changes": "Üýtgeşmeleri ýatda sakla",
+        "saving": "Ýatda saklanýar..."
       },
-      "communities": {
+      "images": {
+        "title": "Suratlar we öňünden görmekler",
+        "subtitle": "Guramaçylygyňyzyň logotipini, kiçi suratyny we öňünden görmek suratlaryny dolandyryň",
+        "tabs": {
+          "logo": "Logotip",
+          "previews": "Öňünden görmekler",
+          "thumbnail": "Kiçi surat"
+        },
+        "upload_logo": "Täze logotip ýükle",
+        "upload_thumbnail": "Täze kiçi surat ýükle",
+        "uploading_logo": "Logotip ýüklenýär...",
+        "uploading_thumbnail": "Kiçi surat ýüklenýär...",
+        "uploading_previews": "{{count}} öňünden görmek ýüklenýär...",
+        "uploading_previews_plural": "{{count}} öňünden görmek ýüklenýär...",
+        "accepted_files": "PNG, JPG kabul edilýär (iň köp 5MB)",
+        "recommended_size": "Maslahat berilýän ölçeg: 200x100 piksel",
+        "add_preview": "Öňünden görmek goş",
+        "drag_to_reorder": "Tertibi üýtgetmek üçin süýräň • Iň köp 4 öňünden görmek • Surat we wideo goldanýar",
+        "video_modal": {
+          "title": "Öňünden görmek goş",
+          "images": "Suratlary ýükle",
+          "youtube": "YouTube",
+          "youtube_desc": "YouTube wideosyny goş",
+          "loom": "Loom",
+          "loom_desc": "Loom wideosyny goş",
+          "url_placeholder": "{{service}} wideo URL-ini goýuň",
+          "add_button": "Wideo goş"
+        },
+        "toasts": {
+          "logo_success": "Logotip täzelendi",
+          "logo_error": "Logotipi ýüklemek şowsuz boldy",
+          "thumbnail_success": "Kiçi surat täzelendi",
+          "thumbnail_error": "Kiçi suraty ýüklemek şowsuz boldy",
+          "preview_added": "{{count}} öňünden görmek goşuldy",
+          "preview_added_plural": "{{count}} öňünden görmek goşuldy",
+          "preview_error": "Öňünden görmekleri ýüklemek şowsuz boldy",
+          "preview_removed": "Öňünden görmek aýryldy",
+          "preview_remove_error": "Öňünden görmegi aýyrmak şowsuz boldy",
+          "order_updated": "Öňünden görmekleriň tertibi täzelendi",
+          "order_update_error": "Öňünden görmekleriň tertibini täzelemek şowsuz boldy",
+          "max_previews": "Diňe ýene {{count}} öňünden görmek ýükläp bilersiňiz",
+          "max_previews_plural": "Diňe ýene {{count}} öňünden görmek ýükläp bilersiňiz",
+          "invalid_url": "Nädogry {{type}} URL",
+          "video_exists": "Bu wideo eýýäm goşulypdyr",
+          "adding_video": "Wideo öňünden görmek goşulýar...",
+          "video_preview_added": "Wideo öňünden görmek goşuldy",
+          "video_preview_error": "Wideo öňünden görmegi goşmak şowsuz boldy",
+          "updating_order": "Öňünden görmekleriň tertibi täzelenýär..."
+        },
+        "favicon_preview": "Favikonyň öňünden görnüşi (32×32)",
+        "uploading": "Ýüklenýär..."
+      },
+      "branding": {
+        "title": "Brend",
+        "subtitle": "Guramaçylygyňyzyň görnüş şahsyýetini we sosial görnüşini dolandyryň",
+        "tabs": {
+          "images": "Suratlar we öňünden görmekler",
+          "theme": "Tema",
+          "social": "Sosial we baglanyşyklar",
+          "auth": "Giriş sahypasy",
+          "logos": "Logotipler",
+          "previews": "Öňünden görmekler"
+        },
+        "where_it_appears": "Nirede görünýär",
+        "specs": {
+          "formats": "PNG ýa-da JPG",
+          "max_size": "5 MB çenli",
+          "wide_size": "Takmynan 400×200 px",
+          "square_size": "512×512 px, ýumrulanan burçsyz",
+          "favicon_size": "64×64 px",
+          "thumbnail_size": "1200×600 px",
+          "transparent_png": "Aýdyň PNG iň gowy işleýär"
+        },
+        "logos": {
+          "wide": {
+            "title": "Giň logotip",
+            "description": "Esasy logotipiňiz. Ol açyk sahypanyň sözbaşysynda, şahadatnamalarda we keseligine nyşan üçin ýer bolan islendik ýerde durýar.",
+            "add": "Giň logotip goş",
+            "replace": "Giň logotipi çalyş"
+          },
+          "square": {
+            "title": "Inedördül logotip",
+            "description": "Inedördül ýerler üçin ykjam nyşan: giriş paneli, guramaçylyk çalyşyjysy we dolandyryş paneliniň gapdal paneli. Goşýançaňyz giň logotip şol gutulara sygdyrylýar.",
+            "add": "Inedördül logotip goş",
+            "replace": "Inedördül logotipi çalyş",
+            "inherited": "Häzir giň logotip ulanylýar. Guty doldurar ýaly inedördül görnüşini goşuň."
+          },
+          "favicon": {
+            "title": "Favikon",
+            "description": "Brauzer goýumynda we bellikler sanawynda görünýän kiçi nyşan.",
+            "add": "Favikon goş",
+            "replace": "Favikony çalyş"
+          },
+          "toasts": {
+            "wide_success": "Giň logotip täzelendi",
+            "wide_error": "Giň logotipi ýükläp bolmady",
+            "square_success": "Inedördül logotip täzelendi",
+            "square_error": "Inedördül logotipi ýükläp bolmady",
+            "favicon_success": "Favikon täzelendi",
+            "favicon_error": "Favikony ýükläp bolmady",
+            "uploading": "Ýüklenýär…"
+          }
+        },
+        "vignettes": {
+          "public_header": "Açyk sözbaşy",
+          "sign_in": "Giriş sahypasy",
+          "org_switcher": "Guramaçylyk çalyşyjy",
+          "sidebar": "Dolandyryş paneliniň gapdal paneli",
+          "browser_tab": "Brauzer goýumy",
+          "explore_card": "Gözleg sanawy",
+          "link_preview": "Baglanyşygyň öňünden görnüşi",
+          "gallery": "Gözleg galereýasy",
+          "footer": "Açyk aşaky bölek",
+          "certificate": "Şahadatnama"
+        },
+        "theme": {
+          "color_title": "Esasy reňk",
+          "color_desc": "Açyk sözbaşyny we onuň aňyrsyndaky sahypa fonuny reňklendirýär. Ýönekeý ak sözbaşy üçin boş goýuň.",
+          "no_color": "Reňk ýok",
+          "font_title": "Şrift",
+          "font_desc": "Her açyk sahypada ulanylýar. Saýlanan sanawdan saýlaň ýa-da ähli Google şriftlerinde gözläň.",
+          "search_fonts": "Şriftleri gözläň…",
+          "no_fonts": "Şrift tapylmady",
+          "all_fonts": "Ähli Google şriftlerinden netijeler görkezilýär",
+          "default": "adaty",
+          "preview": "Göni öňünden görmek",
+          "note": "Üýtgeşmeler ýatda saklanyňyzdan soň açyk sahypalaryňyza ulanylýar.",
+          "clear": "Arassala"
+        },
+        "auth": {
+          "message_title": "Hoş geldiňiz habary",
+          "message_desc": "Giriş we hasaba durmak sahypalarynda adyňyzyň aşagynda görkezilýär. Adaty habar üçin boş goýuň.",
+          "background_title": "Fon",
+          "background_desc": "Giriş panelinde logotipiňiziň aňyrsynda näme bolýandygy: adaty gradiýent ýa-da ýükleýän ýa-da döredýän suratyňyz.",
+          "text_title": "Tekstiň reňki",
+          "text_desc": "Garaňky fonlar üçin açyk tekst, açyk fonlar üçin garaňky tekst.",
+          "preview_note": "Logotip guty inedördül logotipiňizi ulanýar ýa-da goşmadyk bolsaňyz giň logotipi sygdyrýar."
+        },
+        "social": {
+          "title": "Sosial profiller",
+          "description": "Her açyk sahypanyň aşagyndan baglanýar.",
+          "links_title": "Ýörite baglanyşyklar",
+          "links_desc": "Aşakda üç goşmaça baglanyşyga çenli, meselem esasy web sahypaňyz ýa-da kömek merkezi."
+        },
+        "previews": {
+          "thumbnail_desc": "Guramaçylygyňyz sanawda görkezilende ýa-da paýlaşylanda onuň gapak suraty: gözleg sahypasynda we baglanyşyk öňünden görmeklerinde.",
+          "thumbnail_add": "Kiçi surat goş",
+          "thumbnail_replace": "Kiçi suraty çalyş",
+          "gallery_title": "Öňünden görmek galereýasy",
+          "gallery_desc": "Guramaçylygyňyzyň gözleg sanawynda görkezilýän dört suratdan ýa-da wideodan köp bolmadyk. Tertibi üýtgetmek üçin süýräň.",
+          "thumbnail_title": "Kiçi surat"
+        }
+      },
+      "auth_branding": {
+        "title": "Giriş sahypasynyň brendi",
+        "subtitle": "Giriş we hasaba durmak sahypalaryňyzyň görnüşini düzüň",
+        "welcome_message": "Hoş geldiňiz habary",
+        "welcome_placeholder": "Giriş sahypaňyz üçin ýörite hoş geldiňiz habaryny giriziň...",
+        "welcome_desc": "Bu habar giriş we hasaba durmak sahypalarynda görkezilýär. Adaty habar üçin boş goýuň.",
+        "default_welcome": "Okuw mazmunyňyza girmek üçin giriň",
+        "background_type": "Fonuň görnüşi",
+        "bg_gradient": "Gradiýent",
+        "text_color": "Tekstiň reňki",
+        "text_light": "Açyk",
+        "text_dark": "Garaňky",
+        "text_color_desc": "Garaňky fonlar üçin açyk tekst, açyk fonlar üçin garaňky tekst saýlaň.",
+        "preview": "Göni öňünden görmek",
+        "preview_hint": "Giriş we hasaba durmak sahypalaryňyz şeýle görünýär",
+        "save_success": "Giriş brendiniň sazlamalary üstünlikli ýatda saklandy",
+        "save_error": "Giriş brendiniň sazlamalaryny ýatda saklamak şowsuz boldy",
+        "uploading": "Fon ýüklenýär...",
+        "upload_success": "Fon suraty üstünlikli ýüklendi",
+        "upload_error": "Fon suratyny ýüklemek şowsuz boldy",
+        "bg_custom": "Ýörite",
+        "saving": "Ýatda saklanýar..."
+      },
+      "theme": {
+        "primary_color": "Esasy reňk",
+        "primary_color_desc": "Guramaçylygyňyzyň sözbaşysy we sahypa fony üçin esasy reňk saýlaň.",
+        "clear_color": "Reňki arassala",
+        "preview": "Göni öňünden görmek",
+        "preview_hint": "Guramaçylygyňyzyň sözbaşysy we fony şeýle görünýär",
+        "footer_text": "Aşaky tekst",
+        "footer_text_desc": "Sahypanyň aşagynda görkeziljek ýörite tekst goşuň.",
+        "footer_text_placeholder": "Aşaky teksti giriziň..."
+      },
+      "socials": {
+        "title": "Sosial baglanyşyklar",
+        "subtitle": "Guramaçylygyňyzyň sosial media görnüşini dolandyryň",
+        "labels": {
+          "social_links": "Sosial baglanyşyklar",
+          "custom_links": "Ýörite baglanyşyklar"
+        },
+        "placeholders": {
+          "twitter": "Twitter profiliniň URL-i",
+          "facebook": "Facebook profiliniň URL-i",
+          "instagram": "Instagram profiliniň URL-i",
+          "youtube": "YouTube kanalynyň URL-i",
+          "label": "Bellik",
+          "url": "URL"
+        },
+        "custom_links_desc": "Guramaçylygyňyzyň profilinde görkeziljek 3 çenli ýörite baglanyşyk goşuň",
+        "add_link": "Baglanyşyk goş"
+      },
+      "scripts": {
+        "title": "Skriptler",
+        "subtitle": "Guramaçylygyňyza ýörite JavaScript skriptlerini goşuň",
+        "warning": "Guramaçylygyňyzyň howpsuzlygy üçin skriptleri goşmazdan öň olara ynanýandygyňyza we olary düşünýändigiňize göz ýetiriň. Skriptler guramaçylygyňyzyň sahypalary bilen özara täsirleşip biler.",
+        "add_script": "Skript goş",
+        "no_scripts": "Entek skript goşulmady",
+        "add_first_script": "Başlamak üçin ilkinji skriptiňizi goşuň",
+        "script_name": "Skriptiň ady",
+        "script_content": "Skriptiň mazmuny",
+        "placeholders": {
+          "name": "Skriptiň adyny giriziň",
+          "content": "JavaScript koduny giriziň"
+        },
+        "save_script": "Skripti ýatda sakla",
+        "toasts": {
+          "save_success": "Skript üstünlikli ýatda saklandy",
+          "delete_success": "Skript üstünlikli pozuldy"
+        }
+      },
+      "ai": {
+        "title": "Emeli intellekt mümkinçilikleri",
+        "subtitle": "Guramaçylygyňyz üçin emeli intellekt mümkinçiliklerini düzüň",
+        "enable_ai": "Emeli intellekt mümkinçiliklerini işjeňleşdir",
+        "enable_ai_description": "Guramaçylygyňyzyň mazmunynda we okuw tejribesinde emeli intellekt mümkinçiliklerine rugsat beriň",
+        "admin_only": "Emeli intellekt sazlamalaryny diňe administratorlar üýtgedip biler.",
+        "currently_disabled": "Emeli intellekt mümkinçilikleri häzir bu guramaçylyk üçin öçürilen. Olary dikeltmek üçin aşakdaky çalşyjyny açyň.",
+        "features_enabled": "Emeli intellekt mümkinçilikleri elýeterli",
+        "feature_editor": "Emeli intellekt bilen mazmun redaktoryna kömek",
+        "feature_activity": "Emeli intellekt bilen okuw sapagynyň özara täsiri",
+        "feature_canvas": "Emeli intellekt kanwasy we dizaýn gurallary",
+        "toasts": {
+          "save_success": "Emeli intellekt sazlamalary üstünlikli täzelendi",
+          "save_error": "Emeli intellekt sazlamalaryny täzelemek şowsuz boldy"
+        },
+        "ai_copilot": "Emeli intellekt kömekçisi",
+        "ai_copilot_description": "Okuwçylara kursuň mazmuny barada soraglar bermäge rugsat beriň. Çeşme görkezmeleri bilen esaslandyrylan jogaplary bermek üçin indekslenen materialy ulanýar.",
+        "feature_editor_description": "Kurs döredijiler üçin emeli intellekt bilen mazmun üýtgetmek kömegi.",
+        "feature_activity_description": "Okuwçylara kömek etmek üçin sapaklarda elýeterli emeli intellekt kömekçisi.",
+        "always_on": "Hemişe işjeň"
+      },
+      "sso": {
+        "title": "Ýeke giriş (SSO)",
+        "subtitle": "Guramaçylygyňyz üçin kärhana SSO-syny düzüň",
+        "provider": "SSO üpjün edijisi",
+        "select_provider": "Üpjün edijini saýlaň",
+        "not_configured": "Düzülmedi",
+        "workos_info": "WorkOS SAML we OIDC şahsyýet üpjün edijileri goldawy bilen kärhana SSO-syny üpjün edýär.",
+        "workos_org_id": "WorkOS guramaçylyk ID-si",
+        "workos_org_id_help": "Bu ID sazlamak portaly arkaly SSO-ny düzenizde awtomatiki döredilýär.",
+        "open_setup_portal": "Şahsyýet üpjün edijini düz",
+        "oidc_info": "Islendik OpenID Connect gabat gelýän şahsyýet üpjün edijisine (Azure AD, Okta, Google Workspace, Keycloak) göni birikiň.",
+        "oidc_issuer_url": "Çykaryjynyň URL-i",
+        "oidc_issuer_url_help": "OIDC çykaryjysynyň URL-i. Soňky nokatlar /.well-known/openid-configuration salgysyndan awtomatiki tapylar.",
+        "oidc_client_id": "Müşderi ID-si",
+        "oidc_client_secret": "Müşderi gizlini",
+        "oidc_client_secret_help": "Bu gizlini howpsuz saklaň. Ol şahsyýet üpjün edijiňiz bilen tassyklamak üçin ulanylýar.",
+        "oidc_scopes": "Çäkler",
+        "oidc_scopes_help": "Soralýan OAuth çäkleri (boşluk bilen aýrylan). Adaty: openid email profile",
+        "enable_sso": "SSO-ny işjeňleşdir",
+        "enable_sso_desc": "Ulanyjylara guramaçylygyňyzyň şahsyýet üpjün edijisi arkaly tassyklanmaga rugsat beriň.",
+        "allowed_domains": "Rugsat berlen e-poçta domenleri",
+        "allowed_domains_help": "SSO arkaly girmäge rugsat berlen e-poçta domenleriniň otur bilen aýrylan sanawy (meselem, example.com, company.org). Ähli domenlere rugsat bermek üçin boş goýuň.",
+        "auto_provision": "Ulanyjylary awtomatiki döret",
+        "auto_provision_desc": "Ilkinji gezek SSO bilen girýän ulanyjylar üçin hasaplary awtomatiki dörediň.",
+        "save": "Düzgünleşdirmäni ýatda sakla",
+        "delete": "SSO düzgünleşdirmesini poz",
+        "delete_confirm": "Bu SSO düzgünleşdirmesini pozmaga ynamyňyz barmy? Ulanyjylar indi SSO arkaly girip bilmez.",
+        "load_error": "SSO düzgünleşdirmesini ýüklemek şowsuz boldy",
+        "save_success": "SSO düzgünleşdirmesi üstünlikli ýatda saklandy",
+        "save_error": "SSO düzgünleşdirmesini ýatda saklamak şowsuz boldy",
+        "delete_success": "SSO düzgünleşdirmesi pozuldy",
+        "delete_error": "SSO düzgünleşdirmesini pozmak şowsuz boldy",
+        "setup_not_available": "Sazlamak portaly elýeterli däl. Ilki üpjün edijini düzüň.",
+        "setup_error": "Sazlamak portalynyň URL-ini almak şowsuz boldy",
+        "status_enabled": "Işjeň",
+        "status_disabled": "Öçürilen",
+        "saving": "Ýatda saklanýar...",
+        "deleting": "Pozulýar..."
+      },
+      "features": {
+        "title": "Mümkinçilik sazlamalary",
+        "subtitle": "Guramaçylygyňyz üçin mümkinçilikleri işjeňleşdiriň ýa-da öçüriň",
+        "admin_only": "Mümkinçilik sazlamalaryny diňe guramaçylygyň administratorlary üýtgedip biler.",
+        "upgrade_notice": "Bu mümkinçiligi işjeňleşdirmek üçin {{plan}} meýilnamasyna täzeläň",
+        "toggles": {
+          "courses": {
+            "description": "Guramaçylygyňyz üçin kurslary we ösüşi yzarlamagy işjeňleşdiriň",
+            "title": "Kurslar"
+          },
+          "communities": {
+            "description": "Guramaçylygyňyzyň agzalary üçin pikir alyşma jemgyýetlerini işjeňleşdiriň",
+            "title": "Jemgyýetler"
+          },
+          "payments": {
+            "description": "Kurslar we ýazylmalar üçin töleg işlemegi işjeňleşdiriň",
+            "title": "Töleglar"
+          },
+          "podcasts": {
+            "description": "Guramaçylygyňyz üçin podkast döretmegi we audio mazmuny işjeňleşdiriň",
+            "title": "Podkastlar"
+          },
+          "boards": {
+            "description": "Taslamany dolandyrmak üçin sanawly we kartoçkaly bilelikde işlemek tagtalaryny dörediň",
+            "title": "Tagtalar"
+          },
+          "playgrounds": {
+            "description": "Okuwçylaryňyz üçin interaktiw, emeli intellekt döreden tejribeleri dörediň",
+            "title": "Meýdançalar"
+          }
+        },
+        "toasts": {
+          "enabling": "{{feature}} işjeňleşdirilýär...",
+          "disabling": "{{feature}} öçürilýär...",
+          "enabled": "{{feature}} işjeňleşdirildi",
+          "disabled": "{{feature}} öçürildi",
+          "error": "{{feature}} düzgünleşdirmesini täzelemek şowsuz boldy",
+          "admin_only": "Mümkinçilikleri diňe guramaçylygyň administratorlary işjeňleşdirip ýa-da öçürip biler"
+        }
+      },
+      "audit_logs": {
+        "refresh": "Ýazgylary täzele",
+        "export": "Eksport et",
+        "search_by": "Boýunça gözle",
+        "placeholders": {
+          "search": "Gözleg..."
+        },
+        "filters": {
+          "date": "Sene",
+          "resource": "Serişde",
+          "status": "Ýagdaýy"
+        },
+        "resources": {
+          "all": "Ähli serişdeler",
+          "user": "Ulanyjy",
+          "course": "Kurs",
+          "org": "Guramaçylyk"
+        },
+        "date_ranges": {
+          "all": "Hemişe",
+          "today": "Şu gün",
+          "7d": "Soňky 7 gün",
+          "30d": "Soňky 30 gün",
+          "custom": "Ýörite aralyk"
+        },
+        "table": {
+          "timestamp": "Wagt belligi",
+          "path_method": "Ýol we usul",
+          "ip_address": "IP salgysy",
+          "payload": "Maglumatlar",
+          "user": "Ulanyjy",
+          "resource": "Serişde",
+          "status": "Ýagdaýy"
+        },
+        "loading": "Işjeňlik ýüklenýär...",
+        "no_logs": "Ýazgy tapylmady",
+        "pagination": {
+          "showing": "{{total}} ýazgydan {{start}} - {{end}} görkezilýär"
+        },
+        "enterprise_only": "Audit ýazgylary diňe Kärhana meýilnamasynda elýeterli",
+        "enterprise_feature": "Kärhana mümkinçiligi",
+        "enterprise_description": "Audit ýazgylary diňe Kärhana meýilnamasyndaky guramaçylyklar üçin elýeterli premium mümkinçilikdir. Guramaçylygyňyzyň işjeňligine doly göz ýetirmek üçin täzeläň.",
+        "upgrade_button": "Kärhana meýilnamasyna täzele",
         "modals": {
-          "create": {
-            "form": {
-              "description_label": "Beýany"
-            },
-            "cancel": "Ýatyr"
-          },
-          "delete": {
-            "title": "{{name}} pozulsynmy?"
+          "payload": {
+            "title": "Wakanyň maglumatlary",
+            "description": "Amal üçin jikme-jik maglumatlar: {{action}}"
           }
         },
-        "title": "Jemgyýetler",
-        "new_community": "Täze jemgyýet",
-        "no_communities": "Entek jemgyýet ýok",
-        "settings": {
+        "export_toasts": {
+          "generating": "CSV döredilýär...",
+          "success": "CSV üstünlikli eksport edildi",
+          "error": "CSV eksport etmek şowsuz boldy"
+        },
+        "title": "Audit ýazgylary",
+        "subtitle": "Guramaçylygyňyzdaky ähli işjeňligi yzarlaň we gözegçilik ediň"
+      },
+      "landing": {
+        "title": "Başlangyç sahypa",
+        "subtitle": "Guramaçylygyňyzyň başlangyç sahypasyny özüňize görä düzüň",
+        "saved_success": "Başlangyç sahypa üstünlikli ýatda saklandy",
+        "save_error": "Başlangyç sahypany ýatda saklamakda ýalňyşlyk",
+        "section_types": {
+          "hero": {
+            "label": "Baş bölüm",
+            "description": "Sözbaşy we çagyryş bilen baş bölüm goşuň"
+          },
+          "text_and_image": {
+            "label": "Tekst we surat",
+            "description": "Tekst we suraty bolan bölüm goşuň"
+          },
+          "logos": {
+            "label": "Logotipler",
+            "description": "Logotipleri görkezmek üçin bölüm goşuň"
+          },
+          "people": {
+            "label": "Adamlar",
+            "description": "Topar agzalaryny görkezmek üçin bölüm goşuň"
+          },
+          "featured_courses": {
+            "description": "Saýlanan kurslary görkezmek üçin bölüm goşuň",
+            "label": "Kurslar"
+          },
+          "video": {
+            "description": "YouTube, Vimeo ýa-da Loom wideosyny ýerleşdiriň ýa-da özüňiziňkini ýükläň",
+            "label": "Wideo"
+          },
+          "rich_text": {
+            "description": "Markdown bilen ýazylan sözbaşy we formatlanan tekst",
+            "label": "Tekst"
+          },
+          "features": {
+            "description": "Nyşan, at we beýany bolan kartoçkalaryň setiri",
+            "label": "Mümkinçilikler"
+          },
+          "stats": {
+            "label": "Statistika",
+            "description": "Okuwçylar ýa-da kurslar ýaly belligi bolan uly sanlar"
+          },
+          "testimonials": {
+            "label": "Teswirler",
+            "description": "Okuwçylardan ýa-da müşderilerden sitatalar"
+          },
+          "faq": {
+            "label": "Köp berilýän soraglar",
+            "description": "Jogabyny görkezmek üçin açylýan soraglar"
+          },
+          "cta": {
+            "label": "Çagyryş",
+            "description": "Sözbaşy we düwmeleri bolan ýiti baner"
+          },
+          "gallery": {
+            "description": "Suratlaryň setiri",
+            "label": "Galereýa"
+          },
+          "spacer": {
+            "label": "Boşluk",
+            "description": "Boş ýer, islege görä bölüji çyzyk bilen"
+          },
+          "pricing": {
+            "label": "Bahalar",
+            "description": "Baha, mümkinçilikler sanawy we düwmesi bolan meýilnama kartoçkalary"
+          },
+          "steps": {
+            "label": "Ädimler",
+            "description": "Ýanaşyk ýa-da üst-üste nomerlenen yzygiderlilik"
+          },
+          "columns": {
+            "label": "Sütünler",
+            "description": "Ikiden dörde çenli Markdown tekst sütüni"
+          },
+          "image": {
+            "description": "Islege görä ady we baglanyşygy bolan ýeke uly surat",
+            "label": "Surat"
+          },
+          "embed": {
+            "description": "Goldanylýan hyzmatdan forma, senenama, karta ýa-da tagta",
+            "label": "Ýerleşdir"
+          },
+          "banner": {
+            "description": "Täzelikler ýa-da aksiýalar üçin inçe zolak",
+            "label": "Yglan"
+          },
+          "countdown": {
+            "label": "Yzygiderli sanama",
+            "description": "Işe goýberilmegine ýa-da möhlete çenli göni taýmer"
+          }
+        },
+        "hero_editor": {
+          "title": "Baş bölüm",
           "tabs": {
-            "general": "Umumy",
-            "thumbnail": "Kiçi surat",
-            "access": "Elýeterlilik",
-            "course": "Baglanyşykly kurs"
+            "background": "Fon",
+            "buttons": "Düwmeler",
+            "illustration": "Illýustrasiýa",
+            "content": "Mazmun"
           },
-          "thumbnail": {
-            "title": "Kiçi surat"
+          "heading": "Sözbaşy",
+          "heading_placeholder": "Sözbaşy tekstini giriziň",
+          "heading_color": "Sözbaşynyň reňki",
+          "subheading": "Kiçi sözbaşy",
+          "subheading_placeholder": "Kiçi sözbaşy tekstini giriziň",
+          "subheading_color": "Kiçi sözbaşynyň reňki",
+          "background_type": "Fonuň görnüşi",
+          "background_type_placeholder": "Fon görnüşini saýlaň",
+          "background_types": {
+            "solid": "Ýekeje reňk",
+            "gradient": "Gradiýent",
+            "image": "Surat"
           },
-          "course": {
-            "title": "Baglanyşykly kurs"
-          }
-        },
-        "course": {
-          "title": "Baglanyşykly kurs",
-          "unlink": "Baglanyşygy aýyr",
-          "search_placeholder": "Kurslary gözläň...",
-          "no_courses": "Kurs tapylmady"
-        },
-        "general": {
-          "form": {
-            "description_label": "Beýany",
-            "characters_left": "{{count}} belgi galdy"
-          }
-        },
-        "thumbnail": {
+          "background_color": "Fonuň reňki",
+          "gradient_type": "Gradiýent görnüşi",
+          "gradient_type_placeholder": "Gradiýent görnüşini saýlaň",
+          "gradient_types": {
+            "preset": "Taýýar gradiýentler",
+            "custom": "Ýörite gradiýent"
+          },
+          "start_color": "Başlangyç reňk",
+          "end_color": "Soňky reňk",
+          "gradient_direction": "Gradiýent ugry",
+          "gradient_direction_placeholder": "Gradiýent ugruny saýlaň",
+          "gradient_preset": "Taýýar gradiýent",
+          "gradient_preset_placeholder": "Taýýar gradiýenti saýlaň",
+          "background_image": "Fon suraty",
+          "button_text_colors": "Düwme teksti we reňkleri",
+          "button_text": "Düwme teksti",
+          "background_color_label": "Fon",
+          "button_link": "Düwme baglanyşygy",
+          "button_link_placeholder": "Düwme baglanyşygy",
+          "add_button": "Düwme goş",
+          "illustration_image": "Illýustrasiýa suraty",
+          "illustration_url": "Illýustrasiýanyň URL-i",
+          "alt_text": "Alt tekst",
+          "upload_illustration": "Illýustrasiýa ýükle",
+          "position": "Ýerleşişi",
+          "position_placeholder": "Ýerleşişi saýlaň",
+          "positions": {
+            "left": "Çep",
+            "right": "Sag"
+          },
+          "size_placeholder": "Ölçegi saýlaň",
+          "remove_illustration": "Illýustrasiýany aýyr",
+          "section_title": "Bölümiň ady",
+          "section_title_placeholder": "Bölümiň adyny giriziň",
           "upload_image": "Surat ýükle",
-          "uploading": "Ýüklenýär..."
-        },
-        "moderation": {
-          "add_button": "Goş"
-        },
-        "access": {
-          "public": {
-            "title": "Açyk",
-            "active": "Işjeň",
-            "confirmation_title": "Açyk edip üýtgedilsinmi?",
-            "confirmation_button": "Açyk edip üýtget"
-          },
-          "restricted": {
-            "active": "Işjeň"
-          },
-          "usergroups": {
-            "title": "Ulanyjy toparlary",
-            "table": {
-              "name": "Ady",
-              "actions": "Amallar"
-            },
-            "actions": {
-              "delete_link": "Aýyr"
-            },
-            "modals": {
-              "link_button": "Bagla"
-            },
-            "toasts": {
-              "link_error": "Ýalňyşlyk {{status}}: {{detail}}"
-            }
+          "text_color": "Tekst",
+          "size": "Ölçeg",
+          "sizes": {
+            "small": "Kiçi",
+            "medium": "Orta",
+            "large": "Uly"
           }
+        },
+        "text_image_editor": {
+          "title": "Tekst we surat bölümi",
+          "content_placeholder": "Bölümiň mazmunyny giriziň",
+          "image_position": "Suratyň ýerleşişi",
+          "image_position_placeholder": "Suratyň ýerleşişini saýlaň",
+          "positions": {
+            "left": "Çep",
+            "right": "Sag"
+          },
+          "alt_text": "Alt tekst",
+          "upload_new_image": "Täze surat ýükle",
+          "title_label": "Ady",
+          "title_placeholder": "Bölümiň adyny giriziň",
+          "content": "Mazmun",
+          "image": "Surat",
+          "image_url": "Suratyň salgysy"
+        },
+        "logos_editor": {
+          "title": "Logotipler bölümi",
+          "logos": "Logotipler",
+          "alt_text": "Alt tekst",
+          "upload_logo": "Logotip ýükle",
+          "add_logo": "Logotip goş",
+          "title_label": "Ady",
+          "title_placeholder": "Bölümiň adyny giriziň",
+          "logo_url": "Logotipiň salgysy"
+        },
+        "people_editor": {
+          "title": "Adamlar bölümi",
+          "people": "Adamlar",
+          "name_placeholder": "Adamyň ady",
+          "username_placeholder": "@ulanyjy_ady",
+          "upload_avatar": "Awatar ýükle",
+          "description_placeholder": "Beýany ýa-da roly",
+          "add_person": "Adam goş",
+          "title_label": "Ady",
+          "title_placeholder": "Bölümiň adyny giriziň",
+          "name": "Ady",
+          "username": "Ulanyjy ady",
+          "image": "Surat",
+          "image_url": "Suratyň salgysy",
+          "description": "Beýany"
+        },
+        "courses_editor": {
+          "title": "Kurslar bölümi",
+          "select_courses": "Kurslary saýla",
+          "selected": "Saýlandy",
+          "private_badge_hint": "Girmedik myhmanlar bu kursy başlangyç sahypada görmezler.",
+          "private_selected_warning": "Käbir saýlanan kurslar «Diňe ulanyjylar» edilip bellenen, şonuň üçin girmedik myhmanlar olary görmezler. Olary hemmelere görkezmek üçin şol kurslary açyk ediň.",
+          "title_label": "Ady",
+          "title_placeholder": "Bölümiň adyny giriziň",
+          "loading_courses": "Kurslar ýüklenýär...",
+          "select": "Saýla",
+          "private_badge": "Diňe ulanyjylar"
+        },
+        "org_id_not_found": "Guramaçylygyň ID-si tapylmady",
+        "unknown_section_type": "Näbelli bölüm görnüşi",
+        "video_editor": {
+          "title": "Wideo bölümi",
+          "title_placeholder": "Syýahaty tomaşa ediň",
+          "description_placeholder": "Wideonyň ýokarsynda görkezilýän hökmany däl tekst",
+          "url_help": "YouTube, Vimeo ýa-da Loom baglanyşygyny, göni wideo faýlynyň URL-ini goýuň ýa-da MP4/WebM faýlyny ýükläň.",
+          "upload_video": "Wideo ýükle",
+          "title_label": "Ady",
+          "description_label": "Beýany",
+          "url_label": "Wideo"
+        },
+        "visibility": {
+          "description": "Bu bölümi başlangyç sahypada kimiň görjekdigini saýlaň",
+          "everyone": "Hemmeler",
+          "logged_in": "Diňe giren ulanyjylar",
+          "logged_out": "Diňe girmedik myhmanlar",
+          "title": "Görünmesi"
+        },
+        "templates": {
+          "title": "Nusgadan başla",
+          "description": "Başlangyç nokady saýlaň, soň her bölümi üýtgediň. Ýa-da bölümleri birme-bir goşuň.",
+          "sections_count_one": "{{count}} bölüm",
+          "sections_count_other": "{{count}} bölüm",
+          "academy": {
+            "name": "Akademiýa",
+            "description": "Myhmanlar we agzalar üçin aýry baş bölümler, statistika, nähili işleýändigi, kurslar, teswirler, köp berilýän soraglar we hasaba durmak baneri."
+          },
+          "product": {
+            "name": "Önüm okuwy",
+            "description": "Baş bölüm, syýahat wideosy, temalar, soňky kurslar we habarlaşmak baneri."
+          },
+          "minimal": {
+            "name": "Minimal",
+            "description": "Gysga giriş we soňky kurslaryňyz."
+          },
+          "launch": {
+            "name": "Işe goýbermek",
+            "description": "Yglan zolagy, beýik baş bölüm, göni yzygiderli sanama, ädimler, sütünler, bahalar meýilnamalary we köp berilýän soraglar, giriş animasiýalary bilen."
+          }
+        },
+        "blocks": {
+          "subtitle_label": "Kiçi at",
+          "columns": "Sütünler",
+          "align": "Deňlemek",
+          "align_start": "Başynda",
+          "align_center": "Ortada",
+          "duplicate": "Bölümi köpelt",
+          "upload_image": "Surat ýükle",
+          "hidden": "Bu bölümi ýasyr",
+          "hidden_help": "Ony redaktorda saklaň, ýöne başlangyç sahypada görkezmäň.",
+          "style": "Fon, reňkler we aralyk",
+          "background": "Fon",
+          "background_solid": "Ýekeje reňk",
+          "background_gradient": "Gradiýent",
+          "gradient_from": "Başlangyç",
+          "gradient_to": "Soňky",
+          "text_color": "Tekstiň reňki",
+          "spacing": "Dik aralyk",
+          "anchor": "Ýakyr",
+          "anchor_help": "Düwmäniň bu bölüme böküp geçmegine mümkinçilik berýär.",
+          "buttons": "Düwmeler",
+          "add_button": "Düwme goş",
+          "button_text": "Düwme teksti",
+          "button_text_default": "Kurslary gözden geçir",
+          "button_background": "Fon",
+          "rich_text": {
+            "title": "Tekst bölümi",
+            "markdown_help": "Markdown: **galyň**, *kursiw*, [baglanyşyk](https://...), sanawlar we ## sözbaşylar.",
+            "default_title": "Biz barada",
+            "default_content": "Mekdebiňiz barada bir zat ýazyň. **Markdown** goldanylýar.",
+            "content": "Mazmun"
+          },
+          "features": {
+            "title": "Mümkinçilikler bölümi",
+            "add": "Mümkinçilik goş",
+            "icon": "Nyşan (emoji)",
+            "default_title": "Näme üçin biz bilen okamaly",
+            "default_item_title": "Mümkinçilik",
+            "default_item_description": "Bu mümkinçiligi bir sözlemde beýan ediň."
+          },
+          "stats": {
+            "title": "Statistika bölümi",
+            "add": "Statistika goş",
+            "value": "Baha",
+            "label": "Bellik",
+            "default_label": "Okuwçylar"
+          },
+          "testimonials": {
+            "title": "Teswirler bölümi",
+            "add": "Teswir goş",
+            "quote": "Sitata",
+            "role": "Roly ýa-da kompaniýasy",
+            "photo_url": "Suratyň URL-i",
+            "default_title": "Okuwçylar näme diýýär",
+            "author": "Ady"
+          },
+          "faq": {
+            "title": "Köp berilýän soraglar bölümi",
+            "add": "Sorag goş",
+            "default_title": "Köp berilýän soraglar",
+            "question": "Sorag",
+            "answer": "Jogap"
+          },
+          "cta": {
+            "title": "Çagyryş bölümi",
+            "heading": "Sözbaşy",
+            "default_heading": "Başlamaga taýynmy?"
+          },
+          "gallery": {
+            "title": "Galereýa bölümi",
+            "add": "Surat goş",
+            "alt": "Alt tekst"
+          },
+          "spacer": {
+            "title": "Boşluk",
+            "divider": "Bölüji çyzygy görkez",
+            "size": "Ölçeg"
+          },
+          "courses": {
+            "mode": "Görkeziljek kurslar",
+            "mode_selected": "Saýlan kurslarym",
+            "mode_latest": "Soňky kurslar",
+            "limit": "Näçesi"
+          },
+          "device": "Enjamlar",
+          "device_all": "Ähli enjamlar",
+          "device_desktop": "Diňe kompýuter",
+          "device_mobile": "Diňe ykjam enjam",
+          "show_from": "Şundan başlap görkez",
+          "show_until": "Şu wagta çenli görkez",
+          "width": "Giňlik",
+          "width_normal": "Adaty",
+          "width_narrow": "Dar",
+          "title_align": "Sözbaşyny deňlemek",
+          "animation": "Giriş animasiýasy",
+          "animation_fade": "Ýuwaş-ýuwaşdan peýda bolmak",
+          "animation_slide_up": "Aşakdan ýokaryk süýşmek",
+          "export": "Eksport et",
+          "import": "Import et",
+          "import_invalid": "Bu faýl dogry başlangyç sahypa eksporty däl",
+          "import_done": "Başlangyç sahypa import edildi ({{count}} bölüm). Çap etmek üçin ýatda saklaň.",
+          "hero": {
+            "title": "Baş bölümiň ölçegi we gaplamasy",
+            "height": "Beýiklik",
+            "height_screen": "Doly ekran",
+            "overlay": "Garaňky gaplama",
+            "overlay_help": "Suratyň üstündäki tekstiň okalýan bolmagy üçin fony garaldýar."
+          },
+          "pricing": {
+            "title": "Bahalar bölümi",
+            "add": "Meýilnama goş",
+            "name": "Meýilnamanyň ady",
+            "price": "Baha",
+            "period": "/ aý",
+            "features": "Mümkinçilikler, her setirde bir",
+            "highlighted": "Bu meýilnamany bellän",
+            "button_default": "Başla",
+            "default_title": "Ýönekeý bahalar",
+            "default_plan": "Mugt",
+            "linked_offer": "Baglanan dükan önümi",
+            "linked_none": "Ýok (bahany özüňiz ýazyň)",
+            "linked_missing": "Önüm indi elýeterli däl",
+            "linked_help": "Baha we töleg baglanyşygy dükandan gelýär we sinhron saklanýar. Ady, beýany we mümkinçilikler özüňiziňkini ýazmasaňyz önümiňkini ulanýar.",
+            "linked_missing_help": "Bu önüm arhiwlenen ýa-da açyk sanawda däl, şonuň üçin bu meýilnama başlangyç sahypada ýaşyrylýar.",
+            "store_hint": "Dükanyňyzda meýilnama öwrüp boljak önümler bar.",
+            "add_from_store": "Dükandan meýilnama goş",
+            "store_empty": "Açyk sanawda dükan önümi ýok. Meýilnamalary töleg bilen baglamak üçin Töleglar bölüminde dörediň.",
+            "buy_default": "Indi satyn al"
+          },
+          "steps": {
+            "title": "Ädimler bölümi",
+            "layout": "Ýerleşişi",
+            "horizontal": "Ýanaşyk",
+            "vertical": "Üst-üste",
+            "add": "Ädim goş",
+            "default_title": "Nähili işleýär"
+          },
+          "columns_block": {
+            "title": "Sütünler bölümi",
+            "add": "Sütün goş"
+          },
+          "image": {
+            "title": "Surat bölümi",
+            "rounded": "Ýumrulanan burçlar we kölege",
+            "caption": "Surat ady",
+            "link": "Bagla"
+          },
+          "embed": {
+            "title": "Ýerleşdirme bölümi",
+            "help": "Goldanylýar: Calendly, Typeform, Tally, Airtable, Google Docs, Forms we Maps ýerleşdirmeleri, Figma, Loom, Canva, Miro, YouTube, Vimeo.",
+            "not_allowed": "Bu hyzmat goldanylmaýar, şonuň üçin hiç zat görkezilmez.",
+            "height": "Beýiklik (px)",
+            "url": "URL"
+          },
+          "banner": {
+            "link_text": "Baglanyşyk teksti",
+            "schedule_tip": "Maslahat: bu yglany çäkli wagt görkezmek üçin ýokardaky «Şundan başlap görkez» we «Şu wagta çenli görkez» ulanyň.",
+            "default_text": "Täze kurs ýaňy işe goýberildi",
+            "title": "Yglan",
+            "text": "Tekst"
+          },
+          "countdown": {
+            "title": "Yzygiderli sanama bölümi",
+            "target": "Şu wagta çenli sanalýar",
+            "done_text": "Gutarandan soňky tekst",
+            "default_heading": "Tizara işe goýberilýär"
+          },
+          "page": {
+            "title": "Sahypa sazlamalary",
+            "description": "Tutuş başlangyç sahypa üçin sazlamalar.",
+            "width": "Mazmunyň giňligi",
+            "width_wide": "Giň",
+            "gap": "Bölümleriň arasyndaky boşluk"
+          },
+          "title_label": "Ady",
+          "description_label": "Beýany",
+          "move_up": "Ýokary süýşür",
+          "move_down": "Aşak süýşür",
+          "remove": "Aýyr",
+          "background_none": "Ýok",
+          "background_image": "Surat",
+          "color": "Reňk",
+          "spacing_none": "Ýok",
+          "spacing_small": "Kiçi",
+          "spacing_medium": "Orta",
+          "spacing_large": "Uly",
+          "button_color": "Tekst",
+          "animation_none": "Ýok"
+        },
+        "beta": "BETA",
+        "save_changes": "Üýtgeşmeleri ýatda sakla",
+        "saving": "Ýatda saklanýar...",
+        "sections": "Bölümler",
+        "select_section": "Üýtgetmek üçin bölüm saýlaň ýa-da täze bölüm goşuň",
+        "add_section": "Bölüm goş"
+      },
+      "seo": {
+        "org_seo": {
+          "quick_links": "Çalt baglanyşyklar",
+          "important_seo_urls": "Guramaçylygyňyz üçin möhüm SEO URL-leri",
+          "sitemap": "Sitemap:",
+          "robots_txt": "Robots.txt:",
+          "default_meta_tags": "Adaty meta bellikler",
+          "set_default_metadata": "Ähli sahypalar üçin adaty metamaglumatlary belläň",
+          "title_suffix": "At goşulmasy",
+          "title_suffix_hint": "Ähli sahypa atlaryna goşulýar, meselem « | Meniň akademiýam»",
+          "default_description": "Adaty beýan",
+          "default_description_hint": "Sahypanyň aýratyn beýany bolmasa ulanylýan beýan",
+          "social_open_graph": "Sosial we Open Graph",
+          "social_open_graph_hint": "Sahypalaryňyzyň sosial mediada paýlaşylanda nähili görünjekdigini dolandyryň",
+          "default_og_image": "Adaty OG suraty",
+          "default_og_image_hint": "Sosial media üçin adaty paýlaşma suraty (1200x630 maslahat berilýär)",
+          "twitter_handle": "Twitter ady",
+          "twitter_handle_hint": "Twitter kartoçkalarynda sahypanyň hasaby hökmünde görkezilýär",
+          "search_engine_verification": "Gözleg ulgamynyň barlagy",
+          "search_engine_verification_hint": "Eýeçiligi gözleg ulgamlary bilen tassyklaň",
+          "google_search_console": "Google Search Console",
+          "google_search_console_hint": "Google Search Console-dan barlag kody",
+          "indexing_controls": "Indekslemegi dolandyrmak",
+          "indexing_controls_hint": "Gözleg ulgamlarynyň haýsy sahypalary indekslemegini dolandyryň",
+          "hide_communities": "Jemgyýetleri ýasyr",
+          "hide_communities_hint": "Jemgyýet sahypalaryny gözleg ulgamlaryndan ýasyryň"
+        },
+        "copied_to_clipboard": "Bufere göçürildi",
+        "save_failed": "SEO sazlamalaryny ýatda saklamak şowsuz boldy"
+      },
+      "domains": {
+        "title": "Ýörite domenler",
+        "subtitle": "Guramaçylygyňyza girmek üçin ýörite domenleri düzüň",
+        "empty_description": "Okuwçylaryňyz üçin brendli tejribe bermek üçin öz domeniňizi goşuň.",
+        "add_domain": "Domen goş",
+        "domain_name": "Domeniň ady",
+        "enter_domain": "Domeniňizi giriziň",
+        "verify_domain": "Domeni barla",
+        "verifying": "Barlanýar...",
+        "verify_dns": "DNS barla",
+        "ssl_active": "SSL işjeň",
+        "failed_add": "Domeni goşmak şowsuz boldy",
+        "failed_delete": "Domeni pozmak şowsuz boldy",
+        "failed_verify": "Domeni barlamak şowsuz boldy",
+        "verifying_domain": "Domen barlanýar...",
+        "domain_verified": "Domen üstünlikli barlandy",
+        "domain_added": "Domen goşuldy",
+        "domain_removed": "Domen aýryldy",
+        "no_domains_yet": "Entek ýörite domen ýok",
+        "add_first_domain": "Başlamak üçin ilkinji domeniňizi goşuň",
+        "add_custom_domain": "Ýörite domen goş",
+        "add_custom_domain_desc": "Guramaçylygyňyz üçin ulanjak domeniňizi giriziň.",
+        "domain_label": "Domen",
+        "domain_hint": "Domen ýa-da subdomen giriziň (meselem, learn.mycompany.com ýa-da academy.example.org)",
+        "domain_required": "Domen hökmany",
+        "domain_added_success": "Domen üstünlikli goşuldy",
+        "domain_deleted_success": "Domen üstünlikli pozuldy",
+        "copied_to_clipboard": "Bufere göçürildi",
+        "table_domain": "Domen",
+        "table_ssl": "SSL",
+        "table_verified": "Barlanan",
+        "adding_domain": "Domen goşulýar...",
+        "deleting_domain": "Domen pozulýar...",
+        "dns_config_required": "DNS düzgünleşdirmesi talap edilýär",
+        "dns_config_description": "Bu ýazgylary domen registratoryňyzda (meselem, Cloudflare, GoDaddy, Namecheap) goşuň. DNS üýtgeşmeleriniň ýaýramagy 48 sagada çenli dowam edip biler.",
+        "txt_record": "TXT ýazgysy",
+        "for_verification": "Barlag üçin",
+        "cname_record": "CNAME ýazgysy",
+        "for_routing": "Ugrukdyrmak üçin",
+        "host_name": "Host / Ady",
+        "value": "Baha",
+        "value_target": "Baha / Maksat",
+        "ssl_certificate": "SSL şahadatnamasy",
+        "https_status": "HTTPS ýagdaýy",
+        "check": "Barla",
+        "checking_ssl": "SSL ýagdaýy barlanýar...",
+        "delete_domain_title": "Ýörite domeni poz",
+        "delete_domain_confirm": "Bu domeni pozmaga ynamyňyz barmy? Bu amaly yzyna gaýtaryp bolmaýar.",
+        "delete_domain": "Domeni poz",
+        "verify_domain_desc": "Eýeçiligi barlamak üçin domen üpjün edijiňizde aşakdaky DNS ýazgylaryny goşuň.",
+        "issuer": "Berýän",
+        "expires": "Möhleti gutarýar",
+        "verify": "Barla",
+        "remove": "Aýyr",
+        "pending": "Garaşylýar",
+        "active": "Işjeň",
+        "failed": "Şowsuz",
+        "table_status": "Ýagdaýy",
+        "table_added": "Goşuldy",
+        "table_actions": "Amallar"
+      },
+      "automations": {
+        "webhooks_title": "Webhooks",
+        "webhooks_subtitle": "Wakalar barada hakyky wagtda habarlary Make.com, n8n ýa-da öz API-ňiz ýaly daşarky hyzmatlara iberiň",
+        "webhooks_description": "Webhook nokatlary guramaçylygyňyzda waka bolanda HTTP POST haýyşlaryny alýar."
+      },
+      "api_access": {
+        "title": "API elýeterliligi",
+        "api_tokens": "API token-ler",
+        "docs_playground": "Resminama we synag meýdançasy",
+        "something_not_working": "Bir zat garaşylyşy ýaly işlemeýärmi?",
+        "tokens_description": "API token-ler daşarky programmalara guramaçylygyňyzyň maglumatlaryna howpsuz girmäge mümkinçilik berýär.",
+        "create_token": "Token döret",
+        "no_tokens_yet": "Entek API token ýok",
+        "create_first_token": "Başlamak üçin ilkinji token-iňizi dörediň",
+        "create_api_token": "API token döret",
+        "token_name": "Token-iň ady *",
+        "expires": "Möhleti gutarýar",
+        "revoked": "Yzyna alyndy",
+        "revoke": "Yzyna al",
+        "api_docs_title": "API resminamasy we synag meýdançasy",
+        "create_token_desc": "Programmatiki girmek üçin täze API token dörediň. Token diňe bir gezek görkeziler.",
+        "token_name_label": "Token-iň ady *",
+        "expiration_label": "Möhlet senesi (hökmany däl)",
+        "expiration_hint": "Hiç haçan möhleti gutarmaýan token üçin boş goýuň",
+        "read_only": "Diňe okamak",
+        "full_access": "Doly elýeterlilik",
+        "save_token_warning": "Token-iňizi indi ýatda saklaň!",
+        "save_token_hint": "Bu token-i diňe bir gezek görersiňiz. Ony göçüriň we howpsuz saklaň.",
+        "your_api_token": "Siziň API token-iňiz",
+        "never": "Hiç haçan",
+        "description_label": "Beýany",
+        "permissions_label": "Rugsatlar",
+        "custom": "Ýörite",
+        "cancel": "Ýatyr",
+        "done": "Taýyn"
+      },
+      "usage": {
+        "plan_resource_usage": "Meýilnama we serişde ulanylyşy",
+        "credit_usage": "Kredit ulanylyşy",
+        "base_credits": "Esasy kreditler",
+        "purchased": "Satyn alnan",
+        "used": "Ulanylan",
+        "remaining": "Galan",
+        "upsell": {
+          "title": "Has ýokary meýilnama bilen köpräk işläň",
+          "subtitle": "Çäkleriňizi artdyrmak we has köp mümkinçilik açmak üçin täzeläň.",
+          "popular": "Meşhur",
+          "compare": "Ähli meýilnamalary deňeşdir"
+        },
+        "courses": "Kurslar",
+        "members_label": "Agzalar",
+        "admin_seats": "Administrator ýerleri",
+        "unlimited": "Çäksiz",
+        "ai_credits": "Emeli intellekt kreditleri"
+      },
+      "general": {
+        "validation": {
+          "short_description_required": "Gysga beýan hökmany",
+          "short_description_max": "Gysga beýan 100 belgi ýa-da az bolmaly",
+          "about_max": "Barada teksti 400 belgi ýa-da az bolmaly",
+          "label_required": "Guramaçylyk belligi hökmany"
         }
       },
-      "certification": {
-        "form": {
-          "certification_name_max_length": "100 belgi ýa-da az bolmaly"
-        },
-        "types": {
-          "completion": "Kursy tamamlamak",
-          "achievement": "Üstünlige esaslanýan",
-          "assessment": "Baha bermä esaslanýan",
-          "participation": "Gatnaşyk",
-          "mastery": "Başarnyk ussatlygy",
-          "professional": "Hünär ösüşi",
-          "continuing": "Dowamly bilim",
-          "workshop": "Ussahana gatnaşygy",
-          "specialization": "Hünärleşme"
-        },
-        "patterns": {
-          "tech": {
-            "name": "Tehnologiýa"
-          }
-        },
-        "states": {
-          "disabled": {
-            "creating": "Döredilýär..."
-          }
-        }
+      "menu": {
+        "title": "Açyk nawigasiýa",
+        "subtitle": "Baglanyşyklary açyň/ýapyň, tertibini üýtgediň, adyny üýtgediň we öz baglanyşyklaryňyzy goşuň. Baglanyşyklar diňe degişli mümkinçilik meýilnamaňyzda bar we işjeň bolsa görünýär.",
+        "save": "Üýtgeşmeleri ýatda sakla",
+        "saving": "Menýu ýatda saklanýar…",
+        "saved": "Menýu täzelendi",
+        "error": "Menýuny täzelemek mümkin bolmady",
+        "add_custom": "Ýörite baglanyşyk goş",
+        "label_placeholder": "Bellik",
+        "custom_required": "Bellik we URL hökmany",
+        "plan_locked": "{{plan}} meýilnamasyny talap edýär",
+        "feature_off": "Mümkinçilik öçük",
+        "add": "Goş"
+      },
+      "danger_zone": {
+        "delete_org_tooltip": "Guramaçylygy hemişelik poz"
+      },
+      "security": {
+        "saving": "Howpsuzlyk syýasaty ýatda saklanýar…",
+        "save_error": "Howpsuzlyk syýasatyny ýatda saklap bolmady.",
+        "save_success": "Howpsuzlyk syýasaty täzelendi",
+        "admin_mfa_first": "Guramaçylyk üçin talap etmezden öň öz hasabyňyzda iki ädimli barlagy işjeňleşdiriň.",
+        "admin_mfa_first_why": "Diýmek, syýasat ýatda saklan badyna sizi öz guramaçylygyňyzdan petikläp, ony ýene öçürjek administrator galmazdy.",
+        "admin_mfa_first_cta": "Hasabyňyzda iki ädimli barlagy sazlaň",
+        "not_admin_title": "Bu sazlama girmäge rugsadyňyz ýok",
+        "not_admin_body": "Iki ädimli barlag talabyny diňe guramaçylyk administratorlary görüp ýa-da üýtgedip biler.",
+        "read_only": "Bu sahypany gözden geçirip bilersiňiz, ýöne syýasaty diňe guramaçylyk administratory üýtgedip biler.",
+        "methods_title": "Rugsat berlen giriş usullary",
+        "methods_description": "Agzalaryň bu guramaçylyga nädip girip biljekdigini saýlaň. Girişi çäklendirmezlik üçin ähli usulyň bellenen ýagdaýda goýuň.",
+        "methods_empty_warning": "Hiç bir usul saýlanmasa, hiç kim bu guramaçylyga giräýmez. Iň az birini saýlaň.",
+        "methods_effect": "Bellenmedik usullar bu guramaçylygyň giriş sahypasyndan ýitýär we olaryň biri bilen eýýäm giren agzalardan rugsat berlen usul bilen täzeden girmek soralýar.",
+        "session_sharing_label": "sirius.local bilen sessiýalary paýlaşmaga rugsat ber",
+        "session_sharing_hint": "Öçük bolanda, sirius.local-da girmek agzalary bu guramaçylyga goýbermez; olar bu guramaçylygyň giriş sahypasyndan rugsat berlen usul bilen täzeden girmeli.",
+        "save": "Üýtgeşmeleri ýatda sakla",
+        "load_error": "Guramaçylygyňyzyň iki ädimli barlag ýagdaýyny ýüklemek mümkin bolmady.",
+        "reset_error": "Bu agzanyň iki ädimli barlagyny täzeden belläp bolmady.",
+        "subtitle": "Bu guramaçylykdaky her kim üçin iki ädimli barlagy talap ediň.",
+        "compliance_title": "Iki ädimli barlagyň örtügi",
+        "compliance_count": "{{total}} agzadan {{enabled}} iki ädimli barlagy işjeňleşdirdi",
+        "refresh": "Täzele",
+        "stat_enrolled": "Işjeňleşdiren",
+        "stat_exempt": "Azat (daşarky giriş)",
+        "stat_blocked": "Petiklener",
+        "blocked_hint_active": "Bu agzalar möhleti gutarandan soň, işjeňleşdirmeseler, bu guramaçylyga girmegi ýitirýärler.",
+        "members_sorted": "işjeňleşdirmedikler ilki",
+        "members_empty": "Bu guramaçylykda entek agza ýok.",
+        "you": "siz",
+        "badge_enrolled": "Işjeňleşdirdi",
+        "badge_exempt": "Azat: {{method}}",
+        "badge_not_enrolled": "Işjeňleşdirmedi",
+        "reset_hint": "Bu agzanyň iki ädimli barlagyny arassalaň, şonda ol ony täzeden sazlap biler",
+        "resetting": "Täzeden bellenýär…",
+        "reset_confirm": "Täzeden bellemegi tassyklaýarsyňyzmy?",
+        "reset_2fa": "2FA-ny täzeden belle",
+        "show_all": "Ähli {{count}} agzany görkez",
+        "policy_title": "Iki ädimli barlagy talap et",
+        "policy_description": "Ikinji faktory bolmadyk agzalar möhleti gutarandan soň bu guramaçylykdan petiklenýär. Olar hasabyny we degişli beýleki guramaçylyklaryny saklaýarlar we işjeňleşdiren badyna girmegi dikeldýärler.",
+        "active_since": "Syýasat {{date}} senesinden bäri işjeň",
+        "active_no_date": "Syýasat işjeň",
+        "no_restart_note": "Eýýäm işjeň syýasatda üýtgeşmeleri ýatda saklamak hiç kimiň yzygiderli sanawyny täzeden başlamaýar; bar bolan möhletler ýokardaky sene bilen baglanyşykly galýar. Yzygiderli sanama diňe talaby öçürip, ýene açsaňyz täzeden başlaýar.",
+        "grace_label": "Möhlet",
+        "grace_immediately": "Derrew",
+        "grace_days": "{{count}} gün",
+        "grace_hint_immediate": "Iki ädimli barlagy bolmadyk agzalar syýasat ýatda saklan badyna petiklenýär.",
+        "grace_hint_days": "Agzalara petiklenmezden öň işjeňleşdirmek üçin {{count}} gün berilýär. Täze agzalara goşulan gününden şol bir wagt berilýär.",
+        "exempt_label": "Google ýa-da SSO arkaly girýän ulanyjylary azat et",
+        "exempt_hint": "Olaryň şahsyýet üpjün edijisi eýýäm köp faktorly barlagy ýerine ýetirýär, şonuň üçin bu ýerde ikinji faktor soramak hiç zat goşmaýar.",
+        "self_blocking": "Siziň öz möhletiňiz geçdi. Bu guramaçylyga girmegi saklamak üçin indi işjeňleşdiriň.",
+        "self_days_left": "Iki ädimli barlagy özüňiz işjeňleşdirmek üçin {{count}} gün galdy.",
+        "confirm_title": "Hemmeler üçin iki ädimli barlagy talap etmelimi?",
+        "confirm_none": "Bu guramaçylykdaky her kimde iki ädimli barlag işjeň ýa-da azat. Hiç kim girmegi ýitirmeýär.",
+        "confirm_immediate": "{{total}} agzadan {{count}} ýatda saklan badyna bu guramaçylyga girmegi derrew ýitirer.",
+        "confirm_deadline": "{{total}} agzadan {{count}} {{date}} senesine çenli iki ädimli barlagy işjeňleşdirmese, bu guramaçylyga girmegi ýitirer.",
+        "confirm_list_title": "Kime täsir edýär",
+        "confirm_exempt_note": "{{count}} agza daşarky şahsyýet üpjün edijisi arkaly girýändigi üçin azat.",
+        "confirm_reversible": "Muny yzyna gaýtaryp bolýar: talaby öçürmek girişi derrew dikeldýär.",
+        "confirm_button": "Hawa, iki ädimli barlagy talap et",
+        "saving_short": "Ýatda saklanýar…",
+        "cancel": "Ýatyr",
+        "load_error_title": "Bir zat nädogry boldy",
+        "retry": "Täzeden synanyş",
+        "members_title": "Agzalar",
+        "show_less": "Az görkez"
+      },
+      "course_end": {
+        "title": "Kursy tamamlamak ekrany",
+        "subtitle": "Okuwçylar kursy gutarandan soň olara görkezilýär",
+        "saved": "Kursy tamamlamak ekrany ýatda saklandy",
+        "error": "Kursy tamamlamak ekranyny ýatda saklap bolmady",
+        "message_label": "Habar",
+        "message_help": "Gutlag sözbaşysynyň aşagyndaky adaty setiri çalyşýar. Adatyny saklamak üçin boş goýuň.",
+        "button_text_label": "Düwme teksti",
+        "button_link_label": "Düwme baglanyşygy",
+        "button_link_help": "/courses ýaly içki ýol ýa-da doly https:// URL. Kurs katalogyňyza baglamak üçin boş goýuň.",
+        "link_invalid": "/ bilen başlaýan içki ýol ýa-da doly http(s) URL ulanyň",
+        "save": "Ýatda sakla",
+        "saving": "Ýatda saklanýar...",
+        "preview": "Öňünden görmek"
       }
     },
     "users": {
@@ -1612,6 +4008,156 @@
           "message2": "Ulanyjy sazlamalaryny görmek we dolandyrmak üçin kompýutere geçiň."
         }
       },
+      "analytics": {
+        "view_analytics": "Okuwçy analitikasyny gör",
+        "open_full_page": "Doly analitika sahypasyny aç",
+        "compare": "Analitikany deňeşdir",
+        "compare_students": "Okuwçylary deňeşdir",
+        "export": "Eksport et",
+        "export_selected": "Analitikany eksport et ({{count}})",
+        "exporting": "Eksport edilýär…",
+        "failed_load": "Okuwçynyň resminamasyny ýüklemek şowsuz boldy.",
+        "back_to_students": "Okuwçylara dolan",
+        "no_behavioral": "Özüni alyp barşy maglumatlary ýok (bu döwür üçin analitika düzülmedik bolmagy mümkin).",
+        "ranges": {
+          "d30": "30 gün",
+          "d90": "90 gün",
+          "y1": "1 ýyl"
+        },
+        "kpi": {
+          "completed": "{{count}} tamamlandy",
+          "avg_progress": "Ortaça ösüş",
+          "time_spent": "Sarp edilen wagt",
+          "avg_grade": "ortaça {{grade}}",
+          "certificates": "Şahadatnamalar",
+          "connections": "Birikmeler",
+          "last": "soňky {{date}}",
+          "courses": "Kurslar",
+          "assignments": "Tabşyryklar"
+        },
+        "tabs": {
+          "connections": "Birikmeler",
+          "certificates": "Şahadatnamalar",
+          "behavior": "Özüni alyp barşy",
+          "courses": "Kurslar",
+          "assignments": "Tabşyryklar",
+          "code": "Kod",
+          "community": "Jemgyýet"
+        },
+        "identity": {
+          "verified": "Tassyklanan",
+          "via": "{{method}} arkaly",
+          "unverified": "Tassyklanmadyk"
+        },
+        "connections": {
+          "title": "Birikmeler",
+          "empty": "Entek hasaba alnan birikme ýok.",
+          "device": "Enjam",
+          "raw_agent": "Çig ulanyjy agenti",
+          "unknown_device": "Näbelli enjam"
+        },
+        "courses": {
+          "title": "Kursuň ösüşi",
+          "empty": "Hiç bir kursa ýazylmady.",
+          "activities": "{{done}}/{{total}} sapak",
+          "enrolled": "{{date}} senesinde ýazyldy"
+        },
+        "assignments": {
+          "empty": "Tabşyryk işi ýok.",
+          "attempt": "{{number}}-nji synanyşyk",
+          "feedback": "Pikir:",
+          "tasks": "{{total}} bölekden {{done}} tabşyryldy",
+          "no_tasks": "Bu tabşyrykda bölek ýok.",
+          "title": "Tabşyryklar"
+        },
+        "code": {
+          "title": "Kod maşklary",
+          "empty": "Kod tabşyrylmady.",
+          "activity": "Sapak",
+          "result": "Netije",
+          "tests": "Testler",
+          "time": "Wagt",
+          "when": "Haçan",
+          "untitled_activity": "Atsyz sapak",
+          "passed": "Geçdi",
+          "failed": "Şowsuz",
+          "language": "Dil",
+          "course": "Kurs"
+        },
+        "community": {
+          "title": "Jemgyýete gatnaşyk",
+          "empty": "Jemgyýet işjeňligi ýok.",
+          "comments": "Teswirler",
+          "in_discussion": "«{{title}}» içinde",
+          "discussions": "Pikir alyşmalar",
+          "community": "Jemgyýet"
+        },
+        "certificates": {
+          "title": "Gazanylan şahadatnamalar",
+          "empty": "Gazanylan şahadatnama ýok.",
+          "credential_id": "Şahadatnamanyň ID-si"
+        },
+        "behavior": {
+          "title": "Özüni alyp barşy analitikasy",
+          "time_by_course": "Kurs boýunça sarp edilen wagt",
+          "searches": "Gözlegler",
+          "views": "Sahypa we mazmun görmekler",
+          "untitled_course": "Atsyz kurs"
+        },
+        "status": {
+          "completed": "tamamlandy",
+          "in_progress": "dowam edýär",
+          "paused": "togtadyldy",
+          "cancelled": "ýatyryldy",
+          "graded": "baha berildi",
+          "submitted": "tabşyryldy",
+          "pending": "garaşylýar",
+          "late": "gijä galdy",
+          "not_submitted": "tabşyrylmady"
+        },
+        "comparison": {
+          "student": "Okuwçy",
+          "enrolled": "Ýazylan",
+          "certificates": "Şahadatnamalar",
+          "last_connection": "Soňky birikme",
+          "view": "Gör",
+          "completed": "Tamamlandy"
+        },
+        "export_include_raw": "Çig tabşyryk maglumatlaryny goş",
+        "answer": {
+          "answered": "Jogap berlen",
+          "expected": "Garaşylýan jogap",
+          "no_answer": "Jogap berilmedi",
+          "correct_answer": "Dogry jogap",
+          "not_graded": "Awtomatiki baha berilmeýär",
+          "score": "{{total}} içinden {{correct}} dogry",
+          "explanation": "Düşündiriş",
+          "raw_note": "Ýörite bölek (çig meýdanlar hökmünde görkezilýär)",
+          "manual": "elde baha berildi",
+          "source_code": "Tabşyrylan kod",
+          "test_cases": "Test ýagdaýlary",
+          "hidden_test": "Gizlin test {{number}}",
+          "actual": "Çykdajy",
+          "download_file": "Faýly ýükläp al",
+          "question": "Sorag",
+          "correct": "Dogry",
+          "incorrect": "Nädogry",
+          "not_submitted": "Tabşyrylmady",
+          "test_passed": "Geçdi",
+          "test_failed": "Şowsuz"
+        },
+        "task_types": {
+          "FORM": "Boşluklary doldurmak",
+          "NUMBER_ANSWER": "San jogaby",
+          "FILE_SUBMISSION": "Faýl ýüklemek",
+          "CODE": "Kod maşky",
+          "CUSTOM": "Ýörite bölek",
+          "QUIZ": "Test",
+          "SHORT_ANSWER": "Gysga jogap",
+          "OTHER": "Başga"
+        },
+        "button": "Analitika"
+      },
       "active_users": {
         "title": "Işjeň ulanyjylar",
         "subtitle": "Guramaçylygyňyzyň ulanyjylaryny dolandyryň, rollary we rugsatlary bellän",
@@ -1654,6 +4200,69 @@
         },
         "beyond_included": "{{count}} meýilnamaňyzdan geçýär",
         "beyond_included_tooltip": "Bu agzalar meýilnamaňyza girýän sandan geçýär. Diňe şu aýda işjeň bolanlar sanalýar. Jikme-jiklikler üçin hasap-faktura bölümine serediň."
+      },
+      "signups": {
+        "title": "Goşulmak usuly",
+        "subtitle": "Ulanyjylaryň guramaçylygyňyza nädip goşulyp biljekdigini saýlaň",
+        "open": {
+          "description": "Ulanyjylar hasaba durmak sahypasyndan erkin goşulyp biler",
+          "change_to": "Açyk edip üýtget",
+          "confirmation_message": "Hasaba durmak mehanizmini açyk edip üýtgetmäge ynamyňyz barmy? Bu ulanyjylara guramaçylygyňyza erkin goşulmaga rugsat berer.",
+          "confirmation_title": "Açyk edip üýtgedilsinmi?",
+          "title": "Aç",
+          "active": "Işjeň"
+        },
+        "closed": {
+          "title": "Ýapyk",
+          "description": "Ulanyjylar diňe çakylyk arkaly goşulyp biler",
+          "change_to": "Ýapyk edip üýtget",
+          "confirmation_message": "Hasaba durmak mehanizmini ýapyk edip üýtgetmäge ynamyňyz barmy? Bu ulanyjylara guramaçylygyňyza diňe çakylyk arkaly goşulmaga rugsat berer.",
+          "confirmation_title": "Ýapyk edip üýtgedilsinmi?",
+          "active": "Işjeň"
+        },
+        "invite_codes": {
+          "title": "Çakylyk kodlary",
+          "subtitle": "Çakylyk kodlaryny göçürip, guramaçylygyňyza goşulmak üçin ulanyp bolýar",
+          "table": {
+            "signup_link": "Hasaba durmak baglanyşygy",
+            "type": "Görnüşi",
+            "expiration_date": "Möhlet senesi",
+            "code": "Kod",
+            "actions": "Amallar"
+          },
+          "types": {
+            "linked_to_usergroup": "Ulanyjy topary bilen baglanyşykly",
+            "normal": "Adaty"
+          },
+          "actions": {
+            "delete_code": "Kody poz",
+            "delete_confirmation_title": "Kod pozulsynmy?",
+            "delete_confirmation_message": "Bu çakylyk kodyny aýyrmaga ynamyňyz barmy?",
+            "generate": "Çakylyk kody döret",
+            "generate_title": "Çakylyk kody döret",
+            "generate_description": "Guramaçylygyňyz üçin täze çakylyk kody dörediň"
+          },
+          "toasts": {
+            "delete_success": "Çakylyk kody pozuldy",
+            "delete_error": "Pozmakda ýalňyşlyk",
+            "changing_method": "Goşulmak usuly üýtgedilýär...",
+            "change_success": "Goşulmak usuly {{method}} edilip üýtgedildi",
+            "change_error": "Goşulmak usulyny üýtgetmekde ýalňyşlyk",
+            "deleting": "Pozulýar..."
+          }
+        },
+        "generate_modal": {
+          "linked_title": "Ulanyjy topary bilen baglanyşykly çakylyk kody",
+          "linked_description": "Hasaba durlanda ulanyjylar özüňiziň saýlan ulanyjy toparyňyz bilen awtomatiki baglanar",
+          "normal_title": "Adaty çakylyk kody",
+          "normal_description": "Hasaba durlanda ulanyjy hiç bir ulanyjy topary bilen baglanmaz",
+          "generate_button": "Döret",
+          "no_usergroups": "Elýeterli ulanyjy topary ýok",
+          "create_usergroup_link": "Ulanyjy topary döret",
+          "toasts": {
+            "error": "Ýalňyşlyk {{status}}: {{detail}}"
+          }
+        }
       },
       "invite_members": {
         "title": "Guramaçylygyňyza ulanyjylary çagyryň",
@@ -2052,77 +4661,6 @@
         "add": "Meýdan goş",
         "options": "Saýlawlar (her setirde bir)",
         "options_placeholder": "Birinji saýlaw\nIkinji saýlaw"
-      },
-      "analytics": {
-        "button": "Analitika",
-        "kpi": {
-          "courses": "Kurslar",
-          "assignments": "Tabşyryklar"
-        },
-        "tabs": {
-          "courses": "Kurslar",
-          "assignments": "Tabşyryklar",
-          "code": "Kod",
-          "community": "Jemgyýet"
-        },
-        "identity": {
-          "unverified": "Tassyklanmadyk"
-        },
-        "assignments": {
-          "title": "Tabşyryklar"
-        },
-        "code": {
-          "passed": "Geçdi",
-          "failed": "Şowsuz",
-          "language": "Dil",
-          "course": "Kurs"
-        },
-        "community": {
-          "discussions": "Pikir alyşmalar",
-          "community": "Jemgyýet"
-        },
-        "comparison": {
-          "completed": "Tamamlandy"
-        },
-        "answer": {
-          "question": "Sorag",
-          "correct": "Dogry",
-          "incorrect": "Nädogry",
-          "not_submitted": "Tabşyrylmady",
-          "test_passed": "Geçdi",
-          "test_failed": "Şowsuz"
-        },
-        "task_types": {
-          "QUIZ": "Test",
-          "SHORT_ANSWER": "Gysga jogap",
-          "OTHER": "Başga"
-        }
-      },
-      "signups": {
-        "open": {
-          "title": "Aç",
-          "active": "Işjeň"
-        },
-        "closed": {
-          "active": "Işjeň"
-        },
-        "invite_codes": {
-          "table": {
-            "code": "Kod",
-            "actions": "Amallar"
-          },
-          "toasts": {
-            "deleting": "Pozulýar..."
-          }
-        },
-        "generate_modal": {
-          "generate_button": "Döret",
-          "no_usergroups": "Elýeterli ulanyjy topary ýok",
-          "create_usergroup_link": "Ulanyjy topary döret",
-          "toasts": {
-            "error": "Ýalňyşlyk {{status}}: {{detail}}"
-          }
-        }
       },
       "security": {
         "two_factor_title": "Iki ädimli barlag"
@@ -2598,312 +5136,163 @@
       },
       "entries": {
         "home": {
-          "description": "Dolandyryş paneliniň syny"
+          "description": "Dolandyryş paneliniň syny",
+          "keywords": "baş sahypa, syn, başla, dolandyryş paneli, home, overview, dashboard"
         },
         "courses": {
-          "description": "Kurslaryňyzy dolandyryň"
+          "description": "Kurslaryňyzy dolandyryň",
+          "keywords": "kurslar, sapaklar, öwren, okuw, synplar, courses, lessons, learn, training"
         },
         "assignments": {
-          "description": "Tabşyryklary dolandyryň"
+          "description": "Tabşyryklary dolandyryň",
+          "keywords": "tabşyryklar, öý işi, maşklar, tabşyrylanlar, tasks, homework, exercises"
         },
         "communities": {
-          "description": "Jemgyýetleri dolandyryň"
+          "description": "Jemgyýetleri dolandyryň",
+          "keywords": "forumlar, pikir alyşmalar, agzalar, ýazgylar, forums, discussions, members"
+        },
+        "podcasts": {
+          "description": "Podkastlary dolandyryň",
+          "keywords": "audio, bölümler, görkezişler, episodes, shows"
+        },
+        "boards": {
+          "description": "Tagtalary dolandyryň",
+          "keywords": "kanban, taslama, tabşyryklar, sanawlar, project, tasks, lists"
+        },
+        "playgrounds": {
+          "description": "Programmirleme meýdançalary",
+          "keywords": "kod, programmirleme, code, sandbox, repl, programming"
         },
         "analytics": {
-          "description": "Analitika panellerini görüň"
+          "description": "Analitika panellerini görüň",
+          "keywords": "statistika, görkezijiler, diagrammalar, hasabatlar, stats, metrics, charts, reports"
         },
         "users": {
-          "description": "Guramaçylygyň ulanyjylaryny dolandyryň"
+          "description": "Guramaçylygyň ulanyjylaryny dolandyryň",
+          "keywords": "agzalar, hasaplar, adamlar, members, accounts, people"
         },
         "usergroups": {
-          "description": "Ulanyjy toparlaryny dolandyryň"
+          "description": "Ulanyjy toparlaryny dolandyryň",
+          "keywords": "toparlar, synplar, topar, teams, cohorts, groups"
         },
         "roles": {
-          "description": "Rollary we rugsatlary dolandyryň"
+          "description": "Rollary we rugsatlary dolandyryň",
+          "keywords": "rugsatlar, elýeterlilik, howpsuzlyk, permissions, access, rbac, security"
+        },
+        "signups": {
+          "description": "Ulanyjylaryň hasaba durmaklaryny gözden geçiriň",
+          "keywords": "hasaba durmak, arzalar, haýyşlar, registrations, applications, requests"
+        },
+        "org_general": {
+          "description": "Guramaçylygyň umumy sazlamalary",
+          "keywords": "ady, brend, profil, name, branding, slug, profile"
+        },
+        "org_features": {
+          "description": "Guramaçylygyň mümkinçiliklerini dolandyryň",
+          "keywords": "mümkinçilikler, modullar, çalşyjylar, features, modules, toggles"
+        },
+        "org_billing": {
+          "description": "Hasap-faktura we ýazylma",
+          "keywords": "meýilnama, töleg, faktura, ýazylma, plan, payments, invoice, subscription"
+        },
+        "payments_overview": {
+          "description": "Töleglere syn we girdeji",
+          "keywords": "stripe, panel, girdeji, satuw, dashboard, revenue, sales",
+          "title": "Töleglere syn"
+        },
+        "payments_products": {
+          "description": "Töleg önümleri we bahalar",
+          "keywords": "önümler, bahalar, stripe, derejeler, meýilnamalar, products, prices, tiers, plans",
+          "title": "Önümler"
         },
         "users_add": {
-          "description": "Täze agzalary çagyryň"
+          "description": "Täze agzalary çagyryň",
+          "keywords": "çagyr, goş, agzalar, iber, invite, add, members, send"
+        },
+        "users_audit_logs": {
+          "description": "Guramaçylygyň işjeňlik ýazgysy",
+          "keywords": "audit, ýazgylar, taryh, howpsuzlyk, işjeňlik, logs, history, security, activity"
+        },
+        "users_analytics": {
+          "description": "Okuwçy boýunça okuw işjeňligi we audit",
+          "keywords": "analitika, audit, okuwçy, ösüş, işjeňlik, eksport, analytics, student, progress, export"
+        },
+        "org_branding": {
+          "description": "Logotip, reňkler we görnüş şahsyýeti",
+          "keywords": "brend, logotip, reňkler, tema, görnüş, branding, logo, colors, theme, look"
+        },
+        "org_landing": {
+          "description": "Başlangyç sahypaňyzy özüňize görä düzüň",
+          "keywords": "başlangyç sahypa, baş sahypa, landing, homepage, hero, page"
+        },
+        "org_seo": {
+          "description": "Gözleg ulgamy üçin gowulandyrma",
+          "keywords": "seo, gözleg, meta, reýting, google, search, ranking"
+        },
+        "org_ai": {
+          "description": "Emeli intellekt mümkinçilikleri we düzgünleşdirme",
+          "keywords": "emeli intellekt, ai, llm, gpt, openai, generation"
+        },
+        "org_domains": {
+          "description": "Ýörite domenler",
+          "keywords": "domen, dns, ýörite, subdomen, domain, custom, subdomain, cname"
+        },
+        "org_automations": {
+          "description": "Webhooks we daşarky integrasiýalar",
+          "keywords": "webhooks, awtomatlaşdyrma, zapier, integrasiýalar, automations, integrations, triggers"
+        },
+        "org_api": {
+          "description": "API token-ler we programmatiki elýeterlilik",
+          "keywords": "api, token-ler, elýeterlilik, açarlar, tokens, access, keys"
+        },
+        "org_sso": {
+          "description": "Ýeke giriş düzgünleşdirmesi",
+          "keywords": "sso, saml, oauth, kärhana, giriş, enterprise, login"
+        },
+        "org_other": {
+          "description": "Beýleki guramaçylyk sazlamalary",
+          "keywords": "başga, ösen, ýörite, goşmaça, misc, advanced, custom, extra"
+        },
+        "payments_groups": {
+          "description": "Töleg toparlary we toplumlar",
+          "keywords": "toparlar, toplumlar, groups, bundles, sets",
+          "title": "Töleg toparlary"
+        },
+        "payments_configuration": {
+          "description": "Stripe we töleg düzgünleşdirmesi",
+          "keywords": "düzgünleşdirme, sazlamalar, stripe, sazlamak, configuration, settings, setup, connect",
+          "title": "Düzgünleşdirme"
+        },
+        "payments_customers": {
+          "description": "Müşderiler we ýazylanlar",
+          "keywords": "müşderiler, ýazylanlar, alyjylar, tölegli, customers, subscribers, buyers, paid",
+          "title": "Müşderiler"
+        },
+        "courses_migrate": {
+          "description": "Başga LMS-den kurslary import ediň",
+          "keywords": "import, göçürmek, geçirmek, lms, moodle, canvas, migrate, transfer",
+          "title": "Kurslary göçür"
         },
         "account_general": {
-          "description": "Şahsy hasabyň umumy sazlamalary"
+          "description": "Şahsy hasabyň umumy sazlamalary",
+          "keywords": "hasap, sazlamalar, e-poçta, ady, dil, account, settings, email, name, language"
         },
         "account_profile": {
-          "description": "Profiliňizi we özüňiz barada maglumaty üýtgediň"
+          "description": "Profiliňizi we özüňiz barada maglumaty üýtgediň",
+          "keywords": "profil, özüm hakda, awatar, surat, açyk, profile, bio, avatar, picture, public"
         },
         "account_security": {
-          "description": "Parol we howpsuzlyk sazlamalary"
+          "description": "Parol we howpsuzlyk sazlamalary",
+          "keywords": "parol, howpsuzlyk, 2fa, mfa, sessiýalar, password, security, sessions"
+        },
+        "account_purchases": {
+          "description": "Satyn alnanlaryňyz we ýazylmalaryňyz",
+          "keywords": "satyn alnanlar, ýazylmalar, hasap-faktura, taryh, çekler, purchases, subscriptions, billing, history, receipts"
         }
       }
     },
-    "organization": {
-      "audit_logs": {
-        "table": {
-          "user": "Ulanyjy",
-          "resource": "Serişde",
-          "status": "Ýagdaýy"
-        },
-        "title": "Audit ýazgylary",
-        "subtitle": "Guramaçylygyňyzdaky ähli işjeňligi yzarlaň we gözegçilik ediň",
-        "filters": {
-          "resource": "Serişde",
-          "status": "Ýagdaýy"
-        },
-        "resources": {
-          "user": "Ulanyjy",
-          "course": "Kurs",
-          "org": "Guramaçylyk"
-        }
-      },
-      "landing": {
-        "beta": "BETA",
-        "save_changes": "Üýtgeşmeleri ýatda sakla",
-        "saving": "Ýatda saklanýar...",
-        "sections": "Bölümler",
-        "select_section": "Üýtgetmek üçin bölüm saýlaň ýa-da täze bölüm goşuň",
-        "section_types": {
-          "featured_courses": {
-            "label": "Kurslar"
-          },
-          "video": {
-            "label": "Wideo"
-          },
-          "rich_text": {
-            "label": "Tekst"
-          },
-          "features": {
-            "label": "Mümkinçilikler"
-          },
-          "gallery": {
-            "label": "Galereýa"
-          },
-          "image": {
-            "label": "Surat"
-          },
-          "embed": {
-            "label": "Ýerleşdir"
-          },
-          "banner": {
-            "label": "Yglan"
-          }
-        },
-        "add_section": "Bölüm goş",
-        "hero_editor": {
-          "section_title": "Bölümiň ady",
-          "section_title_placeholder": "Bölümiň adyny giriziň",
-          "tabs": {
-            "content": "Mazmun"
-          },
-          "background_types": {
-            "image": "Surat"
-          },
-          "upload_image": "Surat ýükle",
-          "text_color": "Tekst",
-          "size": "Ölçeg",
-          "sizes": {
-            "small": "Kiçi",
-            "medium": "Orta",
-            "large": "Uly"
-          }
-        },
-        "text_image_editor": {
-          "title_label": "Ady",
-          "title_placeholder": "Bölümiň adyny giriziň",
-          "content": "Mazmun",
-          "image": "Surat",
-          "image_url": "Suratyň salgysy"
-        },
-        "logos_editor": {
-          "title_label": "Ady",
-          "title_placeholder": "Bölümiň adyny giriziň",
-          "logo_url": "Logotipiň salgysy"
-        },
-        "people_editor": {
-          "title_label": "Ady",
-          "title_placeholder": "Bölümiň adyny giriziň",
-          "name": "Ady",
-          "username": "Ulanyjy ady",
-          "image": "Surat",
-          "image_url": "Suratyň salgysy",
-          "description": "Beýany"
-        },
-        "courses_editor": {
-          "title_label": "Ady",
-          "title_placeholder": "Bölümiň adyny giriziň",
-          "loading_courses": "Kurslar ýüklenýär...",
-          "select": "Saýla",
-          "private_badge": "Diňe ulanyjylar"
-        },
-        "video_editor": {
-          "title_label": "Ady",
-          "description_label": "Beýany",
-          "url_label": "Wideo"
-        },
-        "visibility": {
-          "title": "Görünmesi"
-        },
-        "blocks": {
-          "title_label": "Ady",
-          "description_label": "Beýany",
-          "move_up": "Ýokary süýşür",
-          "move_down": "Aşak süýşür",
-          "remove": "Aýyr",
-          "background_none": "Ýok",
-          "background_image": "Surat",
-          "color": "Reňk",
-          "spacing_none": "Ýok",
-          "spacing_small": "Kiçi",
-          "spacing_medium": "Orta",
-          "spacing_large": "Uly",
-          "button_color": "Tekst",
-          "rich_text": {
-            "content": "Mazmun"
-          },
-          "testimonials": {
-            "author": "Ady"
-          },
-          "faq": {
-            "question": "Sorag",
-            "answer": "Jogap"
-          },
-          "spacer": {
-            "size": "Ölçeg"
-          },
-          "animation_none": "Ýok",
-          "image": {
-            "caption": "Surat ady",
-            "link": "Bagla"
-          },
-          "embed": {
-            "url": "URL"
-          },
-          "banner": {
-            "title": "Yglan",
-            "text": "Tekst"
-          }
-        }
-      },
-      "security": {
-        "saving_short": "Ýatda saklanýar…",
-        "cancel": "Ýatyr",
-        "load_error_title": "Bir zat nädogry boldy",
-        "retry": "Täzeden synanyş",
-        "members_title": "Agzalar",
-        "show_less": "Az görkez"
-      },
-      "course_end": {
-        "save": "Ýatda sakla",
-        "saving": "Ýatda saklanýar...",
-        "preview": "Öňünden görmek"
-      },
-      "settings": {
-        "tabs": {
-          "general": "Umumy",
-          "features": "Mümkinçilikler",
-          "other": "Başga",
-          "seo": "SEO"
-        },
-        "pages": {
-          "general": {
-            "title": "Umumy"
-          },
-          "other": {
-            "title": "Başga"
-          },
-          "features": {
-            "title": "Mümkinçilikler"
-          }
-        },
-        "save_changes": "Üýtgeşmeleri ýatda sakla",
-        "saving": "Ýatda saklanýar..."
-      },
-      "images": {
-        "tabs": {
-          "thumbnail": "Kiçi surat"
-        },
-        "uploading": "Ýüklenýär..."
-      },
-      "branding": {
-        "logos": {
-          "toasts": {
-            "uploading": "Ýüklenýär…"
-          }
-        },
-        "vignettes": {
-          "certificate": "Şahadatnama"
-        },
-        "theme": {
-          "clear": "Arassala"
-        },
-        "previews": {
-          "thumbnail_title": "Kiçi surat"
-        }
-      },
-      "auth_branding": {
-        "bg_custom": "Ýörite",
-        "saving": "Ýatda saklanýar..."
-      },
-      "socials": {
-        "placeholders": {
-          "url": "URL"
-        },
-        "add_link": "Baglanyşyk goş"
-      },
-      "sso": {
-        "status_enabled": "Işjeň",
-        "status_disabled": "Öçürilen",
-        "saving": "Ýatda saklanýar...",
-        "deleting": "Pozulýar..."
-      },
-      "features": {
-        "toggles": {
-          "courses": {
-            "title": "Kurslar"
-          },
-          "communities": {
-            "title": "Jemgyýetler"
-          },
-          "payments": {
-            "title": "Töleglar"
-          },
-          "podcasts": {
-            "title": "Podkastlar"
-          },
-          "boards": {
-            "title": "Tagtalar"
-          },
-          "playgrounds": {
-            "title": "Meýdançalar"
-          }
-        }
-      },
-      "domains": {
-        "verify": "Barla",
-        "remove": "Aýyr",
-        "pending": "Garaşylýar",
-        "active": "Işjeň",
-        "failed": "Şowsuz",
-        "table_status": "Ýagdaýy",
-        "table_added": "Goşuldy",
-        "table_actions": "Amallar"
-      },
-      "api_access": {
-        "never": "Hiç haçan",
-        "description_label": "Beýany",
-        "permissions_label": "Rugsatlar",
-        "custom": "Ýörite",
-        "cancel": "Ýatyr",
-        "done": "Taýyn"
-      },
-      "usage": {
-        "courses": "Kurslar",
-        "members_label": "Agzalar",
-        "admin_seats": "Administrator ýerleri",
-        "unlimited": "Çäksiz",
-        "ai_credits": "Emeli intellekt kreditleri"
-      },
-      "menu": {
-        "add": "Goş"
-      }
+    "developers": {
+      "breadcrumb": "Işläp düzüjiler"
     }
   },
   "editor": {
@@ -3082,6 +5471,40 @@
         "download_pdf": "PDF ýükläp al",
         "resize_pdf": "Ölçegini üýtgetmek üçin süýräň"
       },
+      "h5p_block": {
+        "default_title": "H5P interaktiw mazmun",
+        "description": "Bu ýerde görkezmek üçin H5P sapagynyň ýerleşdirme URL-ini goýuň.",
+        "hosted_hint": "Mazmun öz H5P hostuňyzda (H5P.com, Lumi ýa-da öz Drupal, Moodle ýa-da WordPress sahypaňyzda) galýar. Hostuň berýän ýerleşdirme URL-ini ýa-da tutuş iframe böleginiň içini goýup bilersiňiz.",
+        "url_label": "H5P ýerleşdirme URL-i",
+        "url_placeholder": "https://your-team.h5p.com/content/123456/embed",
+        "title_placeholder": "Ady (elýeterlilik we gözleg üçin ulanylýar)",
+        "edit_content": "H5P mazmunyny üýtget",
+        "remove_content": "H5P mazmunyny aýyr",
+        "errors": {
+          "empty": "H5P ýerleşdirme URL-ini giriziň.",
+          "unparseable": "Bu dogry URL-e meňzänok. H5P hostuňyzdan ýerleşdirme URL-ini ýa-da iframe böleginiň içini goýuň.",
+          "unsupported_protocol": "Diňe http we https URL-lerini ýerleşdirip bolýar."
+        },
+        "sizes": {
+          "auto_hint": "Sapak öz beýikligini habar bersin.",
+          "widescreen": "16:9",
+          "widescreen_hint": "Giň ekran, interaktiw wideo üçin iň gowusy.",
+          "classic": "4:3",
+          "classic_hint": "Klassiki, slaýd esasly görkezmeler üçin iň gowusy.",
+          "short": "Gysga",
+          "short_hint": "Kesgitli 320 pikselli çarçuwa.",
+          "medium_hint": "Kesgitli 520 pikselli çarçuwa.",
+          "tall": "Beýik",
+          "tall_hint": "Kesgitli 760 pikselli çarçuwa.",
+          "custom": "Ýörite ({{height}}px)",
+          "custom_hint": "Özüňiziň beýikligine çenli süýrelen.",
+          "auto": "Awto",
+          "medium": "Orta"
+        },
+        "resize_handle": "H5P çarçuwasynyň ölçegini üýtget",
+        "title_label": "Ady",
+        "size_label": "Ölçeg"
+      },
       "quiz_block": {
         "all_correct": "Ähli jogaplar dogry!",
         "some_incorrect": "Käbir jogaplar nädogry!",
@@ -3104,24 +5527,95 @@
         "response_type_multiple": "Birnäçe jogap",
         "no_correct_answer_warning": "Dogry jogap ýok: bu sorag böküldi"
       },
-      "library": "Kitaphana",
-      "flipcard_grid": "Kartoçkalar setiri",
-      "divider": "Bölüji",
       "math_block": {
+        "templates": "Nusgalar",
+        "select_template": "Goşmak üçin nusga saýlaň",
+        "symbols": "Belgiler",
+        "click_symbol": "Goşmak üçin belgä basyň",
+        "quick_reference": "LaTeX matematika çalt maglumaty",
+        "view_reference": "Doly maglumaty gör",
+        "placeholder": "Matematiki formula goş (LaTeX)",
+        "refer_to": "Goldanylýan TeX funksiýalary üçin şuňa serediň:",
+        "guide": "gollanma",
+        "for_functions": ".",
         "help": "Kömek"
       },
+      "embed_block": {
+        "edit_embed": "Ýerleşdirmäni üýtget",
+        "add_embed_from": "Ýerleşdirme goş:",
+        "click_service": "Ýerleşdirme goşmak üçin hyzmata basyň",
+        "add_embed": "{{name}} ýerleşdirmesini goş",
+        "add_embed_url": "Ýerleşdirme URL-ini goş",
+        "add_embed_code": "Ýerleşdirme koduny goş",
+        "paste_url": "{{name}} ýerleşdirme URL-ini goýuň",
+        "paste_any_url": "Ýerleşdirme URL-ini goýuň (YouTube, Spotify we ş.m.)",
+        "paste_directly": "Islendik ýerleşdirme URL-ini göni goýuň",
+        "how_to_embed": "{{name}} nädip ýerleşdirmeli",
+        "paste_code": "Ýerleşdirme koduny goýuň (iframe, ýerleşdirme skripti we ş.m.)",
+        "paste_iframe": "Islendik platformadan iframe ýa-da ýerleşdirme koduny goýuň",
+        "remove_embed": "Ýerleşdirmäni aýyr"
+      },
+      "web_preview_block": {
+        "website_preview": "Web sahypany öňünden görmek",
+        "embedded_preview": "Ýerleşdirilen web sahypa öňünden görmek",
+        "edit_url": "URL-i üýtget",
+        "delete_card": "Kartoçkany poz",
+        "edit_card": "Web öňünden görmek kartoçkasyny üýtget",
+        "edit_card_description": "Web sahypanyň öňünden görnüşini, düwmäni we görkezmek saýlawlaryny täzeläň.",
+        "website_url": "Web sahypanyň URL-i",
+        "enter_url": "Web sahypanyň URL-ini giriziň...",
+        "button_options": "Düwme saýlawlary",
+        "show_button": "Düwmäni görkez",
+        "open_popup": "Programma içinde açylýan penjire (ähli web sahypalarda işlemezligi mümkin)",
+        "button_label": "Düwme belligi",
+        "alignment": "Deňlemek",
+        "visit_site": "Sahypa bar",
+        "align": "Deňle"
+      },
+      "button_block": {
+        "enter_link_url": "Baglanyşyk URL-ini giriziň"
+      },
+      "user_block": {
+        "enter_username": "Ulanyjy adyny giriziň",
+        "load_user": "Ulanyjyny ýükle",
+        "no_user": "Ulanyjy saýlanmady"
+      },
       "magic_block_content": {
+        "title": "Jadyly blok",
+        "interactive_element": "Interaktiw element",
+        "iterations": "{{count}}/{{max}} gaýtalama",
+        "create_interactive": "Interaktiw mazmun döret",
+        "generate_description": "Emeli intellekt bilen testler, simulýasiýalar, diagrammalar we başgalary dörediň",
+        "generate_with_ai": "Emeli intellekt bilen döret",
+        "upgrade_required": "Emeli intellekt bilen interaktiw mazmun döretmek üçin Standart meýilnama täzeläň",
+        "edit_left": "Üýtget ({{count}} galdy)",
+        "save_and_close": "Ýatda sakla we ýap",
+        "magic_chat": "Jadyly çat",
+        "describe_prompt": "Döretmek isleýän interaktiw elementiňizi beýan ediň:",
+        "ai_generated": "Emeli intellekt döreden mazmun",
+        "check_preview": "Interaktiw element döredildi. Öňünden görmek panelini barlaň.",
+        "creating_magic": "Jady döredilýär...",
+        "max_iterations_reached": "Iň köp gaýtalama sanyna ýetildi. Mazmunyňyzy ýatda saklaň ýa-da täze blok başlaň.",
+        "placeholder_new": "Döretmek isleýän zadyňyzy beýan ediň...",
+        "placeholder_edit": "Üýtgeşmeleri ýa-da gowulandyrmalary beýan ediň...",
+        "suggestion_physics": "Fizika simulýasiýasy",
+        "suggestion_physics_prompt": "Sazlanýan burç we tizlik bilen atylan jisimiň hereketini görkezýän interaktiw fizika simulýasiýasyny dörediň",
+        "suggestion_chart": "Maglumat diagrammasy",
+        "suggestion_chart_prompt": "Ulanyjylar bahalary görmek üçin üstüne getirip bilýän nusga satuw maglumatlary bilen interaktiw sütünli diagramma dörediň",
+        "suggestion_quiz": "Test oýny",
+        "suggestion_quiz_prompt": "Ylym barada 5 köp saýlawly sorag bilen ýönekeý test oýnuny dörediň",
+        "suggestion_memory": "Ýat oýny",
+        "suggestion_memory_prompt": "Reňkli kartoçkalar bilen kartoçka gabat getirmek ýat oýnuny dörediň",
+        "suggestion_calculator": "Matematiki kalkulýator",
+        "suggestion_calculator_prompt": "Esasy deňlemeler üçin ädimme-ädim çözgütleri görkezýän kalkulýator dörediň",
+        "suggestion_timeline": "Wagt çyzygy",
+        "suggestion_timeline_prompt": "Giňeldilýän jikme-jiklikler bilen möhüm taryhy wakalary görkezýän interaktiw wagt çyzygyny dörediň",
         "drag_resize": "Ölçegini üýtgetmek üçin süýräň",
         "experimental": "Synag"
       },
-      "h5p_block": {
-        "title_label": "Ady",
-        "size_label": "Ölçeg",
-        "sizes": {
-          "auto": "Awto",
-          "medium": "Orta"
-        }
-      }
+      "library": "Kitaphana",
+      "flipcard_grid": "Kartoçkalar setiri",
+      "divider": "Bölüji"
     }
   },
   "embed": {
@@ -3137,6 +5631,153 @@
     "folder_count_one": "{{count}} bukja",
     "item_count": "{{count}} element",
     "item_count_one": "{{count}} element"
+  },
+  "hub_new": {
+    "useType": {
+      "personal": {
+        "label": "Şahsy",
+        "subtitle": "Öz giňişligiňizi öwreniň we guruň.",
+        "badge": "Täze"
+      },
+      "organization": {
+        "subtitle": "Topary, mekdebi ýa-da diňleýjileri okadyň.",
+        "label": "Guramaçylyk"
+      }
+    },
+    "useCases": {
+      "personal": {
+        "title": "Özbaşdak öwrenmek",
+        "description": "Özüňiz üçin kurslary düzüň."
+      },
+      "creators": {
+        "title": "Döredijiler",
+        "description": "Diňleýjilerňize kurslary satyň."
+      },
+      "business": {
+        "title": "Biznes",
+        "description": "Işgärleriňizi okadyň."
+      }
+    },
+    "personalGoals": {
+      "learnSkills": "Başarnyklary öwrenmek",
+      "teachOthers": "Başgalary okatmak",
+      "coding": "Programmirleme",
+      "creative": "Döredijilik",
+      "music": "Sazlar",
+      "literature": "Edebiýat",
+      "science": "Ylym",
+      "business": "Biznes",
+      "health": "Saglyk",
+      "photography": "Fotosurat",
+      "writing": "Ýazuw",
+      "languages": "Diller",
+      "gaming": "Oýunlar",
+      "ai": "Emeli intellekt"
+    },
+    "personalUsage": {
+      "title": "Näme öwrenmek isleýärsiňiz?",
+      "subtitle": "Laýyk gelenleriň hemmesini saýlaň."
+    },
+    "teamSizes": {
+      "solo": "Ýeke",
+      "2-10": "2–10",
+      "11-50": "11–50",
+      "51-200": "51–200",
+      "200plus": "200+"
+    },
+    "orgUseCases": {
+      "employeeTraining": "Işgärleri okatmak",
+      "onlineCourses": "Onlaýn kurslar",
+      "customerEducation": "Müşderileri okatmak",
+      "academicPrograms": "Akademiki programmalar",
+      "developerDocs": "Işläp düzüji resminamalary",
+      "communityLearning": "Jemgyýet okuwy"
+    },
+    "orgUsage": {
+      "teamSizeTitle": "Toparyňyz näçe uly?",
+      "useCaseTitle": "Muny näme üçin ulanarsyňyz?"
+    },
+    "createOrg": {
+      "testHint": {
+        "title": "Synamakçymy?",
+        "body": "Onuň ýerine SIRIUS-y synamak üçin",
+        "link": "Işläp düzüjiler sahypasyna",
+        "suffix": "geçiň."
+      },
+      "validation": {
+        "lowercase": "Diňe kiçi harplar",
+        "noSpecialChars": "Diňe harplar, sanlar, defisler",
+        "reserved": "Bu slug ätiýaçlandyrylan",
+        "maxLength": "Iň köp 20 belgi",
+        "required": "Hökmany"
+      },
+      "fields": {
+        "name": "Guramaçylygyň ady",
+        "description": "Beýany (hökmany däl)",
+        "slug": "Salgy"
+      },
+      "placeholders": {
+        "name": "Acme Akademiýasy",
+        "description": "Guramaçylygyňyz näme hakda?"
+      },
+      "submitting": "Döredilýär…",
+      "submitPaid": "Döret we tölege geç",
+      "submit": "Guramaçylyk döret"
+    },
+    "success": {
+      "title": "Guramaçylygyňyz taýyn",
+      "description": "Girip, kurslaryňyzy gurap başlaň.",
+      "goToOrg": "Guramaçylyga geç",
+      "cta": "Guramaçylyklara dolan"
+    },
+    "toast": {
+      "creating": "Guramaçylyk döredilýär…",
+      "created": "Guramaçylyk döredildi!",
+      "checkoutFailed": "Guramaçylyk döredildi. Meýilnama we ulanylyş bölüminden täzeläp bilersiňiz.",
+      "failed": "Guramaçylygy döredip bolmady"
+    },
+    "steps": {
+      "useType": {
+        "title": "Näme döredýärsiňiz?",
+        "subtitle": "Bu giňişligiňizi özüňize görä düzmäge kömek edýär."
+      },
+      "usage": {
+        "title": "Birneme köpräk aýdyň",
+        "subtitle": "Şonda dogry sazlamany maslahat berip bileris."
+      },
+      "choosePlan": {
+        "title": "Meýilnama saýlaň",
+        "subtitle": "Muny islendik wagt üýtgedip bilersiňiz."
+      },
+      "createOrg": {
+        "title": "Guramaçylygyňyza at beriň",
+        "subtitle": "At we web salgysyny saýlaň."
+      },
+      "success": {
+        "title": "Hemme zat taýyn"
+      }
+    },
+    "freeLimit": "1 mugt guramaçylyk çägine ýetildi",
+    "navigation": {
+      "skip": "Geç",
+      "back": "Yza",
+      "continue": "Dowam et"
+    },
+    "topBar": {
+      "back": "Guramaçylyklar"
+    }
+  },
+  "landing": {
+    "countdown": {
+      "days": "Gün",
+      "hours": "Sagat",
+      "minutes": "Minut",
+      "seconds": "Sekunt"
+    },
+    "pricing": {
+      "from": "başlap",
+      "subscription": "ýazylma"
+    }
   },
   "library": {
     "library": "Kitaphana",
@@ -3288,10 +5929,352 @@
       "sign_in_to_org": "Bu guramaçylyga giriň"
     }
   },
+  "migration": {
+    "title": "Mazmuny göçür",
+    "subtitle": "Faýllaryňyzy ýükläň we olary kursa düzüň",
+    "drop_files": "Faýllaryňyzy şu ýere taşlaň ýa-da saýlamak üçin basyň",
+    "accepted_formats": "Wideolar (MP4, WebM, MOV), Resminamalar (PDF), Suratlar (PNG, JPG, WebP), Audio (MP3, WAV)",
+    "course_name_placeholder": "meselem Başlangyçlar üçin Python esaslary",
+    "description": "Bir setirlik beýan",
+    "description_placeholder": "meselem esaslary, maglumat görnüşlerini we funksiýalary öz içine alýan 3 modul",
+    "organize_with_ai": "Emeli intellekt bilen düz",
+    "organize_manually": "Elde düz",
+    "unassigned_files": "Bellenmedik faýllar",
+    "all_files_assigned": "Ähli faýllar bellenen",
+    "course_structure": "Kursuň gurluşy",
+    "new_chapter": "Täze bölüm",
+    "new_activity": "Täze sapak",
+    "drop_file_here": "Faýly şu ýere taşlaň",
+    "creating_course": "Kursuňyz döredilýär...",
+    "creating_description": "Faýllar ýüklenýär we bölümler hem sapaklar sazlanýar",
+    "course_created": "Kurs üstünlikli döredildi!",
+    "created_summary": "{{chapters}} bölüm we {{activities}} sapak döredildi",
+    "go_to_course": "Kursa geç",
+    "creation_failed": "Kursy döretmek şowsuz boldy",
+    "ai_failed": "Emeli intellekt teklibi şowsuz boldy, elde düzmäge geçilýär",
+    "upload_failed": "Faýl ýüklemek şowsuz boldy",
+    "click_to_add_more": "Köpräk faýl goşmak üçin basyň",
+    "uploading_files": "Faýllar ýüklenýär",
+    "step_organize": "Düz",
+    "course_name": "Kursuň ady",
+    "add_chapter": "Bölüm goş",
+    "add_activity": "Sapak goş",
+    "create_course": "Kurs döret",
+    "creation_error_generic": "Bir zat nädogry boldy. Täzeden synanyşyň.",
+    "try_again": "Täzeden synanyş",
+    "step_upload": "Ýükle",
+    "step_complete": "Tamamla"
+  },
+  "onboarding": {
+    "getting_started": "Başlamak",
+    "all_done": "Hemmesi taýyn!",
+    "all_set": "Hemme zat taýyn",
+    "all_set_desc": "Sazlamak tamamlandy.",
+    "more_steps": "Ýene {{count}} ädim",
+    "more_steps_plural": "Ýene {{count}} ädim",
+    "got_it": "Düşündim, gurmaga taýyn!",
+    "done": "Taýyn, hemme zat tamam!",
+    "steps": {
+      "create_course": {
+        "title": "Ilkinji kursuňyz işleýär",
+        "description": "Okuwçylaryň ýazylyp biljek hakyky zady bolar ýaly kursy çap ediň.",
+        "action": "Kurs döret"
+      },
+      "add_activities": {
+        "title": "Kursuňyza sapaklar goşuň",
+        "description": "Sahypalar, wideolar, resminamalar we başga mazmun goşuň.",
+        "action": "Mazmuna geç"
+      },
+      "experience_editor": {
+        "title": "Redaktory synlap görüň",
+        "description": "Redaktory açyp, kursuňyzyň mazmunyny nädip gurmalydygyny öwreniň.",
+        "click_edit": "«Üýtget» düwmesine basyň",
+        "editor_features": "Redaktorda edip biljek zatlaryňyz:",
+        "slash_commands": "Slash buýruklary üçin / ýazyň",
+        "headings_lists": "Sözbaşylar, sanawlar we tekst",
+        "images_media": "Suratlar we media",
+        "video_embeds": "Wideo we ýerleşdirmeler",
+        "tables_callouts": "Tablisalar we bellikler",
+        "interactive_blocks": "Interaktiw bloklar",
+        "add_activity": "Sapak goş",
+        "dynamic_page": "Dinamiki sahypa"
+      },
+      "try_playgrounds": {
+        "title": "Meýdançalar bilen interaktiw okuw",
+        "description": "Özbaşdak okuw üçin interaktiw sahypalar guruň.",
+        "action": "Meýdançalary synap gör"
+      },
+      "invite_users": {
+        "title": "Toparyňyzy we okuwçylaryňyzy çagyryň",
+        "description": "Mugallymlary goşuň ýa-da okuwçylaryň goşulmagy üçin baglanyşyk paýlaşyň.",
+        "action": "Ulanyjylary çagyr"
+      },
+      "customize_org": {
+        "title": "Guramaçylygyňyzy özüňize görä düzüň",
+        "description": "Logotipiňizi, reňklerňizi goşuň we ony özüňiziňki ediň.",
+        "action": "Düz"
+      },
+      "teach_the_world": {
+        "title": "Öwreniň we ösüň",
+        "description": "SIRIUS-dan iň köp peýdalanmaga kömek edýän serişdeler.",
+        "classroom": "Synp otagy",
+        "classroom_desc": "Kurslaryňyzy nädip ösdürmelidigini we dolandyrmalydygyny öwreniň",
+        "university_desc": "Gollanmalar, maslahatlar we iň gowy tejribeler",
+        "university": "SIRIUS uniwersiteti"
+      },
+      "add_content": {
+        "title": "Gelmäge degýän sapak",
+        "description": "Okuwçylara ýazylmak üçin hakyky sebäp bermek üçin wideo, sahypa ýa-da test goşuň.",
+        "action": "Mazmun goş"
+      },
+      "brand_school": {
+        "title": "Okuwçylaryň ynanýan mekdebi",
+        "description": "Ynamly, hünärli mekdep ýaly görünmegi üçin logotipiňizi we reňklerňizi goşuň.",
+        "action": "Brendle"
+      },
+      "share_grow": {
+        "title": "Mekdebiňiziň ilkinji gapysy",
+        "description": "Işe goýberiň we paýlaşyp boljak baglanyşygyňyzy alyň, her okuwçyny iberjek ýeriňiz.",
+        "action": "Mekdebimi aç"
+      },
+      "invite_learners": {
+        "title": "Ilkinji okuwçyňyzy garşylaň",
+        "description": "Ilkinji okuwçyny gapydan girizmek üçin goşulmak baglanyşygyňyzy paýlaşyň ýa-da adamlary çagyryň.",
+        "action": "Okuwçylary çagyr"
+      },
+      "build_community": {
+        "title": "Okuwçylary yzyna getiriň",
+        "description": "Okuwçylaryňyz işjeň galar we dostlaryny getirer ýaly jemgyýet giňişligini açyň.",
+        "action": "Jemgyýeti aç"
+      }
+    },
+    "welcome": {
+      "title": "SIRIUS-a hoş geldiňiz",
+      "subtitle": "Kurslar dörediň, okuwçylary çagyryň we bilimi dünýä bilen paýlaşyň.",
+      "get_started": "Başla",
+      "features_title": "Zerur ähli zat",
+      "features_subtitle": "Okuw platformaňyzy gurmak we ösdürmek üçin ähli gurallar.",
+      "lets_go": "Başlalyň",
+      "features": {
+        "teach": "Islendik zady okat",
+        "teach_desc": "Bölümler we baý mazmun bilen gurluşly kurslar dörediň",
+        "interactive": "Interaktiw boluň",
+        "interactive_desc": "Okuwçylaryň öz tizliginde öwrenýän meýdançalaryny guruň",
+        "community": "Jemgyýet guruň",
+        "community_desc": "Okuwçylaryň biri-birine kömek edýän pikir alyşma giňişliklerini dörediň",
+        "assess": "Bilimi bahalaň",
+        "assess_desc": "Tabşyryklar dörediň we okuwçylaryň tabşyrýanlaryny yzarlaň",
+        "collaborate": "Görnüşli bilelikde işläň",
+        "collaborate_desc": "Okuwçylara pikir alyşmak we bilelikde işlemek üçin umumy tagtalar beriň",
+        "voice": "Sesiňizi paýlaşyň",
+        "voice_desc": "Podkastlary işe goýberiň we audio bölümlerini okuwçylara ýaýradyň",
+        "certify": "Okuwçylara şahadatnama beriň",
+        "certify_desc": "Okuwçylar kurslaryňyzy tamamlanda şahadatnama beriň",
+        "impact": "Täsiriňizi düşüniň",
+        "impact_desc": "Gatnaşygy yzarlaň we okuwçylaryň wagtyň geçmegi bilen nähili ösýändigini görüň",
+        "team": "Toparyňyzy ösdüriň",
+        "team_desc": "Mugallymlary çagyryň, rollary dolandyryň we okuwçy toparlaryny düzüň"
+      }
+    },
+    "farewell": {
+      "title": "Dünýäni okatmaga taýynsyňyz",
+      "description": "Hemme zat sazlandy. Okuwçylaryňyz gowy zady garaşýar.",
+      "button": "Okatmaga başla"
+    },
+    "box_title": "Başlangyç ugrukdyrma",
+    "up_next": "Indiki",
+    "continue_setup": "Sazlamagy dowam et",
+    "video_placeholder": "Gollanma wideosy tizara",
+    "dismiss": "Soňra gutararyn",
+    "steps_done": "ädim tamamlandy",
+    "back_to_dashboard": "Dolandyryş paneline dolan",
+    "show_less": "Az görkez",
+    "skip": "Geç",
+    "done_label": "Taýyn"
+  },
   "pagination": {
     "next": "Indiki",
     "previous": "Öňki",
     "showing_page": "{{current}}-nji sahypa görkezilýär ({{total}} sahypadan)"
+  },
+  "payments": {
+    "paid_content": "Tölegli mazmun",
+    "paid_content_description": "Bu mazmuna girmek üçin kursy satyn almak gerek.",
+    "failed_load_products": "Önüm saýlawlaryny ýüklemek şowsuz boldy",
+    "one_time_payment": "Bir gezeklik töleg",
+    "per_month": "(aýda)",
+    "per_month_short": "/aý",
+    "subscribe_now": "Indi ýazyl",
+    "purchase_now": "Indi satyn al",
+    "failed_checkout": "Töleg amalyny başlamak şowsuz boldy",
+    "stripe_success": "Stripe-e üstünlikli birikdirildi!",
+    "stripe_failed": "Stripe birikmesini tamamlamak şowsuz boldy",
+    "stripe_denied": "Stripe birikmesi ýatyryldy.",
+    "stripe_completing": "Stripe birikmesi tamamlanýar",
+    "stripe_wait": "Stripe integrasiýaňyz sazlanýança garaşyň...",
+    "stripe_return": "Indi töleglary ulanyp başlamak üçin dolandyryş paneline dolanyp bilersiňiz.",
+    "stripe_retry": "Täzeden synanyşyň ýa-da mesele dowam etse goldaw bilen habarlaşyň.",
+    "stripe_login_required": "Siz bu brauzerde SIRIUS-a girmediňiz. Giriň, soň töleg sazlamalaryňyzdan birikmäni täzeden başlaň.",
+    "benefits": "Peýdalar:",
+    "min_price": "Iň az baha:",
+    "choose_price": "Bahaňyzy saýlaň",
+    "subscription": "Ýazylma"
+  },
+  "plan": {
+    "free_plan_title": "Mugt meýilnama",
+    "free_plan_cta": "Doly platformany aç",
+    "free_plan_desc": "Okatmak, satmak we ösmek üçin zerur ähli zat.",
+    "upgrade": "Täzele"
+  },
+  "playgrounds": {
+    "no_playgrounds_yet": "Entek meýdança ýok",
+    "playgrounds_description": "Okuwçylaryňyz üçin interaktiw, emeli intellekt döreden tejribeleri dörediň.",
+    "new_playground": "Täze meýdança",
+    "search_placeholder": "Meýdançalary gözläň...",
+    "no_results_for": "Netije ýok:",
+    "new_playground_modal_title": "Täze meýdança",
+    "new_playground_modal_desc": "Başlamak üçin meýdançaňyza at beriň.",
+    "create": "Döret",
+    "failed_create": "Meýdançany döredip bolmady",
+    "view": {
+      "open_editor_to_generate": "Mazmun döretmek üçin redaktory açyň.",
+      "check_back_later": "Soňrak ýene barlaň.",
+      "open_editor": "Redaktory aç",
+      "author": "Awtor",
+      "edit_in_editor": "Redaktorda üýtget",
+      "exit_fullscreen": "Çyk",
+      "fullscreen": "Doly ekran",
+      "breadcrumb": "Meýdançalar",
+      "about": "Barada",
+      "access": "Elýeterlilik",
+      "created": "Döredildi",
+      "status": "Ýagdaýy",
+      "published": "Çap edildi",
+      "draft": "Garalama",
+      "download": "Ýükläp al",
+      "reactions": "Reaksiýalar"
+    },
+    "try_different_search": "Başga gözleg sözüni synanyşyň",
+    "creating": "Döredilýär..."
+  },
+  "podcasts": {
+    "browse_description": "Bu guramaçylygyň podkastlaryny diňläň",
+    "new_podcast": "Täze podkast",
+    "search_placeholder": "Podkastlary gözläň...",
+    "no_podcasts": "Entek podkast ýok",
+    "no_podcasts_description": "Häzirki wagtda elýeterli podkast ýok",
+    "create_podcasts_placeholder": "Diňleýjileriňiz bilen audio mazmuny paýlaşmak üçin podkast dörediň",
+    "no_search_results": "Podkast tapylmady",
+    "search_results": "«{{query}}» üçin {{count}} podkast tapyldy",
+    "podcast_name": "Podkastyň ady",
+    "podcast_name_required": "Podkastyň ady hökmany",
+    "podcast_thumbnail": "Podkastyň suraty",
+    "create_podcast": "Podkast döret",
+    "create_new_podcast": "Guramaçylygyňyz üçin täze podkast dörediň",
+    "create_podcast_btn": "Podkast döret",
+    "creating_podcast": "Podkast döredilýär...",
+    "podcast_created_success": "Podkast üstünlikli döredildi",
+    "failed_to_create_podcast": "Podkasty döredip bolmady",
+    "episodes": "Bölümler",
+    "no_episodes": "Entek bölüm ýok",
+    "hosted_by": "Alyp barýan:",
+    "manage_podcast": "Podkasty dolandyr",
+    "listen_now": "Indi diňle",
+    "delete_podcast": "Podkasty poz",
+    "delete_podcast_title": "Podkast pozulsynmy?",
+    "delete_podcast_confirm": "Bu podkasty pozmaga ynamyňyz barmy? Bu amaly yzyna gaýtaryp bolmaýar we ähli bölümler pozular.",
+    "deleting_podcast": "Podkast pozulýar...",
+    "podcast_deleted_success": "Podkast üstünlikli pozuldy",
+    "podcast_deleted_error": "Podkasty pozup bolmady",
+    "form": {
+      "name_required": "Podkastyň ady hökmany",
+      "name_max_length": "Ady iň köp 100 belgi bolmaly",
+      "description_max_length": "Beýany iň köp 500 belgi bolmaly",
+      "name_min_length": "Ady iň az 3 belgi bolmaly"
+    },
+    "modals": {
+      "create": {
+        "title": "Täze podkast döret",
+        "description": "Täze podkast döretmek üçin jikme-jiklikleri dolduryň",
+        "form": {
+          "name_label": "Podkastyň ady",
+          "name_placeholder": "Podkastyň adyny giriziň",
+          "description_placeholder": "Podkastyň beýanyny giriziň",
+          "public_label": "Bu podkasty açyk et",
+          "description_label": "Beýany"
+        },
+        "submit": "Podkast döret",
+        "cancel": "Ýatyr"
+      }
+    },
+    "dashboard": {
+      "tabs": {
+        "episodes": "Bölümler",
+        "general": "Umumy"
+      },
+      "view_podcast": "Podkasty gör",
+      "saved": "Üýtgeşmeler ýatda saklandy",
+      "form": {
+        "upload_thumbnail": "Surat ýükle",
+        "thumbnail_hint": "Maslahat berilýän ölçeg: 1400x1400px. JPG ýa-da PNG.",
+        "about_placeholder": "Diňleýjilere bu podkast barada köpräk aýdyň...",
+        "about_max_length": "Barada iň köp 2000 belgi bolmaly",
+        "tags_placeholder": "saz, bilim, tehnologiýa",
+        "tags_hint": "Bellikleri otur bilen aýryň",
+        "visibility": "Görünme sazlamalary",
+        "public_hint": "Islendik adam bu podkasty tapyp diňläp biler",
+        "published_hint": "Bu podkasty guramaçylyk sahypaňyzda görünýän ediň",
+        "thumbnail": "Kiçi surat",
+        "about": "Barada"
+      },
+      "episodes": {
+        "new_episode": "Täze bölüm",
+        "new_episode_description": "Bu podkasta täze bölüm goşuň",
+        "no_episodes_description": "Ilkinji bölümiňizi goşup başlaň",
+        "create_first": "Ilkinji bölümi döret",
+        "creating": "Bölüm döredilýär...",
+        "created": "Bölüm döredildi",
+        "create_error": "Bölümi döredip bolmady",
+        "create": "Bölüm döret",
+        "deleting": "Bölüm pozulýar...",
+        "deleted": "Bölüm pozuldy",
+        "delete_error": "Bölümi pozup bolmady",
+        "delete_title": "Bölüm pozulsynmy?",
+        "delete_confirm": "Bu bölümi pozmaga ynamyňyz barmy? Bu amaly yzyna gaýtaryp bolmaýar.",
+        "updating": "Bölüm täzelenýär...",
+        "updated": "Bölüm täzelendi",
+        "update_error": "Bölümi täzelemek şowsuz boldy",
+        "edit_episode": "Bölümi üýtget",
+        "edit_episode_description": "Bölümiň jikme-jikliklerini täzeläň",
+        "no_audio": "Audio faýl ýok",
+        "title_placeholder": "Bölümiň adyny giriziň",
+        "description_placeholder": "Bölümiň beýanyny giriziň",
+        "audio_label": "Audio faýl",
+        "upload_audio": "Audio faýl ýükle",
+        "replace_audio": "Audio faýly çalyş",
+        "audio_hint": "MP3, WAV ýa-da M4A faýllary goldanylýar",
+        "delete": "Poz",
+        "edit": "Üýtget",
+        "save": "Üýtgeşmeleri ýatda sakla",
+        "publish": "Çap et",
+        "unpublish": "Çap edilmegini aýyr",
+        "title_label": "Ady",
+        "description_label": "Beýany"
+      },
+      "saving": "Ýatda saklanýar...",
+      "save_error": "Üýtgeşmeleri ýatda saklamak şowsuz boldy",
+      "save_changes": "Üýtgeşmeleri ýatda sakla"
+    },
+    "podcasts": "Podkastlar",
+    "try_different_search": "Başga gözleg sözüni synanyşyň",
+    "podcast_tags": "Bellikler",
+    "podcast_visibility": "Görünmesi",
+    "tags": "Bellikler",
+    "published": "Çap edildi",
+    "unpublished": "Çap edilmedi",
+    "public": "Açyk",
+    "private": "Ýapyk",
+    "edit_content": "Mazmuny üýtget"
   },
   "roles": {
     "custom_role": "Ýörite rol",
@@ -3334,6 +6317,24 @@
     "course": "Kurs",
     "user": "Agza"
   },
+  "subscriptions": {
+    "no_subscription": "Ýazylma ýok",
+    "cancels_on": "{{date}} senesinde ýatyrylýar",
+    "cancels": "Döwür soňunda ýatyrylýar",
+    "status_trialing": "Synag döwri",
+    "status_past_due": "Möhleti geçen",
+    "status_canceled": "Ýatyryldy",
+    "status_unpaid": "Tölenmedik",
+    "renews_on": "{{date}} täzelenýär",
+    "manage_plan": "Meýilnamany dolandyr",
+    "portal_error": "Hasap-faktura portalyny açyp bolmady. Täzeden synanyşyň.",
+    "back_home": "Baş sahypa dolan",
+    "title": "Ýazylmalar",
+    "subtitle": "Guramaçylyklaryňyz boýunça meýilnamalar we hasap-faktura",
+    "opening": "Açylýar…",
+    "manage_billing": "Hasap-fakturany dolandyr",
+    "status_active": "Işjeň"
+  },
   "time": {
     "years_ago": "{{count}} ýyl öň",
     "months_ago": "{{count}} aý öň",
@@ -3341,6 +6342,53 @@
     "days_ago": "{{count}} gün öň",
     "hours_ago": "{{count}} sagat öň",
     "minutes_ago": "{{count}} minut öň"
+  },
+  "upgrade_modal": {
+    "title": "Doly mümkinçiligiňizi açyň",
+    "subtitle": "Okatmagyňyzy nirä çenli alyp gitmek isleýändigiňize laýyk meýilnamany saýlaň.",
+    "choose_plan": "{{plan}} al",
+    "current_free_limits": "Mugt meýilnama: 1 kurs · 10 agza · Emeli intellekt ýok",
+    "plans": {
+      "standard": {
+        "goal": "Kurslaryňyzdan girdeji gazanyp başlaň we okuw jemgyýetini guruň.",
+        "highlights": {
+          "courses": "Çäksiz kurslar",
+          "courses_desc": "Okuw meýilnamaňyza çäk goýmazdan, zerur bolan kurslaryň hemmesini dörediň.",
+          "members": "500 agza çenli",
+          "members_desc": "Okuwçy toparyňyzy ösdüriň we olary bir ýerde dolandyryň.",
+          "payments": "Töleg kabul etmek",
+          "payments_desc": "Girdeji gazanmak üçin kurslary satyň we ýazylmalary hödürläň.",
+          "communities": "Jemgyýet pikir alyşmalary",
+          "communities_desc": "Okuwçylara aragatnaşyk gurmaga, soraglar bermäge we pikirlerini paýlaşmaga rugsat beriň.",
+          "podcasts": "Podkast döretmek",
+          "podcasts_desc": "Audio mazmuny ýetirip, okuwçylara ýolda hem ýetiň.",
+          "playgrounds": "Interaktiw meýdançalar",
+          "playgrounds_desc": "Okuwçylara interaktiw amaly maşklar bilen synag etmäge we praktika etmäge rugsat beriň.",
+          "ai": "1,000 emeli intellekt kredit",
+          "ai_desc": "Emeli intellekt bilen ýazuw gurallary arkaly mazmun döretmegi çaltlaşdyryň.",
+          "analytics": "Okuwçy analitikasy",
+          "analytics_desc": "Kurslaryňyzy gowulandyrmak üçin ösüşi we gatnaşygy yzarlaň."
+        }
+      },
+      "pro": {
+        "goal": "Akademiýaňyzy ösen gurallar we doly gözegçilik bilen ulaldyň.",
+        "includes_standard": "Standartdaky hemme zat, hem-de:",
+        "highlights": {
+          "members": "1,000 agza çenli",
+          "members_desc": "10 administrator ýerine çenli has uly toparlary goldaň.",
+          "ai": "3,000 emeli intellekt kredit",
+          "ai_desc": "Köp mukdarda mazmun döretmek we kömek üçin has köp kredit.",
+          "certifications": "Şahadatnama bermek",
+          "certifications_desc": "Okuwçylar kurslary tamamlanda olara şahadatnama bilen sylag beriň.",
+          "custom_domain": "Ýörite domen",
+          "custom_domain_desc": "Doly brendli akademiýa üçin öz domeniňizi ulanyň.",
+          "roles": "Ýörite rollar we rugsatlar",
+          "roles_desc": "Guramaçylygyňyzda kimiň näme edip biljekdigini takyk dolandyryň.",
+          "api": "API elýeterliligi we webhooks",
+          "api_desc": "Bar bolan gurallaryňyz bilen birleşdiriň we iş akymlaryny awtomatlaşdyryň."
+        }
+      }
+    }
   },
   "user": {
     "user_settings": "Ulanyjy sazlamalary",
@@ -3650,277 +6698,5 @@
     "content_required": "Mazmuny hökmany",
     "invalid_number": "San bolmaly",
     "invalid_option": "Elýeterli saýlawlaryň birini saýlaň"
-  },
-  "subscriptions": {
-    "status_active": "Işjeň"
-  },
-  "billing": {
-    "plan_and_usage": "Meýilnama we ulanylyş",
-    "billing": "Hasap-fakturalar",
-    "upgrade": "Täzele",
-    "active": "Işjeň",
-    "status": "Ýagdaýy",
-    "courses": "Kurslar",
-    "members": "Agzalar",
-    "ai_credits": "Emeli intellekt kreditleri",
-    "add": "Goş",
-    "unlimited": "Çäksiz",
-    "cancel": "Ýatyr",
-    "step_done": "Taýyn",
-    "back": "Yza",
-    "current": "Häzirki",
-    "checking": "Barlanýar...",
-    "apply": "Ulan",
-    "back_to_orgs": "Guramaçylyklara dolan"
-  },
-  "analytics": {
-    "title": "Analitika",
-    "tabs": {
-      "advanced": "Ösen"
-    },
-    "common": {
-      "loading": "Ýüklenýär...",
-      "users": "Ulanyjylar",
-      "course": "Kurs",
-      "user": "Ulanyjy",
-      "expand": "Giňelt"
-    },
-    "overview": {
-      "live_now": "Häzir onlaýn",
-      "submissions": "Tabşyrylanlar",
-      "activities": "Sapaklar",
-      "courses": "Kurslar"
-    },
-    "modals": {
-      "signups_table": {
-        "email": "E-poçta"
-      }
-    },
-    "advanced_widgets": {
-      "cohort_retention": {
-        "size": "Ölçeg"
-      }
-    },
-    "course_analytics": {
-      "common": {
-        "loading": "Ýüklenýär...",
-        "total": "Jemi",
-        "activities_count": "{{count}} sapak"
-      },
-      "units": {
-        "total": "jemi"
-      },
-      "type_labels": {
-        "video": "Wideo",
-        "document": "Resminama",
-        "quiz": "Test",
-        "assignment": "Tabşyryk",
-        "dynamic": "Dinamiki"
-      },
-      "peak_hours": {
-        "less": "Az",
-        "more": "Köp"
-      },
-      "time_to_completion": {
-        "median": "Median"
-      }
-    }
-  },
-  "hub_new": {
-    "useType": {
-      "organization": {
-        "label": "Guramaçylyk"
-      }
-    },
-    "createOrg": {
-      "validation": {
-        "required": "Hökmany"
-      },
-      "submit": "Guramaçylyk döret"
-    },
-    "success": {
-      "cta": "Guramaçylyklara dolan"
-    },
-    "topBar": {
-      "back": "Guramaçylyklar"
-    },
-    "navigation": {
-      "back": "Yza",
-      "continue": "Dowam et"
-    }
-  },
-  "boards": {
-    "boards": "Tagtalar",
-    "try_different_search": "Başga gözleg sözüni synanyşyň",
-    "public": "Açyk",
-    "private": "Ýapyk",
-    "settings": "Sazlamalar",
-    "selected_count": "{{count}} saýlandy",
-    "select_all": "Hemmesini saýla",
-    "clear_selection": "Arassala",
-    "delete_selected": "Saýlananlary poz",
-    "name": "Ady",
-    "description": "Beýany",
-    "general": {
-      "title": "Umumy",
-      "saving": "Ýatda saklanýar...",
-      "save_changes": "Üýtgeşmeleri ýatda sakla"
-    },
-    "thumbnail": {
-      "title": "Kiçi surat",
-      "uploading": "Ýüklenýär...",
-      "upload_image": "Surat ýükle",
-      "gallery": "Galereýa"
-    },
-    "access": {
-      "active": "Işjeň",
-      "public_option": "Açyk",
-      "private_option": "Diňe ulanyjylar",
-      "user_groups": "Ulanyjy toparlary",
-      "actions": "Amallar",
-      "unlink": "Baglanyşygy aýyr",
-      "link": "Bagla",
-      "user_group_linked": "Ulanyjy topary baglandy",
-      "user_group_unlinked": "Ulanyjy toparynyň baglanyşygy aýryldy",
-      "unlink_error_generic": "Ulanyjy toparynyň baglanyşygyny aýyrmak şowsuz boldy"
-    },
-    "members": {
-      "title": "Agzalar",
-      "user": "Ulanyjy",
-      "role": "Rol",
-      "actions": "Amallar",
-      "remove": "Aýyr",
-      "no_members": "Entek agza ýok",
-      "search_placeholder": "Ady ýa-da e-poçta boýunça gözläň...",
-      "no_users_found": "Ulanyjy tapylmady",
-      "editor": "Redaktor",
-      "viewer": "Synçy"
-    },
-    "toolbar": {
-      "select": "Saýla",
-      "add_card": "Kartoçka goş",
-      "embed": "Ýerleşdir",
-      "medium": "Orta",
-      "undo": "Yza al",
-      "redo": "Gaýtala"
-    },
-    "timer": {
-      "close": "Ýap"
-    },
-    "youtube_block": {
-      "add": "Goş"
-    },
-    "activity_block": {
-      "no_courses": "Kurs tapylmady"
-    },
-    "embed_block": {
-      "embed": "Ýerleşdir",
-      "url": "URL",
-      "code": "Kod",
-      "apply": "Ulan"
-    },
-    "webpage_block": {
-      "add": "Goş"
-    },
-    "playground_block": {
-      "generate": "Döret",
-      "edit": "Üýtget",
-      "streaming": "Döredilýär...",
-      "creating": "Döredilýär...",
-      "quiz": "Test"
-    },
-    "node_actions": {
-      "delete": "Poz"
-    },
-    "pagination": {
-      "previous": "Öňki",
-      "next": "Indiki",
-      "page_of": "{{current}}-nji sahypa ({{total}} içinden)"
-    }
-  },
-  "plan": {
-    "upgrade": "Täzele"
-  },
-  "onboarding": {
-    "show_less": "Az görkez",
-    "steps": {
-      "create_course": {
-        "action": "Kurs döret"
-      },
-      "experience_editor": {
-        "add_activity": "Sapak goş",
-        "dynamic_page": "Dinamiki sahypa"
-      },
-      "add_content": {
-        "action": "Mazmun goş"
-      }
-    },
-    "done_label": "Taýyn"
-  },
-  "migration": {
-    "course_name": "Kursuň ady",
-    "add_chapter": "Bölüm goş",
-    "add_activity": "Sapak goş",
-    "create_course": "Kurs döret",
-    "creation_error_generic": "Bir zat nädogry boldy. Täzeden synanyşyň.",
-    "try_again": "Täzeden synanyş",
-    "step_upload": "Ýükle",
-    "step_complete": "Tamamla"
-  },
-  "podcasts": {
-    "podcasts": "Podkastlar",
-    "try_different_search": "Başga gözleg sözüni synanyşyň",
-    "podcast_tags": "Bellikler",
-    "podcast_visibility": "Görünmesi",
-    "tags": "Bellikler",
-    "published": "Çap edildi",
-    "unpublished": "Çap edilmedi",
-    "public": "Açyk",
-    "private": "Ýapyk",
-    "edit_content": "Mazmuny üýtget",
-    "modals": {
-      "create": {
-        "form": {
-          "description_label": "Beýany"
-        },
-        "cancel": "Ýatyr"
-      }
-    },
-    "dashboard": {
-      "tabs": {
-        "general": "Umumy"
-      },
-      "saving": "Ýatda saklanýar...",
-      "save_error": "Üýtgeşmeleri ýatda saklamak şowsuz boldy",
-      "save_changes": "Üýtgeşmeleri ýatda sakla",
-      "form": {
-        "thumbnail": "Kiçi surat",
-        "about": "Barada"
-      },
-      "episodes": {
-        "delete": "Poz",
-        "edit": "Üýtget",
-        "save": "Üýtgeşmeleri ýatda sakla",
-        "publish": "Çap et",
-        "unpublish": "Çap edilmegini aýyr",
-        "title_label": "Ady",
-        "description_label": "Beýany"
-      }
-    }
-  },
-  "playgrounds": {
-    "try_different_search": "Başga gözleg sözüni synanyşyň",
-    "creating": "Döredilýär...",
-    "view": {
-      "breadcrumb": "Meýdançalar",
-      "about": "Barada",
-      "access": "Elýeterlilik",
-      "created": "Döredildi",
-      "status": "Ýagdaýy",
-      "published": "Çap edildi",
-      "draft": "Garalama",
-      "download": "Ýükläp al",
-      "reactions": "Reaksiýalar"
-    }
   }
 }

@@ -22,4 +22,5 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Tests: web unit tests 402 pass (existing tests untouched; `common.turkmen` added to ar.json because a test requires ar.json to cover every English key).
 - Deployed from the branch with `deploy.sh feat/turkmen`.
 - Rollback: `deploy.sh --rollback 936eb76`.
+- 2026-10-19 (later): finished the remaining strings; `locales/tk.json` now has all 5,212 keys. Review file regenerated in `docs/i18n/turkmen-review.tsv`.
 
