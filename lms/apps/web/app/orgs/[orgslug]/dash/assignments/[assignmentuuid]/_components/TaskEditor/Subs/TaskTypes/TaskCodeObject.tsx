@@ -960,7 +960,8 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
         {/* === STUDENT VIEW === */}
         {view === 'student' && (
           <CodeTaskWorkspace
-            title={assignmentTaskOutsideProvider?.description ?? ''}
+            title={assignmentTaskOutsideProvider?.title || undefined}
+            description={assignmentTaskOutsideProvider?.description ?? ''}
             hint={assignmentTaskOutsideProvider?.hint || undefined}
             referenceFileHref={referenceFileHref}
             languageName={selectedLang?.name || 'Unknown'}

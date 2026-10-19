@@ -48,7 +48,10 @@ export type WorkspaceTestResult = {
 }
 
 type CodeTaskWorkspaceProps = {
-  title: string
+  // `title` is the task's name when it has one; `description` is the statement.
+  // Older tasks only have a description, which is then shown as the heading.
+  title?: string
+  description: string
   hint?: string
   referenceFileHref?: string
   languageName: string
@@ -150,7 +153,7 @@ type MobileTab = 'description' | 'code' | 'results'
 
 export default function CodeTaskWorkspace(props: CodeTaskWorkspaceProps) {
   const {
-    title, hint, referenceFileHref, languageName, testCases, showHiddenTestCount,
+    title, description, hint, referenceFileHref, languageName, testCases, showHiddenTestCount,
     showDetailsOnFail, code, onCodeChange, onReset, readOnly, lockedMessage,
     antiPasteHint, mustPassHint, cmExtensions, cmTheme, allowRun, isRunning,
     onRun, results, hasRun,
@@ -293,7 +296,16 @@ export default function CodeTaskWorkspace(props: CodeTaskWorkspaceProps) {
 
   const descriptionPane = (
     <div className="h-full overflow-y-auto px-4 py-4 text-slate-800">
-      <h3 className="text-base font-semibold leading-snug whitespace-pre-wrap break-words">{title}</h3>
+      {title && title.trim() && title.trim() !== description.trim() ? (
+        <>
+          <h3 className="text-base font-semibold leading-snug break-words">{title}</h3>
+          <p className="mt-3 text-sm leading-relaxed whitespace-pre-wrap break-words text-slate-700">
+            {description}
+          </p>
+        </>
+      ) : (
+        <h3 className="text-base font-semibold leading-snug whitespace-pre-wrap break-words">{description}</h3>
+      )}
 
       {hint && (
         <details className="mt-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-amber-900">

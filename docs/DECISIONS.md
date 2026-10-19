@@ -10,4 +10,7 @@
 8. **The student code workspace is a presentation component.** `CodeTaskWorkspace` has no saving or grading logic. It receives everything from `TaskCodeObject`, so autosave, submit gating and hidden-test rules stay in one place. Teacher and grading views are unchanged.
 9. **Turkmen is machine-drafted.** Student-facing and daily teacher screens were done first, then the rest. Missing keys fall back to English. A review file with English and Turkmen side by side is kept in `docs/i18n/` for a native speaker.
 10. **Hide, do not delete, features we do not need yet.** A platform-level environment switch (`SIRIUS_HIDDEN_FEATURES`) turns a feature off for everyone and removes it from menus, instead of an org admin toggle (which an admin could flip back) or removing code (which makes upstream updates and later re-enabling hard).
+11. **Expected outputs of AI code tasks come from Judge0.** The model writes test inputs only; the stored expected output is what the reference solution actually prints. This is the reason code tasks could be added to the AI generator at all (a wrong answer key mis-grades every student).
+12. **Code generation runs as a background job.** Verification takes tens of seconds, so the API returns a job id and the web app polls. Job state is in memory by design (simple, bounded, teacher-only); the trade-off is that an API restart loses a running job.
+13. **A surviving wrong solution is a warning, not a rejection.** The check depends on another model call; rejecting on it would drop good tasks. The teacher sees the warning.
 

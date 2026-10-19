@@ -21,19 +21,32 @@ from src.security.auth import get_authenticated_user, resolve_acting_user_id
 from src.security.features_utils.usage import refund_ai_credit, reserve_ai_credit
 from src.security.org_auth import is_org_member, enforce_org_mfa
 from src.security.rbac import check_resource_access, AccessAction
-from src.services.ai.assignment_gen import generate_assignment_plan
+from src.services.ai.assignment_gen import _course_context, generate_assignment_plan
+from src.services.ai.code_task_gen import CODE_LANGUAGES
+from src.services.ai.code_task_jobs import (
+    CREDIT_COST_PER_TASK,
+    get_job,
+    start_job,
+    user_has_active_job,
+)
 from src.services.ai.base import chat_session_belongs_to_user
 from src.services.ai.generations import (
     delete_generation,
     list_generations,
     record_generation,
 )
-from src.services.ai.llm import AINotConfiguredError, resolve_model_for_org
+from src.services.ai.llm import AINotConfiguredError, model_for_tier, resolve_model_for_org
+from src.services.ai.schemas.code_task import (
+    CodeTaskJobStart,
+    CodeTaskJobStatus,
+    GenerateCodeTaskRequest,
+)
 from src.services.ai.schemas.assignment import (
     AIAssignmentHistoryItem,
     GenerateAssignmentRequest,
     GenerateAssignmentResponse,
 )
+from src.services.code.judge0_client import is_configured as judge0_is_configured
 from src.services.security.rate_limiting import enforce_ai_rate_limit
 
 logger = logging.getLogger(__name__)
@@ -202,3 +215,110 @@ async def api_delete_assignment_history(
     if not deleted:
         raise HTTPException(status_code=404, detail="Generation not found")
     return {"detail": "deleted"}
+
+
+# --- AI code tasks, verified with Judge0 ---
+
+MAX_CODE_TASKS_PER_JOB = 3
+
+
+@router.post(
+    "/assignments/code-task/generate",
+    response_model=CodeTaskJobStart,
+    summary="Start generating Judge0-verified code tasks",
+    responses={
+        200: {"description": "Job started; poll the job endpoint for progress and the result."},
+        400: {"description": "Missing prompt or unsupported language"},
+        403: {"description": "Not allowed, AI disabled, or insufficient credits"},
+        404: {"description": "Organization or course not found"},
+        409: {"description": "A code task generation is already running for this user"},
+        503: {"description": "Code execution (Judge0) is not configured"},
+    },
+)
+async def api_generate_code_task(
+    body: GenerateCodeTaskRequest,
+    request: Request,
+    current_user: PublicUser = Depends(get_authenticated_user),
+    db_session: AsyncSession = Depends(get_db_session),
+) -> CodeTaskJobStart:
+    if not (body.prompt or "").strip():
+        raise HTTPException(status_code=400, detail="A prompt is required")
+    if body.language_id not in CODE_LANGUAGES:
+        raise HTTPException(status_code=400, detail="This programming language is not supported")
+    if not judge0_is_configured():
+        raise HTTPException(status_code=503, detail="Code execution is not configured on this server")
+
+    org = await _authorize_org(body.org_id, current_user, db_session)
+    assert org.id is not None
+
+    course = (
+        await db_session.execute(select(Course).where(Course.course_uuid == body.course_uuid))
+    ).scalars().first()
+    if not course or course.id is None or course.org_id != org.id:
+        raise HTTPException(status_code=404, detail="Course not found")
+
+    # Same rule as plan generation: content-author rights on THIS course.
+    await check_resource_access(
+        request, db_session, current_user, course.course_uuid, AccessAction.UPDATE
+    )
+
+    acting_user_id = resolve_acting_user_id(current_user)
+    num_tasks = max(1, min(body.num_tasks, MAX_CODE_TASKS_PER_JOB))
+
+    if user_has_active_job(acting_user_id):
+        raise HTTPException(status_code=409, detail="A code task generation is already running")
+
+    enforce_ai_rate_limit(current_user.id, org.id)
+    cost = CREDIT_COST_PER_TASK * num_tasks
+    await reserve_ai_credit(org.id, db_session, amount=cost)
+
+    try:
+        # Code generation always uses the strongest configured tier: a wrong
+        # test set mis-grades every student, so quality matters more than latency.
+        model_name = model_for_tier("pro")
+        context = (await _course_context(course.id, org.id, db_session))[:4000]
+        job = start_job(
+            user_id=acting_user_id,
+            org_id=org.id,
+            num_tasks=num_tasks,
+            generation_kwargs={
+                "model_name": model_name,
+                "language_id": body.language_id,
+                "difficulty": body.difficulty,
+                "prompt": body.prompt,
+                "context": context,
+            },
+        )
+    except AINotConfiguredError as e:
+        refund_ai_credit(org.id, cost)
+        raise HTTPException(status_code=403, detail=str(e))
+    except Exception:
+        refund_ai_credit(org.id, cost)
+        logger.exception("Could not start code task generation")
+        raise HTTPException(status_code=502, detail="Could not start generation. Please try again.")
+
+    return CodeTaskJobStart(job_id=job.job_id)
+
+
+@router.get(
+    "/assignments/code-task/jobs/{job_id}",
+    response_model=CodeTaskJobStatus,
+    summary="Progress and result of a code task generation job",
+    responses={404: {"description": "Unknown or expired job"}},
+)
+async def api_code_task_job(
+    job_id: str,
+    current_user: PublicUser = Depends(get_authenticated_user),
+) -> CodeTaskJobStatus:
+    job = get_job(job_id)
+    # Same answer for "not found" and "someone else's job": no probing of ids.
+    if not job or job.user_id != resolve_acting_user_id(current_user):
+        raise HTTPException(status_code=404, detail="Job not found")
+    return CodeTaskJobStatus(
+        job_id=job.job_id,
+        status=job.status,  # type: ignore[arg-type]
+        progress=job.progress,
+        tasks=job.tasks,
+        dropped=job.dropped,
+        error=job.error,
+    )

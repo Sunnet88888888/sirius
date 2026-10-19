@@ -185,3 +185,25 @@ export async function fetchAIAssignmentHistory(org_id: number, access_token: str
 export async function deleteAIAssignmentHistory(uuid: string, access_token: string) {
   return del(`ai/assignments/history/${uuid}`, access_token)
 }
+
+// --- Code task generation (Judge0-verified) ---
+// Starts a background job and returns its id; poll fetchAICodeTaskJob for
+// progress and the verified tasks. See src/routers/ai/assignment_gen.py.
+
+export async function startAICodeTaskJob(
+  params: {
+    org_id: number
+    course_uuid: string
+    prompt: string
+    language_id: number
+    difficulty: 'easy' | 'medium' | 'hard'
+    num_tasks: number
+  },
+  access_token: string
+) {
+  return postJSON('ai/assignments/code-task/generate', params, access_token)
+}
+
+export async function fetchAICodeTaskJob(job_id: string, access_token: string) {
+  return getJSON(`ai/assignments/code-task/jobs/${job_id}`, access_token)
+}

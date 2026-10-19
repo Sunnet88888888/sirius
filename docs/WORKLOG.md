@@ -30,3 +30,11 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Done: `SIRIUS_HIDDEN_FEATURES` switch (backend resolve + route dependency, web menu), tests, docs/features/hidden-features.md. Server `.env` gets `SIRIUS_HIDDEN_FEATURES=boards,playgrounds`.
 - Rollback: remove the variable from `/opt/learnhouse/.env` and recreate the app container; or `deploy.sh --rollback 02e385e`.
 
+## 2026-10-19 - AI code tasks with Judge0 (branch feat/ai-code-tasks)
+- Goal: let the AI generator write code tasks whose tests are machine-verified.
+- Backend: `code_task_gen.py` (generate, validate in Judge0, repair, mutant check), `code_task_jobs.py`, `judge0_client.py`, two endpoints, `ai_validation` stripped from student payloads. Judge0 client uses base64 because g++ compiler messages can contain non-UTF-8 characters (Judge0 then answers with an error and no status).
+- Web: Code (verified) option, language and difficulty pickers, progress, and a preview with validation badges in the generator modal; the student workspace shows the task title and statement separately.
+- Tests: 25 new unit tests (fake model, fake Judge0) pass; 914 related existing tests pass; the Judge0 client was checked live on all four languages including runtime and compile errors.
+- NOT yet measured with the real model: the OpenAI key on the server is rejected (HTTP 401), so the golden-set run (`scripts/ai_code_task_golden.py`) is pending a working key.
+- Rollback: `deploy.sh --rollback 91eab5a`.
+

@@ -264,6 +264,9 @@ def _strip_answer_key(contents, keep_answer_keys: bool = False):
     # Always removed, even in reveal mode, because these expose the full
     # solution / hidden grader inputs rather than just "which answer was right".
     c.pop("solution_code", None)
+    # Teacher-facing evidence from the AI code-task generator (model, Judge0 run
+    # counts, warnings); never part of a student payload.
+    c.pop("ai_validation", None)
     test_cases = c.get("test_cases")
     if isinstance(test_cases, list):
         for tc in test_cases:

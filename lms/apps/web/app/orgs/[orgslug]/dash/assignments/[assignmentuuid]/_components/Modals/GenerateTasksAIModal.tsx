@@ -3,7 +3,7 @@
 import React from 'react'
 import toast from 'react-hot-toast'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Check, CircleNotch, Clock, ClockCounterClockwise, FileArrowUp, Hash, ListChecks, PencilSimple, Plus, Sparkle, TextT, Trash, X, type Icon as PhosphorIcon } from '@phosphor-icons/react'
+import { Check, CircleNotch, Clock, ClockCounterClockwise, Code, Eye, EyeSlash, FileArrowUp, Hash, ListChecks, PencilSimple, Plus, ShieldCheck, Sparkle, TextT, Trash, Warning, X, type Icon as PhosphorIcon } from '@phosphor-icons/react'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { queryKeys } from '@/lib/query/keys'
@@ -14,6 +14,8 @@ import {
   generateAIAssignment,
   fetchAIAssignmentHistory,
   deleteAIAssignmentHistory,
+  startAICodeTaskJob,
+  fetchAICodeTaskJob,
 } from '@services/ai/generation'
 import { QUIZ_RESPONSE_SINGLE, resolveQuizResponseType } from '@/lib/quiz/modes'
 
@@ -36,6 +38,7 @@ type AssignmentTypeValue =
   | 'SHORT_ANSWER'
   | 'NUMBER_ANSWER'
   | 'FILE_SUBMISSION'
+  | 'CODE'
 
 interface GeneratedTask {
   title: string
@@ -70,15 +73,43 @@ const TYPE_META: Record<
   SHORT_ANSWER: { label: 'Short answer', Icon: PencilSimple },
   NUMBER_ANSWER: { label: 'Number', Icon: Hash },
   FILE_SUBMISSION: { label: 'File upload', Icon: FileArrowUp },
+  CODE: { label: 'Code (verified)', Icon: Code },
 }
 
-const ALL_TYPES: AssignmentTypeValue[] = [
+// Types the plain generator can write. CODE goes through its own verified
+// pipeline (separate request, Judge0 checks) and is off by default because it
+// takes longer and uses more credits.
+const TEXT_TYPES: AssignmentTypeValue[] = [
   'QUIZ',
   'FORM',
   'SHORT_ANSWER',
   'NUMBER_ANSWER',
   'FILE_SUBMISSION',
 ]
+const ALL_TYPES: AssignmentTypeValue[] = [...TEXT_TYPES, 'CODE']
+
+// Judge0 language ids the code generator supports (the server is the authority).
+const CODE_LANGUAGE_OPTIONS = [
+  { id: 71, name: 'Python 3' },
+  { id: 63, name: 'JavaScript' },
+  { id: 62, name: 'Java' },
+  { id: 54, name: 'C++' },
+]
+const CODE_DIFFICULTIES: { id: 'easy' | 'medium' | 'hard'; name: string }[] = [
+  { id: 'easy', name: 'Easy' },
+  { id: 'medium', name: 'Medium' },
+  { id: 'hard', name: 'Hard' },
+]
+
+interface CodeJobStatus {
+  status: 'queued' | 'running' | 'done' | 'failed'
+  progress: { task_index: number; stage: string; message: string }[]
+  tasks: GeneratedTask[]
+  dropped: { task_index: number; reason: string }[]
+  error?: string | null
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
@@ -114,8 +145,12 @@ function GenerateTasksAIModal({
   const [prompt, setPrompt] = React.useState('')
   const [numTasks, setNumTasks] = React.useState(3)
   const [allowedTypes, setAllowedTypes] = React.useState<Set<AssignmentTypeValue>>(
-    new Set(ALL_TYPES)
+    new Set(TEXT_TYPES)
   )
+  const [codeLanguage, setCodeLanguage] = React.useState(71)
+  const [codeDifficulty, setCodeDifficulty] = React.useState<'easy' | 'medium' | 'hard'>('easy')
+  const [numCodeTasks, setNumCodeTasks] = React.useState(1)
+  const [codeProgress, setCodeProgress] = React.useState<string | null>(null)
   const [isGenerating, setIsGenerating] = React.useState(false)
   const [sessionUuid, setSessionUuid] = React.useState<string | undefined>(undefined)
 
@@ -141,6 +176,58 @@ function GenerateTasksAIModal({
     })
   }
 
+  // Runs the verified code-task job: start, then poll until it finishes. Returns
+  // the tasks that passed verification plus a note for any that were dropped.
+  async function runCodeJob(): Promise<{ tasks: GeneratedTask[]; notes: string[] } | null> {
+    const started = await startAICodeTaskJob(
+      {
+        org_id: org.id,
+        course_uuid: course_uuid as string,
+        prompt: prompt.trim(),
+        language_id: codeLanguage,
+        difficulty: codeDifficulty,
+        num_tasks: numCodeTasks,
+      },
+      access_token
+    )
+    if (!started.success || !started.data?.job_id) {
+      const detail = started.data?.detail
+      toast.error(
+        typeof detail === 'string' && detail ? detail : 'Could not start the code task generation.'
+      )
+      return null
+    }
+    const jobId: string = started.data.job_id
+    setCodeProgress('Starting…')
+    const deadline = Date.now() + 8 * 60 * 1000
+    while (Date.now() < deadline) {
+      await sleep(2000)
+      const res = await fetchAICodeTaskJob(jobId, access_token)
+      if (!res.success) {
+        toast.error('Lost track of the code task generation. Please try again.')
+        return null
+      }
+      const job = res.data as CodeJobStatus
+      const last = job.progress?.[job.progress.length - 1]
+      if (last) {
+        const total = numCodeTasks > 1 ? ` (task ${last.task_index + 1} of ${numCodeTasks})` : ''
+        setCodeProgress(`${last.message}…${total}`)
+      }
+      if (job.status === 'failed') {
+        toast.error(job.error || 'Code task generation failed.')
+        return null
+      }
+      if (job.status === 'done') {
+        const notes = (job.dropped ?? []).map(
+          (d) => `A code task was dropped because it could not be verified: ${d.reason}`
+        )
+        return { tasks: job.tasks ?? [], notes }
+      }
+    }
+    toast.error('Code task generation took too long. Please try again.')
+    return null
+  }
+
   async function runGenerate(refine = false) {
     if (!org?.id) {
       toast.error('Organization not ready yet, please retry.')
@@ -154,36 +241,66 @@ function GenerateTasksAIModal({
       toast.error('Please describe what you want to generate.')
       return
     }
+    const textTypes = TEXT_TYPES.filter((t) => allowedTypes.has(t))
+    const includeCode = allowedTypes.has('CODE') && !refine
     setIsGenerating(true)
+    setCodeProgress(null)
     try {
-      const allowed_task_types =
-        allowedTypes.size < ALL_TYPES.length ? Array.from(allowedTypes) : undefined
-      const res = await generateAIAssignment(
-        {
-          org_id: org.id,
-          course_uuid,
-          prompt: prompt.trim(),
-          num_tasks: numTasks,
-          allowed_task_types,
-          // Passing the session_uuid back enables multi-turn refinement.
-          session_uuid: refine ? sessionUuid : undefined,
-        },
-        access_token
-      )
-      if (res.success && res.data?.plan) {
-        setSessionUuid(res.data.session_uuid)
-        setPlan(res.data.plan)
-        setTasks(clone(res.data.plan.tasks ?? []))
-        toast.success(
-          refine ? 'Tasks refined.' : `Generated ${res.data.plan.tasks?.length ?? 0} task(s).`
+      let nextPlan: AIPlan | null = null
+      let nextTasks: GeneratedTask[] = []
+      // Refining keeps the code tasks already verified; only the text tasks
+      // are rewritten from the new prompt.
+      const keptCode = refine ? tasks.filter((t) => t.assignment_type === 'CODE') : []
+
+      if (textTypes.length > 0) {
+        const res = await generateAIAssignment(
+          {
+            org_id: org.id,
+            course_uuid,
+            prompt: prompt.trim(),
+            num_tasks: numTasks,
+            allowed_task_types: textTypes.length < TEXT_TYPES.length ? textTypes : undefined,
+            // Passing the session_uuid back enables multi-turn refinement.
+            session_uuid: refine ? sessionUuid : undefined,
+          },
+          access_token
         )
-      } else {
-        toast.error('Generation failed, please try again.')
+        if (res.success && res.data?.plan) {
+          setSessionUuid(res.data.session_uuid)
+          nextPlan = res.data.plan
+          nextTasks = clone(res.data.plan.tasks ?? [])
+        } else {
+          toast.error('Generation failed, please try again.')
+          return
+        }
       }
+
+      let codeTasks: GeneratedTask[] = keptCode
+      if (includeCode) {
+        const code = await runCodeJob()
+        if (code) {
+          codeTasks = code.tasks
+          code.notes.forEach((n) => toast(n, { icon: '⚠️', duration: 8000 }))
+        } else if (nextTasks.length === 0) {
+          return
+        }
+      }
+
+      const merged = [...nextTasks, ...clone(codeTasks)]
+      if (merged.length === 0) {
+        toast.error('No task could be generated. Try rephrasing.')
+        return
+      }
+      setPlan(nextPlan ?? { title: 'Code tasks', description: '', tasks: merged })
+      setTasks(merged)
+      toast.success(
+        refine ? 'Tasks refined.' : `Generated ${merged.length} task${merged.length === 1 ? '' : 's'}.`
+      )
     } catch {
       toast.error('Generation failed, please try again.')
     } finally {
       setIsGenerating(false)
+      setCodeProgress(null)
     }
   }
 
@@ -403,6 +520,60 @@ function GenerateTasksAIModal({
               </div>
             </div>
 
+            {allowedTypes.has('CODE') && (
+              <div className="flex flex-wrap items-end gap-4 rounded-lg border border-gray-100 bg-gray-50/60 p-3">
+                <div className="flex items-start gap-2 basis-full text-[11px] text-gray-500">
+                  <ShieldCheck weight="duotone" size={14} className="mt-0.5 flex-none text-emerald-600" />
+                  <span>
+                    Code tasks are checked by running them: the reference solution must pass every test, the
+                    expected outputs come from that run, and the starter code must not already pass. Tasks that
+                    fail the checks are dropped. This takes about a minute per task.
+                  </span>
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-700 mb-1.5 block">Language</label>
+                  <select
+                    value={codeLanguage}
+                    onChange={(e) => setCodeLanguage(Number(e.target.value))}
+                    className="px-3 py-2 text-sm text-gray-700 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                  >
+                    {CODE_LANGUAGE_OPTIONS.map((l) => (
+                      <option key={l.id} value={l.id}>
+                        {l.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-700 mb-1.5 block">Difficulty</label>
+                  <select
+                    value={codeDifficulty}
+                    onChange={(e) => setCodeDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}
+                    className="px-3 py-2 text-sm text-gray-700 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                  >
+                    {CODE_DIFFICULTIES.map((d) => (
+                      <option key={d.id} value={d.id}>
+                        {d.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-700 mb-1.5 block">Code tasks</label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={3}
+                    value={numCodeTasks}
+                    onChange={(e) =>
+                      setNumCodeTasks(Math.min(3, Math.max(1, parseInt(e.target.value || '1', 10))))
+                    }
+                    className="w-20 px-3 py-2 text-sm text-gray-700 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -428,10 +599,10 @@ function GenerateTasksAIModal({
           </div>
 
           {/* Preview */}
-          {isGenerating && !plan && (
-            <div className="flex items-center justify-center gap-2 py-10 text-sm text-gray-400">
+          {isGenerating && (
+            <div className="flex items-center justify-center gap-2 py-6 text-sm text-gray-400">
               <CircleNotch weight="duotone" size={16} className="animate-spin" />
-              Generating tasks…
+              {codeProgress ?? 'Generating tasks…'}
             </div>
           )}
 
@@ -623,8 +794,8 @@ function TaskPreviewCard({
           <textarea
             value={task.description}
             onChange={(e) => onUpdateTask(index, { description: e.target.value })}
-            rows={2}
-            className="w-full px-3 py-1.5 text-sm text-gray-700 border border-gray-200 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+            rows={task.assignment_type === 'CODE' ? 6 : 2}
+            className="w-full px-3 py-1.5 text-sm text-gray-700 border border-gray-200 rounded-md resize-y focus:outline-none focus:ring-2 focus:ring-gray-900/10"
           />
         </div>
         <div className="flex gap-3">
@@ -910,6 +1081,10 @@ function TaskContentEditor({
     )
   }
 
+  if (task.assignment_type === 'CODE') {
+    return <CodeTaskPreview index={index} contents={c} onUpdateContents={onUpdateContents} />
+  }
+
   // FILE_SUBMISSION: no content to edit.
   return (
     <p className="text-xs text-gray-400 italic pt-1">
@@ -919,3 +1094,121 @@ function TaskContentEditor({
 }
 
 export default GenerateTasksAIModal
+
+// ------------------------------------------------------------------
+// Verified code task: what was checked, the starter, the reference, the tests
+// ------------------------------------------------------------------
+function CodeTaskPreview({
+  index,
+  contents,
+  onUpdateContents,
+}: {
+  index: number
+  contents: any
+  onUpdateContents: (_index: number, _mutate: (_contents: any) => void) => void
+}) {
+  const [showSolution, setShowSolution] = React.useState(false)
+  const report = contents?.ai_validation
+  const tests: any[] = Array.isArray(contents?.test_cases) ? contents.test_cases : []
+  const language = CODE_LANGUAGE_OPTIONS.find((l) => l.id === contents?.language_id)?.name ?? 'Code'
+  const preCls =
+    'whitespace-pre-wrap break-all rounded-md border border-gray-100 bg-gray-50 px-2.5 py-2 font-mono text-[12px] text-gray-700'
+
+  const badge = (ok: boolean, text: string) => (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold ${
+        ok ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'
+      }`}
+    >
+      {ok ? <Check weight="bold" size={11} /> : <Warning weight="bold" size={11} />}
+      {text}
+    </span>
+  )
+
+  return (
+    <div className="flex flex-col gap-3 pt-1">
+      <div className="flex flex-wrap items-center gap-1.5">
+        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
+          {language}
+        </span>
+        {report?.validated && (
+          <>
+            {badge(true, `Reference solution passes ${report.reference_passed}/${report.tests_total}`)}
+            {badge(!!report.deterministic, 'Output is reproducible')}
+            {badge(!!report.samples_agree, 'Examples match')}
+            {badge(report.starter_passes < report.tests_total, 'Starter code does not solve it')}
+            {report.mutants_tried > 0 &&
+              badge(
+                report.mutants_killed === report.mutants_tried,
+                `Wrong solutions caught ${report.mutants_killed}/${report.mutants_tried}`
+              )}
+          </>
+        )}
+      </div>
+      {(report?.warnings ?? []).map((w: string, i: number) => (
+        <p key={i} className="flex items-start gap-1.5 text-[11px] text-amber-700">
+          <Warning weight="duotone" size={13} className="mt-0.5 flex-none" />
+          {w}
+        </p>
+      ))}
+
+      <div>
+        <p className="mb-1 text-[11px] font-semibold text-gray-500">Starter code (students see this)</p>
+        <pre dir="ltr" className={preCls}>{contents?.starter_code}</pre>
+      </div>
+
+      <div>
+        <button
+          type="button"
+          onClick={() => setShowSolution((v) => !v)}
+          className="flex items-center gap-1 text-[11px] font-semibold text-gray-500 hover:text-gray-700"
+        >
+          {showSolution ? <EyeSlash weight="duotone" size={12} /> : <Eye weight="duotone" size={12} />}
+          Reference solution (teachers only)
+        </button>
+        {showSolution && (
+          <pre dir="ltr" className={preCls + ' mt-1'}>{contents?.solution_code}</pre>
+        )}
+      </div>
+
+      <div>
+        <p className="mb-1 text-[11px] font-semibold text-gray-500">
+          Tests ({tests.filter((t) => !t.hidden).length} visible, {tests.filter((t) => t.hidden).length} hidden)
+        </p>
+        <div className="flex flex-col gap-1.5">
+          {tests.map((t, ti) => (
+            <div key={t.id ?? ti} className="rounded-md border border-gray-100 bg-gray-50/40 p-2">
+              <div className="flex items-center justify-between gap-2">
+                <span className="flex items-center gap-1 text-[11px] font-semibold text-gray-600">
+                  {t.hidden ? <EyeSlash weight="duotone" size={12} /> : <Eye weight="duotone" size={12} />}
+                  {t.label}
+                  <span className="font-normal text-gray-400">{t.hidden ? 'hidden' : 'visible'}</span>
+                </span>
+                <button
+                  type="button"
+                  disabled={tests.length <= 3}
+                  onClick={() =>
+                    onUpdateContents(index, (c) => {
+                      c.test_cases.splice(ti, 1)
+                    })
+                  }
+                  className="rounded p-1 text-gray-300 hover:bg-rose-50 hover:text-rose-500 disabled:opacity-30"
+                  title="Remove this test"
+                >
+                  <X weight="duotone" size={12} />
+                </button>
+              </div>
+              <div dir="ltr" className="mt-1 grid gap-1.5 sm:grid-cols-2">
+                <pre className={preCls}>{t.stdin === '' ? '(empty input)' : t.stdin}</pre>
+                <pre className={preCls}>{t.expectedStdout}</pre>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-1 text-[11px] text-gray-400">
+          Left: input. Right: expected output, taken from running the reference solution.
+        </p>
+      </div>
+    </div>
+  )
+}
