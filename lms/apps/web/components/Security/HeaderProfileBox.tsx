@@ -27,6 +27,7 @@ import { useTranslation } from 'react-i18next'
 import { changeLanguage } from '@/lib/i18n'
 import { AVAILABLE_LANGUAGES } from '@/lib/languages'
 import LanguageSwitcher from '@components/Utils/LanguageSwitcher'
+import ThemeToggle from '@components/Utils/ThemeToggle'
 import { useLHAnalytics, AnalyticsEvent } from '@services/analytics'
 import { getMenuColorClasses } from '@services/utils/ts/colorUtils'
 
@@ -168,6 +169,9 @@ export const HeaderProfileBox = ({ primaryColor = '' }: { primaryColor?: string 
         <div className="flex items-stretch grow items-center">
           <ul className="flex space-x-0.5 sm:space-x-1 items-center">
             <li>
+              <ThemeToggle className={`flex items-center justify-center px-2.5 py-2 rounded-lg transition-colors outline-none ${colors.iconBtn}`} />
+            </li>
+            <li>
               <LanguageSwitcher primaryColor={primaryColor} />
             </li>
             <li>
@@ -184,6 +188,7 @@ export const HeaderProfileBox = ({ primaryColor = '' }: { primaryColor?: string 
       {session.status == 'authenticated' && (
         <div className="flex items-center space-x-0">
           <div className="flex items-center space-x-3">
+            <ThemeToggle className={`flex items-center justify-center px-2.5 py-2 rounded-lg transition-colors outline-none ${colors.iconBtn}`} />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className={`cursor-pointer flex items-center space-x-3 rounded-lg p-2 transition-colors ${colors.profileHover}`}>

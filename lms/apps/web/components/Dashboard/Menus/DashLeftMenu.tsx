@@ -1,6 +1,7 @@
 'use client'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { signOut } from '@components/Contexts/AuthContext'
+import { useTheme } from '@components/Hooks/useTheme'
 import {
   House,
   BookOpen,
@@ -12,6 +13,8 @@ import {
   Question,
   Gear,
   SignOut,
+  Moon,
+  Sun,
   SidebarSimple,
   Check,
   CaretDown,
@@ -109,6 +112,7 @@ function DashLeftMenu() {
   const org = useOrg() as any
   const session = useLHSession() as any
   const { t, i18n } = useTranslation()
+  const { isDark: themeIsDark, toggle: toggleTheme } = useTheme()
   const { track } = useLHAnalytics('dashboard')
   const pathname = usePathname() || ''
   const [isCollapsed, setIsCollapsed] = useState(false)
@@ -1211,6 +1215,17 @@ function DashLeftMenu() {
                     <ShoppingBag size={16} weight="fill" />
                     <span>{t('account.purchases')}</span>
                   </Link>
+                </HoverMenuItem>
+                <HoverMenuItem
+                  onClick={() => toggleTheme()}
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-white/70 hover:text-white hover:bg-white/[0.08] cursor-pointer transition-colors"
+                >
+                  {themeIsDark ? <Sun size={16} weight="fill" /> : <Moon size={16} weight="fill" />}
+                  <span>
+                    {themeIsDark
+                      ? t('common.theme_switch_to_light', { defaultValue: 'Switch to light theme' })
+                      : t('common.theme_switch_to_dark', { defaultValue: 'Switch to dark theme' })}
+                  </span>
                 </HoverMenuItem>
                 <HoverMenuSeparator />
                 <HoverMenuItem

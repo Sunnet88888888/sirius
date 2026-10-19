@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/dark.css'
 import React from 'react'
 import Providers from '@components/Providers'
 import { Wix_Madefor_Text, Tajawal } from 'next/font/google'
@@ -48,6 +49,9 @@ export default function RootLayout({
             RTL locale never flashes an LTR layout. Must run first. */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src="/dir-init.js" />
+        {/* Synchronous script: applies the saved light/dark theme before body paints. */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="/theme-init.js" />
         {/* Synchronous script: blocks parsing to guarantee window.__RUNTIME_CONFIG__ exists before any JS runs.
             Next.js <Script strategy="beforeInteractive"> is not truly blocking in all browsers (Safari). */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}

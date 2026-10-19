@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import LanguageSwitcher from '@components/Utils/LanguageSwitcher'
+import ThemeToggle from '@components/Utils/ThemeToggle'
 import AuthBrandingPanel from '@components/Auth/AuthBrandingPanel'
 import AuthMobileHeader from '@components/Auth/AuthMobileHeader'
 import { AuthFooter } from '@components/Footers/LegalFooters'
@@ -35,7 +36,8 @@ export default function AuthLayout({ org, welcomeText, title, subtitle, children
       {/* Language switcher: must sit ABOVE the right-hand branding panel
           (z-10), otherwise the panel intercepts its clicks. `z-dropdown`
           resolves to z-index:auto here, so use a concrete z-50. */}
-      <div className="absolute top-4 end-4 z-50">
+      <div className="absolute top-4 end-4 z-50 flex items-center gap-1">
+        <ThemeToggle />
         <LanguageSwitcher />
       </div>
 
