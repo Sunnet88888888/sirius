@@ -167,7 +167,7 @@ export const HeaderProfileBox = ({ primaryColor = '' }: { primaryColor?: string 
     <div className="flex items-stretch items-center">
       {session.status == 'unauthenticated' && (
         <div className="flex items-stretch grow items-center">
-          <ul className="flex space-x-0.5 sm:space-x-1 items-center">
+          <ul className="flex flex-wrap justify-center space-x-0.5 sm:space-x-1 items-center">
             <li>
               <ThemeToggle className={`flex items-center justify-center px-2.5 py-2 rounded-lg transition-colors outline-none ${colors.iconBtn}`} />
             </li>
