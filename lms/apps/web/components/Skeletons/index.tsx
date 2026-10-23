@@ -2,40 +2,23 @@
 
 // ---------------------------------------------------------------------------
 // CourseCardSkeleton
-// Mirrors CourseThumbnail layout:
-//   - aspect-video thumbnail area
-//   - p-3 body: title line, description lines, bottom bar (avatars + date + CTA)
+// Mirrors the SIRIUS course card: 96px thumbnail + text head, divider, footer with CTA.
 // ---------------------------------------------------------------------------
 export function CourseCardSkeleton() {
   return (
-    <div className="flex flex-col bg-white rounded-xl nice-shadow overflow-hidden w-full">
-      {/* Thumbnail – aspect-video */}
-      <div className="relative aspect-video bg-gray-200 dark:bg-gray-700 animate-pulse" />
-
-      {/* Card body */}
-      <div className="p-3 flex flex-col space-y-2">
-        {/* Title */}
-        <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-
-        {/* Description – 2 lines */}
-        <div className="space-y-1">
-          <div className="h-3 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-          <div className="h-3 w-5/6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+    <div className="flex flex-col w-full rounded-[26px] border border-gray-200 dark:border-gray-700 p-6 gap-5">
+      <div className="flex gap-4 items-center">
+        {/* Thumbnail – 96px square */}
+        <div className="w-24 h-24 shrink-0 rounded-[20px] bg-gray-200 dark:bg-gray-700 animate-pulse" />
+        <div className="flex-1 space-y-2.5">
+          <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+          <div className="h-3 w-1/2 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+          <div className="h-6 w-20 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />
         </div>
-
-        {/* Bottom bar */}
-        <div className="pt-1.5 flex items-center justify-between border-t border-gray-100">
-          {/* Avatar stack + date */}
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2">
-              <div className="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse border-2 border-white" />
-              <div className="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse border-2 border-white" />
-            </div>
-            <div className="h-2.5 w-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-          </div>
-          {/* CTA */}
-          <div className="h-2.5 w-16 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-        </div>
+      </div>
+      <div className="flex items-center justify-between border-t border-gray-100 dark:border-gray-700 pt-4">
+        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+        <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
       </div>
     </div>
   )

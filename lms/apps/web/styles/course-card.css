@@ -1,0 +1,131 @@
+/*
+ * Course card (SIRIUS design). Port of .ccard from the landing page.
+ * Tokens: dark values are the base, light values apply unless <html class="dark">
+ * (same switch as styles/dark.css). The "sculptural" outline (clip-path + edge
+ * stroke, with a notch for the favourite button) is drawn by CourseThumbnail.
+ */
+
+@keyframes scard-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.scard {
+  --k-a: #10201a; --k-b: #0a1511; --k-c: #050b08;
+  --k-ink: #ffffff; --k-text: #a9b9b1; --k-muted: #7d8d85;
+  --k-line: rgba(255,255,255,.07); --k-edge: rgba(255,255,255,.09);
+  --k-green: #4ade80; --k-lime: #a3e635; --k-deep: #022c22;
+  --k-fav-bg: rgba(3,15,5,.97); --k-fav-line: rgba(74,222,128,.32); --k-fav-ink: #4ade80;
+  --k-cta-bg: linear-gradient(135deg, #0e2415 0%, #04702a 100%); --k-cta-ink: #dff3e8;
+  --k-cta-glow: rgba(74,222,128,.28);
+  --k-shadow: drop-shadow(0 26px 40px rgba(0,0,0,.55));
+  --k-shadow-hover: drop-shadow(0 34px 50px rgba(0,0,0,.6));
+  --k-bloom-a: .13;
+}
+html:not(.dark) .scard {
+  --k-a: #ffffff; --k-b: #fbfcfd; --k-c: #f1f4f3;
+  --k-ink: #0f172a; --k-text: #475569; --k-muted: #64748b;
+  --k-line: rgba(15,23,42,.08); --k-edge: rgba(15,23,42,.10);
+  --k-green: #16a34a;
+  --k-fav-bg: rgba(255,255,255,.9); --k-fav-line: rgba(15,23,42,.10); --k-fav-ink: #16a34a;
+  --k-cta-bg: linear-gradient(135deg, #a3e635 0%, #4ade80 100%); --k-cta-ink: #022c22;
+  --k-cta-glow: rgba(74,222,128,.34);
+  --k-shadow: drop-shadow(0 20px 30px rgba(15,23,42,.11));
+  --k-shadow-hover: drop-shadow(0 28px 40px rgba(15,23,42,.17));
+  --k-bloom-a: .11;
+}
+
+.scard {
+  position: relative; width: 100%; container-type: inline-size;
+  filter: var(--k-shadow);
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), filter .45s;
+  animation: scard-rise .5s ease both;
+}
+.scard:hover { transform: translateY(-5px); filter: var(--k-shadow-hover); }
+.scard--selected .scard__body { outline: 2px solid var(--k-green); outline-offset: -2px; }
+
+.scard__body {
+  position: relative; height: 100%; display: flex; flex-direction: column;
+  padding: 26px 24px 22px; border-radius: 26px; overflow: hidden; color: var(--k-ink);
+  background:
+    radial-gradient(90% 70% at 92% 4%, rgba(var(--bloom, 56,245,125), var(--k-bloom-a)), transparent 65%),
+    linear-gradient(135deg, var(--k-a) 0%, var(--k-b) 55%, var(--k-c) 100%);
+}
+.scard__edge { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 3; }
+.scard__edge path { fill: none; stroke: var(--k-edge); stroke-width: 2; }
+.scard__link { position: absolute; inset: 0; z-index: 2; border-radius: inherit; }
+
+.scard__head { display: flex; gap: 18px; align-items: center; padding-right: 54px; margin-bottom: 20px; }
+.scard__thumb {
+  position: relative; flex: 0 0 96px; width: 96px; height: 96px; border-radius: 20px; overflow: hidden; background: #050807;
+  border: 1px solid rgba(74,222,128,.4); padding: 3px;
+  box-shadow: 0 0 26px rgba(74,222,128,.14), inset 0 0 18px rgba(74,222,128,.10);
+}
+.scard__thumb svg, .scard__thumb img { display: block; width: 100%; height: 100%; border-radius: 16px; object-fit: cover; }
+.scard__info { min-width: 0; }
+.scard__title {
+  font-family: var(--font-display), var(--font-default), sans-serif; font-weight: 500; font-size: 19px; line-height: 1.14;
+  letter-spacing: -.03em; text-wrap: balance; overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.scard__author { margin-top: 6px; font-size: 13.5px; color: var(--k-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.scard__meta { margin-top: 12px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; font-size: 12.5px; font-weight: 500; color: var(--k-muted); }
+.scard__badge {
+  display: inline-flex; align-items: center; height: 26px; max-width: 100%; padding: 0 12px; border-radius: 26px;
+  background: linear-gradient(90deg, var(--k-green) 0%, var(--k-lime) 100%); color: var(--k-deep);
+  font-size: 12px; font-weight: 700; letter-spacing: .01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.scard__badge--off { background: var(--k-line); color: var(--k-text); }
+.scard__nums { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
+.scard__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--k-lime); flex-shrink: 0; }
+html:not(.dark) .scard__dot { background: #84cc16; }
+
+.scard__divider { height: 1px; background: var(--k-line); margin: auto 0 0; }
+.scard__foot { margin-top: 16px; display: flex; align-items: center; gap: 14px; }
+.scard__stats { display: flex; flex-wrap: wrap; gap: 6px 16px; flex: 1; min-width: 0; }
+.kstat { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 500; color: var(--k-text); white-space: nowrap; }
+.kicon { position: relative; flex-shrink: 0; width: 22px; height: 22px; display: grid; place-items: center; }
+.kicon::after { content: ""; position: absolute; inset: 0; background: var(--k-green); filter: blur(7px); opacity: .22; border-radius: 50%; }
+.kicon svg { position: relative; z-index: 1; width: 19px; height: 19px; fill: none; stroke: var(--k-green); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.scard__go {
+  position: relative; z-index: 4; flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; pointer-events: none;
+  background: var(--k-cta-bg); box-shadow: 0 14px 28px var(--k-cta-glow), inset 0 2px 3px rgba(255,255,255,.35);
+  transition: transform .3s;
+}
+.scard__go svg { width: 22px; height: 22px; fill: none; stroke: var(--k-cta-ink); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s; }
+.scard:hover .scard__go { transform: scale(1.07); }
+.scard:hover .scard__go svg { transform: translateX(2px); }
+
+.scard__fav {
+  position: absolute; z-index: 5; top: 10px; right: 10px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+  background: var(--k-fav-bg); border: 1px solid var(--k-fav-line);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.28), inset 0 0 18px rgba(74,222,128,.08);
+  transition: transform .25s;
+}
+html:not(.dark) .scard__fav { box-shadow: 0 8px 18px rgba(15,23,42,.10), inset 0 0 14px rgba(74,222,128,.08); }
+.scard__fav:hover { transform: scale(1.08); }
+.scard__fav svg { width: 24px; height: 24px; fill: transparent; stroke: var(--k-fav-ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px rgba(74,222,128,.35)); transition: fill .25s; }
+.scard__fav[aria-pressed="true"] svg { fill: var(--k-fav-ink); }
+
+/* Small round buttons on the card body: admin actions (inline) and the dashboard selector. */
+.scard__act {
+  position: relative; z-index: 5; flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+  background: transparent; border: 1px solid var(--k-line); color: var(--k-text); transition: border-color .2s, color .2s;
+}
+.scard__act:hover { border-color: var(--k-green); color: var(--k-ink); }
+.scard__act svg { width: 18px; height: 18px; }
+.scard__select { position: absolute; z-index: 5; bottom: 10px; left: 10px; opacity: 0; transition: opacity .2s; }
+.scard:hover .scard__select, .scard__select[aria-pressed="true"] { opacity: 1; }
+
+/* Narrow containers (side columns, 2-up grids on phones): stack the head. */
+@container (max-width: 300px) {
+  .scard__body { padding: 22px 18px 18px; }
+  .scard__head { flex-direction: column; align-items: flex-start; gap: 14px; padding-right: 0; }
+  .scard__go { width: 46px; height: 46px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scard { animation: none; transition: none; }
+}

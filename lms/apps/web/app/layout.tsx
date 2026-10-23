@@ -1,13 +1,21 @@
 import '../styles/globals.css'
 import '../styles/dark.css'
+import '../styles/course-card.css'
 import React from 'react'
 import Providers from '@components/Providers'
-import { Wix_Madefor_Text, Tajawal } from 'next/font/google'
+import { Wix_Madefor_Text, Tajawal, Unbounded } from 'next/font/google'
 
 const wixMadeforText = Wix_Madefor_Text({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-default',
+})
+
+// Display face of the course card title (SIRIUS design); latin-ext covers Turkmen.
+const unbounded = Unbounded({
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
+  display: 'swap',
+  variable: '--font-display',
 })
 
 // Wix Madefor Text has no Arabic subset, so Arabic would otherwise fall back to
@@ -40,7 +48,7 @@ export default function RootLayout({
   // no-JS baseline for crawlers; the script overwrites it for everyone else.
   return (
     <html
-      className={`${wixMadeforText.variable} ${tajawal.variable}`}
+      className={`${wixMadeforText.variable} ${tajawal.variable} ${unbounded.variable}`}
       lang="en"
       suppressHydrationWarning
     >

@@ -160,7 +160,7 @@ function Courses(props: CourseProps) {
             {/* Search bar placeholder */}
             <div className="h-10 bg-gray-200 rounded-lg w-full sm:w-80 mb-4" />
             {/* Course card grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} className="rounded-xl overflow-hidden">
                   {/* Thumbnail area */}
@@ -279,7 +279,7 @@ function Courses(props: CourseProps) {
             </div>
           )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {paginatedCourses.map((course: any, index: number) => (
               <div key={course.course_uuid} className="">
                 <CourseThumbnail course={course} orgslug={orgslug} isPriority={currentPage === 1 && index < 3} />
