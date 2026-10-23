@@ -316,7 +316,7 @@ export const HeaderProfileBox = ({ primaryColor = '' }: { primaryColor?: string 
                     <span>{t('common.language')}</span>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
-                    <DropdownMenuSubContent>
+                    <DropdownMenuSubContent className="max-w-[calc(100vw-1rem)] max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto" collisionPadding={8}>
                       {AVAILABLE_LANGUAGES.map((language) => (
                         <DropdownMenuItem 
                           key={language.code}

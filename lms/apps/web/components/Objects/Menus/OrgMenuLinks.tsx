@@ -66,11 +66,11 @@ function MenuLinks(props: { orgslug: string; primaryColor?: string }) {
     .filter(Boolean) as any[]
 
   return (
-    <div className="ps-1">
-      <ul className="flex space-x-5">
+    <div className="ps-1 w-full md:w-auto">
+      <ul className="flex flex-col items-stretch gap-1 md:flex-row md:items-center md:gap-0 md:space-x-3 lg:space-x-5">
         {rendered.map((it) => {
           const content = (
-            <li className={`flex space-x-2 items-center ${colors.text} font-semibold`}>
+            <li className={`flex space-x-2 items-center px-3 py-2.5 rounded-lg md:p-0 ${colors.text} font-semibold`}>
               <it.Icon size={20} weight="fill" /> <span>{it.label}</span>
             </li>
           )

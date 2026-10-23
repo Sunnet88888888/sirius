@@ -352,18 +352,20 @@ export const OrgMenu = (props: any) => {
         }`}
         style={{
           zIndex: 'var(--z-nav-menu)',
-          top: isMenuOpen ? topOffset + 60 : undefined
+          top: isMenuOpen ? topOffset + 60 : undefined,
+          maxHeight: `calc(100dvh - ${topOffset + 60}px)`,
+          overflowY: 'auto'
         }}
       >
-        <div className="flex flex-col px-4 py-3 space-y-4 justify-center items-center">
+        <div className="flex flex-col w-full px-4 py-3 space-y-2 justify-center items-center">
           {/* Mobile Search */}
           <div className="w-full px-2">
             <SearchBar orgslug={orgslug} isMobile={true} />
           </div>
-          <div className='py-4'>
+          <div className='w-full py-2'>
             <MenuLinks orgslug={orgslug} />
           </div>
-          <div className="border-t border-gray-200">
+          <div className="w-full flex justify-center border-t border-gray-200 pt-3">
             <HeaderProfileBox />
           </div>
         </div>
