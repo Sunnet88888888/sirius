@@ -10,7 +10,7 @@ import CourseThumbnail from '@components/Objects/Thumbnails/CourseThumbnail'
 import NewCourseButton from '@components/Objects/StyledElements/Buttons/NewCourseButton'
 import useAdminStatus from '@components/Hooks/useAdminStatus'
 import { useTranslation } from 'react-i18next'
-import { BookCopy, Search, X, Users, Info, LogIn } from 'lucide-react'
+import { BookCopy, Search, X, Users, Info, LogIn, Heart } from 'lucide-react'
 import Link from 'next/link'
 import { getUriWithOrg } from '@services/config/config'
 import FeatureGate from '@components/Dashboard/Shared/FeatureGate/FeatureGate'
@@ -19,6 +19,7 @@ import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { searchMatchesAny } from '@/lib/search/normalize'
 import { getUserGroups, getUserGroupResources } from '@services/usergroups/usergroups'
 import { useCourses } from '@/hooks/queries/useCourses'
+import { useFavoriteCourseUuids } from '@/hooks/queries/useFavoriteCourses'
 import { useLHAnalytics, AnalyticsEvent } from '@services/analytics'
 import CatalogPagination, { useCatalogPagination } from '@components/Objects/Catalog/CatalogPagination'
 import { asArray } from '@services/utils/ts/requests'
@@ -42,6 +43,10 @@ function Courses(props: CourseProps) {
   const { data: coursesData, isLoading: coursesLoading } = useCourses(orgslug)
 
   const allCourses = coursesData || []
+
+  // Favorites filter; /courses?favorites=1 opens the list already filtered
+  const { data: favoriteUuids } = useFavoriteCourseUuids()
+  const [onlyFavorites, setOnlyFavorites] = useState(searchParams.get('favorites') === '1')
 
   // Usergroup filter, shown only when the org's plan actually includes
   // usergroups (a standard+ feature per the backend), via resolved features.
@@ -106,6 +111,11 @@ function Courses(props: CourseProps) {
       courses = courses.filter((course: any) => usergroupResourceUuids.has(course.course_uuid))
     }
 
+    if (onlyFavorites) {
+      const favorites = new Set(favoriteUuids || [])
+      courses = courses.filter((course: any) => favorites.has(course.course_uuid))
+    }
+
     // Search filter
     if (searchQuery.trim()) {
       courses = courses.filter((course: any) =>
@@ -114,7 +124,7 @@ function Courses(props: CourseProps) {
     }
 
     return courses
-  }, [allCourses, searchQuery, usergroupResourceUuids])
+  }, [allCourses, searchQuery, usergroupResourceUuids, onlyFavorites, favoriteUuids])
 
   // Track non-empty searches (debounced so we don't fire on every keystroke)
   useEffect(() => {
@@ -141,7 +151,7 @@ function Courses(props: CourseProps) {
   // Reset to page 1 when search or filter changes
   React.useEffect(() => {
     resetPage()
-  }, [searchQuery, selectedUsergroupId, resetPage])
+  }, [searchQuery, selectedUsergroupId, onlyFavorites, resetPage])
 
   async function closeNewCourseModal() {
     setNewCourseModal(false)
@@ -237,6 +247,21 @@ function Courses(props: CourseProps) {
                 )}
               </div>
 
+              {/* Favorites filter */}
+              {isAuthenticated && (
+                <button
+                  type="button"
+                  onClick={() => setOnlyFavorites((v) => !v)}
+                  aria-pressed={onlyFavorites}
+                  className={`flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-semibold nice-shadow transition-colors ${
+                    onlyFavorites ? 'bg-black text-white' : 'bg-white text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <Heart className="w-4 h-4" fill={onlyFavorites ? 'currentColor' : 'none'} />
+                  {t('courses.favorites')}
+                </button>
+              )}
+
               {/* Usergroup Filter */}
               {usergroupsAvailable && usergroups.length > 0 && (
                 <div className="relative flex items-center gap-1.5">
@@ -285,6 +310,12 @@ function Courses(props: CourseProps) {
                 <CourseThumbnail course={course} orgslug={orgslug} isPriority={currentPage === 1 && index < 3} />
               </div>
             ))}
+            {onlyFavorites && !searchQuery && filteredCourses.length === 0 && allCourses.length > 0 && (
+              <div className="col-span-full flex flex-col justify-center items-center py-12 px-4">
+                <Heart className="w-12 h-12 text-gray-300 mb-4" />
+                <p className="text-gray-500 text-center max-w-sm">{t('courses.favorites_empty')}</p>
+              </div>
+            )}
             {filteredCourses.length === 0 && searchQuery && (
               <div className="col-span-full flex flex-col justify-center items-center py-12 px-4">
                 <Search className="w-12 h-12 text-gray-300 mb-4" />

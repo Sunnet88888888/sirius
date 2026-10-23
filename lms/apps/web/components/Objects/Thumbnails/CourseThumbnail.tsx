@@ -26,7 +26,8 @@ import {
 import { useTranslation } from 'react-i18next'
 import { formatDate } from '@/lib/format'
 import { useLHAnalytics, AnalyticsEvent } from '@services/analytics'
-import { CourseCover, CourseCardShape, SCARD_ICON, useFavoriteCourse } from './CourseCardParts'
+import { CourseCover, CourseCardShape, SCARD_ICON } from './CourseCardParts'
+import { useFavoriteCourse } from '@/hooks/queries/useFavoriteCourses'
 
 type Course = {
   course_uuid: string
@@ -152,7 +153,7 @@ function CourseThumbnail({ course, orgslug, customLink, isDashboard = false, isS
 
   const courseLink = customLink ? customLink : getUriWithOrg(orgslug, `/course/${removeCoursePrefix(course.course_uuid)}`)
 
-  const [favorite, toggleFavorite] = useFavoriteCourse(course.course_uuid)
+  const [favorite, toggleFavorite] = useFavoriteCourse(course.course_uuid, orgslug)
 
   const leadAuthor = activeAuthors[0]?.user
   const leadAuthorName = leadAuthor

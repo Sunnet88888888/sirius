@@ -24,6 +24,7 @@ from src.routers.orgs import custom_domains
 from src.routers.orgs import packs
 from src.routers.orgs import org_plan
 from src.routers.courses import chapters, courses, assignments, certifications
+from src.routers.courses import favorites as course_favorites_router_module
 from src.routers.folders import folders as folders_router_module
 from src.routers.media import media as media_router_module
 from src.routers.courses import migration as migration_router_module
@@ -199,6 +200,11 @@ v1_router.include_router(
     admin_router_module.router,
     prefix="/admin",
     tags=["admin"],
+)
+v1_router.include_router(
+    course_favorites_router_module.router,
+    prefix="/courses/favorites",
+    tags=["course-favorites"],
 )
 v1_router.include_router(courses.router, prefix="/courses", tags=["courses"])
 v1_router.include_router(

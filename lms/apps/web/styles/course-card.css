@@ -119,6 +119,26 @@ html:not(.dark) .scard__fav { box-shadow: 0 8px 18px rgba(15,23,42,.10), inset 0
 .scard__select { position: absolute; z-index: 5; bottom: 10px; left: 10px; opacity: 0; transition: opacity .2s; }
 .scard:hover .scard__select, .scard__select[aria-pressed="true"] { opacity: 1; }
 
+/* Phones: smaller type so titles and stats read comfortably. */
+@media (max-width: 640px) {
+  .scard__body { padding: 20px 18px 18px; }
+  .scard__head { gap: 14px; padding-right: 48px; margin-bottom: 16px; }
+  .scard__thumb { flex-basis: 80px; width: 80px; height: 80px; border-radius: 17px; }
+  .scard__thumb svg, .scard__thumb img { border-radius: 13px; }
+  .scard__title { font-size: 16px; line-height: 1.18; }
+  .scard__author { margin-top: 4px; font-size: 12.5px; }
+  .scard__meta { margin-top: 9px; font-size: 11.5px; gap: 5px 8px; }
+  .scard__badge { height: 23px; padding: 0 10px; font-size: 11px; }
+  .scard__foot { margin-top: 13px; gap: 10px; }
+  .scard__stats { gap: 4px 12px; }
+  .kstat { font-size: 12px; gap: 7px; }
+  .kicon { width: 19px; height: 19px; }
+  .kicon svg { width: 16px; height: 16px; }
+  .scard__go { width: 44px; height: 44px; }
+  .scard__go svg { width: 19px; height: 19px; }
+  .scard__act { width: 34px; height: 34px; }
+}
+
 /* Narrow containers (side columns, 2-up grids on phones): stack the head. */
 @container (max-width: 300px) {
   .scard__body { padding: 22px 18px 18px; }

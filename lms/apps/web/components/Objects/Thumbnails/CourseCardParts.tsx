@@ -117,34 +117,3 @@ export function CourseCover({ seed }: { seed: string }) {
     </svg>
   )
 }
-
-/* ─── Favourites live in this browser only (no server-side feature behind them yet) ─── */
-const FAV_KEY = 'sirius-fav-courses'
-
-function readFavorites(): string[] {
-  try {
-    const v = JSON.parse(localStorage.getItem(FAV_KEY) || '[]')
-    return Array.isArray(v) ? v : []
-  } catch {
-    return []
-  }
-}
-
-export function useFavoriteCourse(courseUuid: string): [boolean, (e: React.MouseEvent) => void] {
-  const [favorite, setFavorite] = React.useState(false)
-  React.useEffect(() => setFavorite(readFavorites().includes(courseUuid)), [courseUuid])
-
-  const toggle = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    const next = !favorite
-    setFavorite(next)
-    try {
-      const rest = readFavorites().filter((id) => id !== courseUuid)
-      localStorage.setItem(FAV_KEY, JSON.stringify(next ? [...rest, courseUuid] : rest))
-    } catch {
-      /* storage unavailable: the heart still toggles for this view */
-    }
-  }
-  return [favorite, toggle]
-}
