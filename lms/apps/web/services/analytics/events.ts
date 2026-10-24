@@ -54,6 +54,7 @@ export enum AnalyticsEvent {
   // ── Course discovery & enrollment (learner) ──────────────────────────────
   CourseCardOpened = 'course_card_opened',
   CourseStarted = 'course_started',
+  CourseContinued = 'course_continued',
   CourseLeft = 'course_left',
   CourseSignupPrompted = 'course_signup_prompted',
   CourseOfferCtaClicked = 'course_offer_cta_clicked',

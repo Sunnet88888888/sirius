@@ -7,6 +7,7 @@ import { getUriWithOrg } from '@services/config/config'
 import { getOffersByResource } from '@services/payments/offers'
 import { UserPen, ClockIcon, ArrowRight, BookOpen, UserPlus } from 'lucide-react'
 import { OfferCard } from './OfferCard'
+import ContinueCourseActions from './ContinueCourseActions'
 import { applyForContributor } from '@services/courses/courses'
 import toast from 'react-hot-toast'
 import { useContributorStatus } from '../../../../hooks/useContributorStatus'
@@ -426,17 +427,7 @@ function CoursesActions({ courseuuid, orgslug, course, trailData }: CourseAction
                 {t('courses.you_own_this_course_description')}
               </p>
             </div>
-            <button
-              onClick={handleCourseAction}
-              disabled={isActionLoading}
-              aria-label={t('courses.leave_course')}
-              className="w-full py-3 rounded-lg nice-shadow font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer bg-red-500 text-white hover:bg-red-600 disabled:bg-red-400"
-            >
-              {isActionLoading
-                ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                : renderActionButton('leave')
-              }
-            </button>
+            <ContinueCourseActions course={course} courseuuid={courseuuid} orgslug={orgslug} trailData={trailData} onLeave={handleCourseAction} />
             {renderContributorButton()}
           </div>
         </div>
@@ -465,23 +456,23 @@ function CoursesActions({ courseuuid, orgslug, course, trailData }: CourseAction
         {/* Progress Section */}
         {renderProgressSection()}
 
-        {/* Start/Leave Course Button */}
-        <button
-          onClick={handleCourseAction}
-          disabled={isActionLoading}
-          aria-label={isStarted ? t('courses.leave_course') : t('courses.start_course')}
-          className={`w-full py-3 rounded-lg nice-shadow font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer ${
-            isStarted
-              ? 'bg-red-500 text-white hover:bg-red-600 disabled:bg-red-400'
-              : 'bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-700'
-          }`}
-        >
-          {isActionLoading ? (
-            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-          ) : (
-            renderActionButton(isStarted ? 'leave' : 'start')
-          )}
-        </button>
+        {/* Started: continue + (confirmed) leave. Not started: start button. */}
+        {isStarted ? (
+          <ContinueCourseActions course={course} courseuuid={courseuuid} orgslug={orgslug} trailData={trailData} onLeave={handleCourseAction} />
+        ) : (
+          <button
+            onClick={handleCourseAction}
+            disabled={isActionLoading}
+            aria-label={t('courses.start_course')}
+            className="w-full py-3 rounded-lg nice-shadow font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-700"
+          >
+            {isActionLoading ? (
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            ) : (
+              renderActionButton('start')
+            )}
+          </button>
+        )}
 
         {/* Contributor Button */}
         {renderContributorButton()}

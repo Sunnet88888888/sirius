@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ContinueCourseActions from './ContinueCourseActions'
 import { useRouter } from 'next/navigation'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { useOrg, useOrgMembership } from '@components/Contexts/OrgContext'
@@ -280,20 +281,7 @@ const CourseActionsMobile = ({ courseuuid, orgslug, course, trailData }: CourseA
                       <span className="text-green-800 text-sm font-semibold">{t('courses.you_own_this_course')}</span>
                     </div>
                   </div>
-                  <button
-                    onClick={handleCourseAction}
-                    disabled={isActionLoading}
-                    className="w-full py-2 px-4 rounded-lg bg-red-500 text-white font-semibold text-sm hover:bg-red-600 transition-colors flex items-center justify-center gap-2 disabled:bg-red-400"
-                  >
-                    {isActionLoading ? (
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    ) : (
-                      <>
-                        <LogOut className="w-4 h-4" />
-                        {t('courses.leave_course')}
-                      </>
-                    )}
-                  </button>
+                  <ContinueCourseActions course={course} courseuuid={courseuuid} orgslug={orgslug} trailData={trailData} onLeave={handleCourseAction} compact />
                 </>
               ) : (
                 <>
@@ -326,7 +314,9 @@ const CourseActionsMobile = ({ courseuuid, orgslug, course, trailData }: CourseA
               )}
             </div>
           );
-        })() : (
+        })() : isStarted && session.data?.user ? (
+          <ContinueCourseActions course={course} courseuuid={courseuuid} orgslug={orgslug} trailData={trailData} onLeave={handleCourseAction} compact />
+        ) : (
           <button
             onClick={handleCourseAction}
             disabled={isActionLoading}
