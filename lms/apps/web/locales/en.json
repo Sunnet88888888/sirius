@@ -412,6 +412,35 @@
     "invalid_number": "Must be a number",
     "invalid_option": "Choose one of the available options"
   },
+  "comments": {
+    "discussion": "Discussion",
+    "placeholder": "Ask a question or share a thought about this lesson…",
+    "edit_placeholder": "Edit your comment",
+    "reply_placeholder": "Reply to {{name}}…",
+    "post": "Post",
+    "reply": "Reply",
+    "edit": "Edit",
+    "edited": "edited",
+    "pin": "Pin",
+    "unpin": "Unpin",
+    "pinned": "Pinned",
+    "upvote": "Upvote",
+    "empty": "No comments yet. Start the discussion!",
+    "login_to_comment": "to join the discussion.",
+    "enroll_to_comment": "Start the course to join the discussion.",
+    "delete_title": "Delete comment",
+    "delete_confirm": "Delete this comment? Replies to it will be deleted too.",
+    "error": "Something went wrong. Please try again."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "title_unread": "Notifications, {{count}} unread",
+    "mark_all_read": "Mark all as read",
+    "empty": "No notifications yet",
+    "someone": "Someone",
+    "comment_reply": "{{name}} replied to your comment",
+    "lesson_comment": "{{name}} commented on “{{activity}}”"
+  },
   "courses": {
     "my_courses": "My Courses",
     "courses": "Courses",

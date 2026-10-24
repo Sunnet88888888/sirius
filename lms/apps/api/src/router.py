@@ -25,6 +25,8 @@ from src.routers.orgs import packs
 from src.routers.orgs import org_plan
 from src.routers.courses import chapters, courses, assignments, certifications
 from src.routers.courses import favorites as course_favorites_router_module
+from src.routers.courses import activity_comments as activity_comments_router_module
+from src.routers import notifications as notifications_router_module
 from src.routers.folders import folders as folders_router_module
 from src.routers.media import media as media_router_module
 from src.routers.courses import migration as migration_router_module
@@ -207,6 +209,16 @@ v1_router.include_router(
     tags=["course-favorites"],
 )
 v1_router.include_router(courses.router, prefix="/courses", tags=["courses"])
+v1_router.include_router(
+    activity_comments_router_module.router,
+    prefix="/comments",
+    tags=["activity-comments"],
+)
+v1_router.include_router(
+    notifications_router_module.router,
+    prefix="/notifications",
+    tags=["notifications"],
+)
 v1_router.include_router(
     migration_router_module.router,
     prefix="/courses",

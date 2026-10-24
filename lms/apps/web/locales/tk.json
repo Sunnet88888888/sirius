@@ -1613,6 +1613,35 @@
     "signInToContinue": "Dowam etmek üçin giriň",
     "finish_course": "Kursy tamamla"
   },
+  "comments": {
+    "discussion": "Çekişme",
+    "placeholder": "Bu sapak barada sorag beriň ýa-da pikiriňizi paýlaşyň…",
+    "edit_placeholder": "Teswiriňizi üýtgediň",
+    "reply_placeholder": "{{name}} jogap…",
+    "post": "Ugrat",
+    "reply": "Jogap ber",
+    "edit": "Üýtget",
+    "edited": "üýtgedildi",
+    "pin": "Berkit",
+    "unpin": "Berkitmäni aýyr",
+    "pinned": "Berkidildi",
+    "upvote": "Ýaraýar",
+    "empty": "Heniz teswir ýok. Çekişmäni başlaň!",
+    "login_to_comment": "çekişmä gatnaşmak üçin.",
+    "enroll_to_comment": "Çekişmä gatnaşmak üçin kursy başlaň.",
+    "delete_title": "Teswiri poz",
+    "delete_confirm": "Bu teswiri pozmalymy? Oňa gelen jogaplar hem pozular.",
+    "error": "Bir zat nädogry boldy. Gaýtadan synanyşyň."
+  },
+  "notifications": {
+    "title": "Bildirişler",
+    "title_unread": "Bildirişler, okalmadyk: {{count}}",
+    "mark_all_read": "Hemmesini okalan diýip belle",
+    "empty": "Heniz bildiriş ýok",
+    "someone": "Kimdir biri",
+    "comment_reply": "{{name}} teswiriňize jogap berdi",
+    "lesson_comment": "{{name}} «{{activity}}» sapagyna teswir ýazdy"
+  },
   "courses": {
     "my_courses": "Meniň kurslarym",
     "courses": "Kurslar",

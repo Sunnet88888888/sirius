@@ -33,6 +33,7 @@ import ActivityChapterDropdown from '@components/Pages/Activity/ActivityChapterD
 import ActivityShareDropdown from '@components/Pages/Activity/ActivityShareDropdown'
 import FixedActivitySecondaryBar from '@components/Pages/Activity/FixedActivitySecondaryBar'
 import CourseEndView from '@components/Pages/Activity/CourseEndView'
+import ActivityComments from '@components/Objects/Activities/ActivityComments/ActivityComments'
 import { motion, AnimatePresence } from 'motion/react'
 import { Breadcrumbs } from '@components/Objects/Breadcrumbs/Breadcrumbs'
 import { BookCopy } from 'lucide-react'
@@ -1041,6 +1042,11 @@ function ActivityClient(props: ActivityClientProps) {
                             />
                           </div>
                         </div>
+                      )}
+
+                      {/* Lesson discussion */}
+                      {activity && activity.published == true && activity.content.paid_access != false && !activity.is_locked && activity.activity_uuid && (
+                        <ActivityComments activityUuid={activity.activity_uuid} orgslug={orgslug} />
                       )}
 
                       {/* Fixed Activity Secondary Bar */}
