@@ -11,6 +11,7 @@ import {
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import AssignmentBoxUI from '@components/Objects/Activities/Assignment/AssignmentBoxUI'
 import CodeTaskWorkspace from '@components/Objects/Activities/Assignment/CodeTaskWorkspace'
+import AICodeReviewCard from '@components/Objects/Activities/Assignment/AICodeReviewCard'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { getTaskRefFileDir } from '@services/media/media'
 import {
@@ -959,6 +960,7 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
 
         {/* === STUDENT VIEW === */}
         {view === 'student' && (
+          <>
           <CodeTaskWorkspace
             title={assignmentTaskOutsideProvider?.title || undefined}
             description={assignmentTaskOutsideProvider?.description ?? ''}
@@ -1014,6 +1016,21 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
             results={visibleResults}
             hasRun={showResults || results.length > 0}
           />
+          {assignmentTaskUUID && (
+            <AICodeReviewCard
+              assignmentTaskUuid={assignmentTaskUUID}
+              mode="student"
+              code={code}
+              results={results.map((r) => ({
+                label: r.label,
+                passed: !!r.passed,
+                actual: r.actual_stdout,
+                expected: r.expected_stdout,
+                error: r.compile_output || r.stderr || (r.passed ? null : r.status?.description) || null,
+              }))}
+            />
+          )}
+          </>
         )}
 
         {/* === GRADING VIEW === */}
@@ -1047,6 +1064,10 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
                 )}
               </div>
             </div>
+
+            {assignmentTaskUUID && user_id && (
+              <AICodeReviewCard assignmentTaskUuid={assignmentTaskUUID} mode="teacher" userId={user_id} />
+            )}
 
             {/* Solution Code (collapsible) */}
             {contents.solution_code && (

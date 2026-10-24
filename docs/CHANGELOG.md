@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- AI code review for students in code tasks (advice only, 10 per day / 300 per month per student, configurable in `.env`). See `features/ai-code-review.md`.
 - Initial import of the platform source into this repository.
 - Dark theme for the whole app, with a toggle (header, login page, dashboard user menu). Default stays light.
 - Student code tasks open in a split workspace: description and examples left, editor right, test results below the editor.
