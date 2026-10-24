@@ -24,6 +24,7 @@ import CourseThumbnailLanding from '@components/Objects/Thumbnails/CourseThumbna
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { asArray } from '@services/utils/ts/requests'
+import ActivityCalendar from '@components/Objects/Progress/ActivityCalendar'
 
 interface UserProfileClientProps {
   userData: any;
@@ -334,6 +335,13 @@ function UserProfileClient({ userData, profile }: UserProfileClientProps) {
           </div>
         </div>
       </div>
+
+      {/* Own learning activity (private: only shown to the owner) */}
+      {session?.data?.user?.id != null && String(session.data.user.id) === String(userData.id) && (
+        <div className="mt-6">
+          <ActivityCalendar />
+        </div>
+      )}
 
       {/* Image Modal */}
       {selectedImage && (

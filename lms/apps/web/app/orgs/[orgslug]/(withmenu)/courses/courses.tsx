@@ -48,6 +48,18 @@ function Courses(props: CourseProps) {
   const { data: favoriteUuids } = useFavoriteCourseUuids()
   const [onlyFavorites, setOnlyFavorites] = useState(searchParams.get('favorites') === '1')
 
+  // Tag chips and sorting
+  const [selectedTag, setSelectedTag] = useState('')
+  const [sortBy, setSortBy] = useState<'new' | 'updated' | 'name'>('new')
+  const tagList = useMemo(() => {
+    const counts = new Map<string, number>()
+    allCourses.forEach((course: any) =>
+      String(course.tags || '').split(',').map((tag: string) => tag.trim()).filter(Boolean)
+        .forEach((tag: string) => counts.set(tag, (counts.get(tag) || 0) + 1))
+    )
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).map(([tag]) => tag)
+  }, [allCourses])
+
   // Usergroup filter, shown only when the org's plan actually includes
   // usergroups (a standard+ feature per the backend), via resolved features.
   const usergroupsAvailable = org?.config?.config?.resolved_features?.usergroups?.enabled ?? false
@@ -111,6 +123,12 @@ function Courses(props: CourseProps) {
       courses = courses.filter((course: any) => usergroupResourceUuids.has(course.course_uuid))
     }
 
+    if (selectedTag) {
+      courses = courses.filter((course: any) =>
+        String(course.tags || '').split(',').map((tag: string) => tag.trim()).includes(selectedTag)
+      )
+    }
+
     if (onlyFavorites) {
       const favorites = new Set(favoriteUuids || [])
       courses = courses.filter((course: any) => favorites.has(course.course_uuid))
@@ -123,8 +141,13 @@ function Courses(props: CourseProps) {
       )
     }
 
-    return courses
-  }, [allCourses, searchQuery, usergroupResourceUuids, onlyFavorites, favoriteUuids])
+    const key = sortBy === 'updated' ? 'update_date' : 'creation_date'
+    return [...courses].sort((a: any, b: any) =>
+      sortBy === 'name'
+        ? String(a.name).localeCompare(String(b.name))
+        : String(b[key] || '').localeCompare(String(a[key] || ''))
+    )
+  }, [allCourses, searchQuery, usergroupResourceUuids, onlyFavorites, favoriteUuids, selectedTag, sortBy])
 
   // Track non-empty searches (debounced so we don't fire on every keystroke)
   useEffect(() => {
@@ -151,7 +174,7 @@ function Courses(props: CourseProps) {
   // Reset to page 1 when search or filter changes
   React.useEffect(() => {
     resetPage()
-  }, [searchQuery, selectedUsergroupId, onlyFavorites, resetPage])
+  }, [searchQuery, selectedUsergroupId, onlyFavorites, selectedTag, sortBy, resetPage])
 
   async function closeNewCourseModal() {
     setNewCourseModal(false)
@@ -294,6 +317,44 @@ function Courses(props: CourseProps) {
                   )}
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Tag chips, sort and result count */}
+          {allCourses.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              {tagList.length > 0 && (
+                <div className="flex flex-wrap gap-2" role="group" aria-label={t('courses.filter_by_tag')}>
+                  {['', ...tagList].map((tag) => (
+                    <button
+                      key={tag || 'all'}
+                      type="button"
+                      onClick={() => setSelectedTag(tag)}
+                      aria-pressed={selectedTag === tag}
+                      className={`px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+                        selectedTag === tag
+                          ? 'bg-neutral-900 text-white'
+                          : 'bg-white text-gray-600 nice-shadow hover:text-gray-900'
+                      }`}
+                    >
+                      {tag || t('courses.filter_all')}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className="ms-auto flex items-center gap-3 text-sm text-gray-500">
+                <span>{t('courses.results_count', { count: filteredCourses.length })}</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'new' | 'updated' | 'name')}
+                  aria-label={t('courses.sort_label')}
+                  className="py-1.5 ps-3 pe-8 bg-white nice-shadow rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 border-0 cursor-pointer"
+                >
+                  <option value="new">{t('courses.sort_new')}</option>
+                  <option value="updated">{t('courses.sort_updated')}</option>
+                  <option value="name">{t('courses.sort_name')}</option>
+                </select>
+              </div>
             </div>
           )}
 
