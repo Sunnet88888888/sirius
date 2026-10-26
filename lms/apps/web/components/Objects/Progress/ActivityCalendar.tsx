@@ -6,8 +6,10 @@ import { Flame, CalendarCheck, Trophy, Zap } from 'lucide-react'
 import { useMyActivityCalendar } from '@/hooks/queries/useActivityCalendar'
 import { formatDate } from '@/lib/format'
 
-const CELL = 12
+const CELL = 13
 const GAP = 3
+const MONTH_GAP = 16
+const MONTHS = 12
 
 // 0 = no activity, then four green steps
 const LEVEL_CLASS = [
@@ -39,39 +41,39 @@ export default function ActivityCalendar({ className = '' }: { className?: strin
   const { data, isLoading } = useMyActivityCalendar()
   const scrollRef = React.useRef<HTMLDivElement>(null)
 
-  const { weeks, months } = React.useMemo(() => {
-    if (!data) return { weeks: [] as { date: string; count: number; future: boolean }[][], months: [] as { label: string; col: number }[] }
+  // Last 12 calendar months ending with the month of data.end; each month is its own block
+  const months = React.useMemo(() => {
+    if (!data) return [] as { key: string; label: string; weeks: ({ date: string; count: number } | null)[][] }[]
     const counts = new Map(data.days.map((d) => [d.date, d.count]))
-    const start = new Date(data.start + 'T00:00:00Z')
     const end = new Date(data.end + 'T00:00:00Z')
-    // weeks start on Monday
-    const lead = (start.getUTCDay() + 6) % 7
-    const cells: ({ date: string; count: number; future: boolean } | null)[] = Array(lead).fill(null)
-    for (let d = new Date(start); d <= end; d.setUTCDate(d.getUTCDate() + 1)) {
-      cells.push({ date: iso(d), count: counts.get(iso(d)) || 0, future: false })
-    }
-    const cols: any[][] = []
-    for (let i = 0; i < cells.length; i += 7) cols.push(cells.slice(i, i + 7))
-    const monthMarks: { label: string; col: number }[] = []
-    let lastMonth = -1
-    cols.forEach((col, ci) => {
-      const first = col.find(Boolean)
-      if (!first) return
-      const m = new Date(first.date + 'T00:00:00Z').getUTCMonth()
-      if (m !== lastMonth) {
-        lastMonth = m
-        monthMarks.push({ label: new Intl.DateTimeFormat(i18n.language, { month: 'short', timeZone: 'UTC' }).format(new Date(first.date + 'T00:00:00Z')), col: ci })
+    const out: { key: string; label: string; weeks: ({ date: string; count: number } | null)[][] }[] = []
+    for (let i = MONTHS - 1; i >= 0; i--) {
+      const first = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - i, 1))
+      const daysInMonth = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate()
+      // weeks start on Monday
+      const cells: ({ date: string; count: number } | null)[] = Array((first.getUTCDay() + 6) % 7).fill(null)
+      for (let d = 1; d <= daysInMonth; d++) {
+        const day = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth(), d))
+        cells.push(day > end ? null : { date: iso(day), count: counts.get(iso(day)) || 0 })
       }
-    })
-    return { weeks: cols, months: monthMarks }
+      while (cells.length % 7) cells.push(null)
+      const weeks: ({ date: string; count: number } | null)[][] = []
+      for (let c = 0; c < cells.length; c += 7) weeks.push(cells.slice(c, c + 7))
+      const showYear = i === MONTHS - 1 || first.getUTCMonth() === 0
+      const label = new Intl.DateTimeFormat(i18n.language, {
+        month: 'short',
+        ...(showYear ? { year: 'numeric' as const } : {}),
+        timeZone: 'UTC',
+      }).format(first)
+      out.push({ key: iso(first), label, weeks })
+    }
+    return out
   }, [data, i18n.language])
 
-  // open on the most recent weeks
+  // open on the most recent month
   React.useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollLeft = scrollRef.current.scrollWidth
-  }, [weeks.length])
-
-  const width = weeks.length * (CELL + GAP)
+  }, [months.length])
 
   return (
     <section className={`rounded-2xl bg-white nice-shadow p-4 sm:p-5 ${className}`} aria-label={t('progress.title')}>
@@ -88,30 +90,30 @@ export default function ActivityCalendar({ className = '' }: { className?: strin
           </div>
 
           <div ref={scrollRef} className="overflow-x-auto pb-1" dir="ltr">
-            <div style={{ width }} className="relative">
-              <div className="relative h-4 mb-1 text-[10px] text-gray-400">
-                {months.map((m) => (
-                  <span key={m.col} className="absolute" style={{ left: m.col * (CELL + GAP) }}>{m.label}</span>
-                ))}
-              </div>
-              <div className="flex" style={{ gap: GAP }} role="img" aria-label={t('progress.calendar_aria', { days: data.active_days })}>
-                {weeks.map((week, wi) => (
-                  <div key={wi} className="flex flex-col" style={{ gap: GAP }}>
-                    {week.map((cell, di) =>
-                      cell ? (
-                        <span
-                          key={di}
-                          title={`${cell.count > 0 ? t('progress.n_actions', { count: cell.count }) : t('progress.no_activity')} · ${formatDate(cell.date + 'T00:00:00Z', i18n.language, { dateStyle: 'medium', timeZone: 'UTC' })}`}
-                          className={`rounded-[3px] ${LEVEL_CLASS[levelOf(cell.count)]}`}
-                          style={{ width: CELL, height: CELL }}
-                        />
-                      ) : (
-                        <span key={di} style={{ width: CELL, height: CELL }} />
-                      )
-                    )}
+            <div className="flex w-max" style={{ gap: MONTH_GAP }} role="img" aria-label={t('progress.calendar_aria', { days: data.active_days })}>
+              {months.map((m) => (
+                <div key={m.key}>
+                  <div className="mb-1.5 text-xs font-semibold text-gray-600">{m.label}</div>
+                  <div className="flex" style={{ gap: GAP }}>
+                    {m.weeks.map((week, wi) => (
+                      <div key={wi} className="flex flex-col" style={{ gap: GAP }}>
+                        {week.map((cell, di) =>
+                          cell ? (
+                            <span
+                              key={di}
+                              title={`${cell.count > 0 ? t('progress.n_actions', { count: cell.count }) : t('progress.no_activity')} · ${formatDate(cell.date + 'T00:00:00Z', i18n.language, { dateStyle: 'medium', timeZone: 'UTC' })}`}
+                              className={`rounded-[3px] ${LEVEL_CLASS[levelOf(cell.count)]}`}
+                              style={{ width: CELL, height: CELL }}
+                            />
+                          ) : (
+                            <span key={di} style={{ width: CELL, height: CELL }} />
+                          )
+                        )}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
 
