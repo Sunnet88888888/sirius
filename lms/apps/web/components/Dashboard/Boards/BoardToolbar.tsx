@@ -97,7 +97,6 @@ export default function BoardToolbar({
             alt="SIRIUS"
             width={14}
             height={14}
-            className="invert"
           />
         </div>
       </Link>

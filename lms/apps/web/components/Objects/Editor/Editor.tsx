@@ -730,7 +730,6 @@ const EditorLearnHouseLogo = () => {
           alt="SIRIUS"
           width={14}
           height={14}
-          className="invert"
         />
       </motion.div>
     </div>

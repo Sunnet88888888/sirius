@@ -154,7 +154,7 @@ export default function AuthBrandingPanel({ org, welcomeText, title, subtitle }:
                   height={30}
                   className={cn(
                     "transition-opacity hover:opacity-100",
-                    text_color === 'light' ? "opacity-60 invert" : "opacity-40"
+                    text_color === 'light' ? "opacity-60" : "opacity-40"
                   )}
                 />
               </Link>
