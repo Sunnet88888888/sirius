@@ -3,20 +3,17 @@
 import React from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import { ArrowRight, BookCopy, Code2, LogIn, MessagesSquare, Sparkles, Layers, Play } from 'lucide-react'
+import { ArrowRight, BookCopy, Code2, LogIn, MessagesSquare, Sparkles, Layers } from 'lucide-react'
 import GeneralWrapperStyled from '@components/Objects/StyledElements/Wrappers/GeneralWrapper'
 import CourseThumbnail from '@components/Objects/Thumbnails/CourseThumbnail'
 import AuthenticatedClientElement from '@components/Security/AuthenticatedClientElement'
 import NewCourseButton from '@components/Objects/StyledElements/Buttons/NewCourseButton'
 import ContentPlaceHolderIfUserIsNotAdmin from '@components/Objects/ContentPlaceHolder'
 import UserAvatar from '@components/Objects/UserAvatar'
-import ActivityCalendar from '@components/Objects/Progress/ActivityCalendar'
-import { CourseCover } from '@components/Objects/Thumbnails/CourseCardParts'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
-import { useTrail } from '@/hooks/queries/useTrail'
 import { getUriWithOrg } from '@services/config/config'
-import { getCourseThumbnailMediaDirectory, getUserAvatarMediaDirectory } from '@services/media/media'
+import { getUserAvatarMediaDirectory } from '@services/media/media'
 
 interface LandingClassicProps {
   courses: any[]
@@ -104,67 +101,6 @@ function Hero({ orgslug, courseCount, teacherCount }: { orgslug: string; courseC
   )
 }
 
-function ContinueLearning({ orgslug }: { orgslug: string }) {
-  const { t } = useTranslation()
-  const org = useOrg() as any
-  const { data: trail } = useTrail(org?.id)
-
-  const inProgress = (trail?.runs || [])
-    .map((run: any) => {
-      const total = run.course_total_steps || 0
-      const done = run.steps?.filter((s: any) => s.complete).length ?? run.steps?.length ?? 0
-      return { run, pct: total > 0 ? Math.min(100, Math.round((done / total) * 100)) : 0 }
-    })
-    .filter(({ run, pct }: any) => run.course && pct < 100)
-    .slice(0, 3)
-
-  return (
-    <section className="mb-12">
-      <div className="grid grid-cols-1 xl:grid-cols-5 gap-6">
-        {inProgress.length > 0 && (
-          <div className="xl:col-span-2">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">{t('home_landing.continue_title')}</h2>
-            <ul className="space-y-3">
-              {inProgress.map(({ run, pct }: any) => {
-                const course = run.course
-                const uuid = course.course_uuid.replace('course_', '')
-                return (
-                  <li key={course.course_uuid}>
-                    <Link href={getUriWithOrg(orgslug, `/course/${uuid}`)}
-                      className="group flex items-center gap-4 rounded-2xl bg-white nice-shadow p-3 hover:-translate-y-0.5 transition-transform">
-                      <div className="shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-gray-100">
-                        {course.thumbnail_image ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={getCourseThumbnailMediaDirectory(org?.org_uuid, course.course_uuid, course.thumbnail_image)} alt="" className="w-full h-full object-cover" />
-                        ) : (
-                          <CourseCover seed={course.course_uuid} />
-                        )}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-gray-900 truncate" dir="auto">{course.name}</p>
-                        <div className="mt-2 h-1.5 rounded-full bg-gray-100 overflow-hidden" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-                          <div className="h-full rounded-full bg-emerald-500" style={{ width: `${pct}%` }} />
-                        </div>
-                        <p className="mt-1 text-xs text-gray-500">{t('home_landing.progress_pct', { pct })}</p>
-                      </div>
-                      <span className="shrink-0 hidden sm:flex items-center gap-1.5 rounded-lg bg-neutral-900 text-white text-xs font-semibold px-3 py-2 group-hover:bg-neutral-800">
-                        <Play className="w-3.5 h-3.5" /> {t('home_landing.continue')}
-                      </span>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        )}
-        <div className={inProgress.length > 0 ? 'xl:col-span-3' : 'xl:col-span-5'}>
-          <ActivityCalendar />
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function Features() {
   const { t } = useTranslation()
   const items = [
@@ -229,8 +165,6 @@ function LandingClassic({ courses, orgslug, org_id }: LandingClassicProps) {
     <div className="w-full">
       <GeneralWrapperStyled>
         <Hero orgslug={orgslug} courseCount={courses.length} teacherCount={teachers.length} />
-
-        {isAuthenticated && <ContinueLearning orgslug={orgslug} />}
 
         {/* Courses */}
         <section className="mb-12">

@@ -1,6 +1,7 @@
 import { useOrg } from '@components/Contexts/OrgContext'
+import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { getUriWithOrg } from '@services/config/config'
-import { Books, FolderSimple, ChatsCircle, Headphones, Cube, ShoppingBag } from '@phosphor-icons/react'
+import { Books, Signpost, FolderSimple, ChatsCircle, Headphones, Cube, ShoppingBag } from '@phosphor-icons/react'
 import { menuIcon } from '@components/Objects/Menus/menuIcons'
 import Link from 'next/link'
 import React from 'react'
@@ -24,6 +25,8 @@ const DEFAULT_ORDER = ['courses', 'library', 'podcasts', 'communities', 'playgro
 function MenuLinks(props: { orgslug: string; primaryColor?: string }) {
   const { t } = useTranslation()
   const org = useOrg() as any
+  const session = useLHSession() as any
+  const isAuthenticated = session?.status === 'authenticated'
   const colors = getMenuColorClasses(props.primaryColor || '')
 
   const rf = org?.config?.config?.resolved_features
@@ -64,6 +67,17 @@ function MenuLinks(props: { orgslug: string; primaryColor?: string }) {
       }
     })
     .filter(Boolean) as any[]
+
+  // Learner progress lives here instead of on the landing page.
+  if (isAuthenticated && isEnabled('courses')) {
+    rendered.push({
+      key: 'trail',
+      label: t('courses.progress'),
+      Icon: Signpost,
+      href: getUriWithOrg(props.orgslug, '/trail'),
+      external: false,
+    })
+  }
 
   return (
     <div className="ps-1 w-full md:w-auto">

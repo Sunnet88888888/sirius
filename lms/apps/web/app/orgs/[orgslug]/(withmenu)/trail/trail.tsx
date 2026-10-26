@@ -16,6 +16,7 @@ import ConfirmationModal from '@components/Objects/StyledElements/ConfirmationMo
 import { BookOpen } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import FeatureGate from '@components/Dashboard/Shared/FeatureGate/FeatureGate'
+import ActivityCalendar from '@components/Objects/Progress/ActivityCalendar'
 import { useTrackView, AnalyticsEvent } from '@services/analytics'
 
 function Trail(params: any) {
@@ -94,6 +95,10 @@ function Trail(params: any) {
               status="warning"
             />
           )}
+        </div>
+
+        <div className="mb-4">
+          <ActivityCalendar />
         </div>
 
         {!trail ? (
