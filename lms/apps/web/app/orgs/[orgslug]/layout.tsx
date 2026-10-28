@@ -30,7 +30,14 @@ export async function generateMetadata({
   } catch {
     // A favicon lookup failure must not break the page's metadata.
   }
-  return {}
+  return {
+    icons: {
+      icon: [
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+        { url: '/favicon.ico', sizes: 'any' },
+      ],
+    },
+  }
 }
 
 export default async function RootLayout(props: {

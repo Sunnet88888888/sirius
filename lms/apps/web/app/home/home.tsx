@@ -1,4 +1,5 @@
 'use client'
+import Logo from '@components/Objects/Logo'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { canManageOrgFromSession } from '@components/Hooks/useAdminStatus'
 import { useLHAnalytics } from '@services/analytics/useLHAnalytics'
@@ -95,13 +96,7 @@ function HomeClient() {
             {/* Brand */}
             <div className="flex flex-col items-center mb-10">
               { }
-              <img
-                src="/lrn.svg"
-                alt="SIRIUS"
-                width={44}
-                height={44}
-                className="opacity-90"
-              />
+              <Logo size={44} className="opacity-90" />
               <h1 className="mt-6 font-black tracking-tight text-2xl text-gray-900 text-center">
                 {t('common.your_organizations')}
               </h1>

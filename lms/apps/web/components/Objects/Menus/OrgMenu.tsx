@@ -1,4 +1,5 @@
 'use client'
+import Logo from '@components/Objects/Logo'
 import React, { useEffect, useState } from 'react'
 import CopilotBubble from '@components/Copilot/CopilotBubble'
 import Image from 'next/image'
@@ -509,13 +510,14 @@ const CopilotMenuButton = ({
 const LearnHouseLogo = ({ logoFilter }: { logoFilter: string }) => {
   return (
     <span className="flex items-center gap-2">
-      <Image src="/lrn.svg" alt="SIRIUS logo" width={36} height={36} style={{ height: 36, width: 'auto' }} />
+      <Logo size={36} style={{ filter: logoFilter }} />
       <Image
         src="/lrn-text.svg"
         alt="SIRIUS"
         width={110}
         height={16}
-        style={{ height: 'auto', filter: logoFilter }}
+        className={logoFilter === 'none' ? 'dark:invert' : ''}
+        style={{ height: 'auto', filter: logoFilter === 'none' ? undefined : logoFilter }}
       />
     </span>
   )

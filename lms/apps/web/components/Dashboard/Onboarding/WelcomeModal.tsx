@@ -1,4 +1,5 @@
 'use client'
+import Logo from '@components/Objects/Logo'
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useOnboarding } from '@components/Hooks/useOnboarding'
@@ -146,14 +147,14 @@ export default function WelcomeModal() {
                   transition={{ duration: 0.3, ease }}
                 >
                   <div className="px-10 pt-10 pb-2 text-center">
-                    <motion.img
-                      src="/lrn.svg"
-                      alt="SIRIUS"
+                    <motion.div
                       className="h-12 w-12 mx-auto mb-5"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2, duration: 0.5, ease }}
-                    />
+                    >
+                      <Logo size={48} />
+                    </motion.div>
                     <motion.h1
                       className="text-2xl font-bold text-gray-900 tracking-tight"
                       initial={{ opacity: 0, y: 10 }}

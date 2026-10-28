@@ -204,7 +204,7 @@ export function LoginPanelVignette({
           {scrim && <span className="absolute inset-0 bg-black/30" />}
           {showLearnHouseMark && (
             <img
-              src="/lrn.svg"
+              src={light ? '/lrn-dash.svg' : '/lrn.svg'}
               alt=""
               className={cn('absolute', large ? 'top-3 start-3 h-4' : 'top-1.5 start-1.5 h-2', light ? 'opacity-60' : 'opacity-40')}
             />

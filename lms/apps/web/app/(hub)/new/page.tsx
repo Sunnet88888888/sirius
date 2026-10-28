@@ -1,5 +1,6 @@
 'use client'
 
+import Logo from '@components/Objects/Logo'
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -977,7 +978,7 @@ export default function CreateNewOrgPage() {
             <div className="flex justify-center">
               <Link href="/home">
                 { }
-                <img src="/lrn.svg" alt="SIRIUS" width={40} height={40} className="opacity-90" />
+                <Logo size={40} className="opacity-90" />
               </Link>
             </div>
             <div className="flex justify-end">

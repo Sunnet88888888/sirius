@@ -44,15 +44,17 @@ export default function AuthBrandingPanel({ org, welcomeText, title, subtitle }:
   const getBackgroundStyle = (): React.CSSProperties => {
     if (noOrg) {
       return {
-        backgroundImage: 'url(/auth-default.png)',
+        backgroundImage: 'url(/auth-planet.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }
     }
     if (background_type === 'gradient' || !background_image) {
-      // Keep the original black gradient
+      // Default: the planet photo
       return {
-        background: 'linear-gradient(041.61deg, #202020 7.15%, #000000 90.96%)',
+        backgroundImage: 'url(/auth-planet.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }
     }
     if (background_type === 'custom' && background_image) {
@@ -70,7 +72,9 @@ export default function AuthBrandingPanel({ org, welcomeText, title, subtitle }:
       }
     }
     return {
-      background: 'linear-gradient(041.61deg, #202020 7.15%, #000000 90.96%)',
+      backgroundImage: 'url(/auth-planet.jpg)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
     }
   }
 
@@ -81,7 +85,8 @@ export default function AuthBrandingPanel({ org, welcomeText, title, subtitle }:
     subtitle || 'Pick up where you left off. Your courses, students, and tools are waiting.'
   // Treat the no-org illustration like a photo background: dark scrim, no
   // blueprint-grid overlay.
-  const hasCustomBackground = noOrg || (background_type !== 'gradient' && background_image)
+  // The default (planet) behaves like a photo background too.
+  const hasCustomBackground = true
 
   return (
     <div className="relative h-full w-full">
@@ -148,7 +153,7 @@ export default function AuthBrandingPanel({ org, welcomeText, title, subtitle }:
             <div className="login-topbar">
               <Link prefetch href="/">
                 <img
-                  src="/lrn.svg"
+                  src="/lrn-dash.svg"
                   alt="SIRIUS"
                   width={30}
                   height={30}

@@ -1,4 +1,5 @@
 'use client';
+import Logo from '@components/Objects/Logo'
 import { use, useEffect, type ReactNode } from "react";
 import '@styles/globals.css'
 import Watermark from '@components/Objects/Watermark'
@@ -10,7 +11,6 @@ import { OrgMFAPolicyGate } from '@components/Objects/Banners/OrgMFAPolicyGate'
 import { PodcastPlayerProvider } from '@components/Contexts/PodcastPlayerContext'
 import dynamic from 'next/dynamic'
 const PodcastPlayer = dynamic(() => import('@components/Objects/Podcasts/PodcastPlayer'), { ssr: false })
-import Image from 'next/image'
 import Link from 'next/link'
 import { PageViewTracker } from '@components/Analytics/PageViewTracker'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -40,14 +40,7 @@ function OrgFooter() {
         {footerText && <p className="text-sm text-gray-500">{footerText}</p>}
         {showWatermark && (
           <Link href="https://learnhouse.app" target="_blank" rel="noopener noreferrer">
-            <Image
-              src="/lrn.svg"
-              alt="SIRIUS"
-              width={24}
-              height={24}
-              style={{ height: 'auto' }}
-              className="opacity-15 hover:opacity-40 transition-opacity duration-300 cursor-pointer"
-            />
+            <Logo size={24} className="opacity-15 hover:opacity-40 transition-opacity duration-300 cursor-pointer" />
           </Link>
         )}
       </div>

@@ -363,7 +363,7 @@ export function authBackgroundStyle(
   localPreview?: string | null
 ): React.CSSProperties {
   if (state.background_type === 'gradient' || !state.background_image) {
-    return { background: AUTH_GRADIENT }
+    return { backgroundImage: 'url(/auth-planet.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }
   }
   const url =
     state.background_type === 'custom'
