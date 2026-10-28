@@ -849,7 +849,7 @@ function DashLeftMenu() {
                       </span>
                     </HoverMenuLabel>
                     <HoverMenuSeparator />
-                    {!showCommunities && (
+                    {!showCommunities && !rf?.communities?.hidden && (
                       <HoverMenuItem asChild>
                         <Link href="/dash/communities" className="flex items-center gap-2 px-3 py-2 text-sm text-white/30 hover:text-white/50 hover:bg-white/[0.05] cursor-pointer transition-colors">
                           <ChatsCircle size={16} weight="fill" />
@@ -857,7 +857,7 @@ function DashLeftMenu() {
                         </Link>
                       </HoverMenuItem>
                     )}
-                    {!showPodcasts && (
+                    {!showPodcasts && !rf?.podcasts?.hidden && (
                       <HoverMenuItem asChild>
                         <Link href="/dash/podcasts" className="flex items-center gap-2 px-3 py-2 text-sm text-white/30 hover:text-white/50 hover:bg-white/[0.05] cursor-pointer transition-colors">
                           <Headphones size={16} weight="fill" />

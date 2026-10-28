@@ -4,6 +4,9 @@ import LanguageSwitcher from '@components/Utils/LanguageSwitcher'
 import ThemeToggle from '@components/Utils/ThemeToggle'
 import AuthBrandingPanel from '@components/Auth/AuthBrandingPanel'
 import AuthMobileHeader from '@components/Auth/AuthMobileHeader'
+import Logo from '@components/Objects/Logo'
+import Link from 'next/link'
+import { getUriWithOrg } from '@services/config/config'
 import { AuthFooter } from '@components/Footers/LegalFooters'
 
 interface AuthLayoutProps {
@@ -48,6 +51,11 @@ export default function AuthLayout({ org, welcomeText, title, subtitle, children
 
       {/* Left Panel - Content / form */}
       <div className="relative z-10 flex flex-col flex-1 lg:h-full overflow-auto bg-transparent">
+        <div className="shrink-0 px-6 pt-5 lg:px-10 lg:pt-8">
+          <Link prefetch href={getUriWithOrg(org?.slug, '/')} aria-label="SIRIUS" className="inline-block">
+            <Logo size={32} />
+          </Link>
+        </div>
         <div className="flex-1 flex flex-col">{children}</div>
         {/* Terms footer (platform-style) */}
         <AuthFooter className="shrink-0" />

@@ -254,22 +254,24 @@ v1_router.include_router(
     communities_router_module.router,
     prefix="/communities",
     tags=["communities"],
-    dependencies=[Depends(require_plan_for_community("standard", "Communities"))]
+    dependencies=[Depends(require_feature_visible("communities")), Depends(require_plan_for_community("standard", "Communities"))]
 )
 v1_router.include_router(
     discussions_router_module.router,
     tags=["discussions"],
-    dependencies=[Depends(require_plan_for_community("standard", "Communities"))]
+    dependencies=[Depends(require_feature_visible("communities")), Depends(require_plan_for_community("standard", "Communities"))]
 )
 v1_router.include_router(
     podcasts_router_module.router,
     prefix="/podcasts",
-    tags=["podcasts"]
+    tags=["podcasts"],
+    dependencies=[Depends(require_feature_visible("podcasts"))]
 )
 v1_router.include_router(
     episodes_router_module.router,
     prefix="/podcasts",
-    tags=["podcasts", "episodes"]
+    tags=["podcasts", "episodes"],
+    dependencies=[Depends(require_feature_visible("podcasts"))]
 )
 v1_router.include_router(
     certifications.router,
