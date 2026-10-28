@@ -9,6 +9,7 @@ import { Button } from "@components/ui/button"
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { updateProfile } from '@services/settings/profile'
 import { getUser } from '@services/users/users'
+import { getErrorMessage } from '@services/utils/ts/errorMessage'
 import { toast } from 'react-hot-toast'
 
 import { useTranslation } from 'react-i18next'
@@ -319,19 +320,29 @@ const UserProfileBuilder = () => {
       // Get fresh user data before update
       const userData = await getUser(session.data.user.id, access_token)
       
-      // Update only the profile field
-      userData.profile = profileData
+      // The read endpoint returns the public view (no email), but the update
+      // requires it, so send an explicit payload with the email from the session.
+      const payload = {
+        username: userData.username,
+        first_name: userData.first_name,
+        last_name: userData.last_name,
+        email: userData.email ?? session?.data?.user?.email,
+        avatar_image: userData.avatar_image,
+        bio: userData.bio,
+        details: userData.details || {},
+        profile: profileData,
+      }
 
-      const res = await updateProfile(userData, userData.id, access_token)
+      const res = await updateProfile(payload, userData.id, access_token)
 
       if (res.status === 200) {
         toast.success(t('user.settings.profile_builder.toasts.save_success'), { id: loadingToast })
       } else {
-        throw new Error('Failed to update profile')
+        throw new Error(getErrorMessage(res.data?.detail, t('user.settings.profile_builder.toasts.save_error')))
       }
     } catch (error) {
       console.error('Error updating profile:', error)
-      toast.error(t('user.settings.profile_builder.toasts.save_error'), { id: loadingToast })
+      toast.error(error instanceof Error ? error.message : t('user.settings.profile_builder.toasts.save_error'), { id: loadingToast })
     } finally {
       setIsSaving(false)
     }

@@ -703,6 +703,9 @@ function AccountGeneral() {
     );
   }
 
+  // The public user view carries no email; fall back to the session's.
+  const currentEmail = userData.email ?? session?.data?.user?.email ?? ''
+
   return (
     <div className="bg-white rounded-xl nice-shadow">
       <Formik<FormValues>
@@ -711,7 +714,7 @@ function AccountGeneral() {
           username: userData.username,
           first_name: userData.first_name,
           last_name: userData.last_name,
-          email: userData.email,
+          email: currentEmail,
           bio: userData.bio || '',
           details: userData.details || {},
           current_password: '',
@@ -719,7 +722,7 @@ function AccountGeneral() {
         }}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
-          const isEmailChanged = values.email !== userData.email
+          const isEmailChanged = values.email !== currentEmail
           const loadingToast = toast.loading(t('user.settings.general.saving'))
 
           try {
