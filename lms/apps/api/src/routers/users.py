@@ -43,6 +43,7 @@ from src.services.users.users import (
     read_user_by_username,
     update_user,
     update_user_avatar,
+    update_user_banner,
     update_user_password,
 )
 from src.services.courses.courses import get_user_courses
@@ -456,6 +457,58 @@ async def api_update_avatar_user(
         )
     result = await update_user_avatar(request, db_session, current_user, avatar_file)
     # Invalidate session cache so the next session fetch returns the new avatar
+    _invalidate_session_cache(user_id)
+    return result
+
+
+@router.put(
+    "/update_banner/{user_id}",
+    response_model=UserRead,
+    tags=["users"],
+    summary="Update user profile banner",
+    description="Upload a profile banner image (max 5 MB). Users can only update their own banner.",
+    responses={
+        200: {"description": "Banner updated.", "model": UserRead},
+        403: {"description": "Attempted to update another user's banner"},
+    },
+)
+async def api_update_banner_user(
+    *,
+    request: Request,
+    db_session: AsyncSession = Depends(get_db_session),
+    current_user: PublicUser = Depends(get_current_user),
+    user_id: int,
+    banner_file: UploadFile | None = None,
+) -> UserRead:
+    # SECURITY: IDOR protection - a user may only change their own banner
+    if current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="You can only update your own banner")
+    result = await update_user_banner(request, db_session, current_user, banner_file)
+    _invalidate_session_cache(user_id)
+    return result
+
+
+@router.delete(
+    "/delete_banner/{user_id}",
+    response_model=UserRead,
+    tags=["users"],
+    summary="Remove user profile banner",
+    description="Clear the profile banner. Users can only remove their own banner.",
+    responses={
+        200: {"description": "Banner removed.", "model": UserRead},
+        403: {"description": "Attempted to change another user's banner"},
+    },
+)
+async def api_delete_banner_user(
+    *,
+    request: Request,
+    db_session: AsyncSession = Depends(get_db_session),
+    current_user: PublicUser = Depends(get_current_user),
+    user_id: int,
+) -> UserRead:
+    if current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="You can only update your own banner")
+    result = await update_user_banner(request, db_session, current_user, None, remove=True)
     _invalidate_session_cache(user_id)
     return result
 

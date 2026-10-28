@@ -396,6 +396,9 @@ async def _bootstrap_schema():
         # Create all tables
         if not is_testing:
             await conn.run_sync(SQLModel.metadata.create_all)
+            # create_all never alters existing tables: add columns introduced after first deploy.
+            from sqlalchemy import text as _text
+            await conn.execute(_text("ALTER TABLE \"user\" ADD COLUMN IF NOT EXISTS banner_image VARCHAR DEFAULT ''"))
 
 
 async def connect_to_db(app: FastAPI):

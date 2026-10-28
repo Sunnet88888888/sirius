@@ -1,6 +1,7 @@
 'use client';
 import { updateProfile } from '@services/settings/profile'
 import { getUser } from '@services/users/users'
+import BannerUploader from './BannerUploader'
 import React, { useEffect, useState, useCallback } from 'react'
 import { Formik, Form } from 'formik'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
@@ -559,6 +560,10 @@ const UserEditForm = ({
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="mx-5 mb-5">
+          <BannerUploader />
         </div>
 
         <div className="flex flex-row-reverse mt-0 mx-5 mb-5">

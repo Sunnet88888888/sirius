@@ -98,6 +98,7 @@ class UserRead(UserBase):
     last_login_at: Optional[str] = None
     signup_method: Optional[str] = None
     is_superadmin: bool = False
+    banner_image: Optional[str] = ""
 
 
 class UserReadPublic(SQLModel):
@@ -119,6 +120,7 @@ class UserReadPublic(SQLModel):
     last_name: str
     email_verified: bool = False
     avatar_image: Optional[str] = ""
+    banner_image: Optional[str] = ""
     bio: Optional[str] = ""
     details: Optional[dict] = None
     profile: Optional[dict] = None
@@ -240,6 +242,7 @@ class User(UserBase, table=True):
     password: str = ""
     user_uuid: str = Field(default="", index=True)
     email_verified: bool = False
+    banner_image: Optional[str] = ""
     email_verified_at: Optional[str] = None
     failed_login_attempts: int = 0
     locked_until: Optional[str] = None

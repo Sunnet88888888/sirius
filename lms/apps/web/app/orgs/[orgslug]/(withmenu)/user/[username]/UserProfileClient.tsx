@@ -17,7 +17,7 @@ import {
   Lightbulb,
   X
 } from 'lucide-react'
-import { getUserAvatarMediaDirectory } from '@services/media/media'
+import { getUserAvatarMediaDirectory, getUserBannerMediaDirectory } from '@services/media/media'
 import { getCoursesByUser } from '@services/users/users'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import CourseThumbnailLanding from '@components/Objects/Thumbnails/CourseThumbnailLanding'
@@ -102,7 +102,14 @@ function UserProfileClient({ userData, profile }: UserProfileClientProps) {
     <div className="container mx-auto py-8">
       {/* Banner */}
       <div className="h-48 w-full bg-gray-100 rounded-t-xl mb-0 relative overflow-hidden">
-        {/* Optional banner content */}
+        {userData.banner_image && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={getUserBannerMediaDirectory(userData.user_uuid, userData.banner_image)}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
       </div>
       
       {/* Profile Content */}

@@ -21,6 +21,7 @@ from src.services.users.emails import (
 )
 from src.services.orgs.invites import get_invite_code
 from src.services.users.avatars import upload_avatar
+from src.services.users.banners import upload_banner
 from src.db.roles import Role, RoleRead
 from src.security.rbac.rbac import (
     authorization_verify_based_on_roles_and_authorship,
@@ -788,6 +789,45 @@ async def update_user_avatar(
     user = UserRead.model_validate(user)
 
     return user
+
+
+async def update_user_banner(
+    request: Request,
+    db_session: AsyncSession,
+    current_user: PublicUser | AnonymousUser,
+    banner_file: UploadFile | None = None,
+    remove: bool = False,
+):
+    statement = select(User).where(User.id == current_user.id)
+    user = (await db_session.execute(statement)).scalars().first()
+
+    if not user:
+        raise HTTPException(
+            status_code=400,
+            detail="User does not exist",
+        )
+
+    # RBAC check
+    await rbac_check(request, current_user, "update", user.user_uuid, db_session)
+
+    if remove:
+        user.banner_image = ""
+    elif banner_file and banner_file.filename:
+        try:
+            user.banner_image = await upload_banner(banner_file, user.user_uuid)
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Banner upload failed: {str(e)}",
+            )
+
+    db_session.add(user)
+    await db_session.commit()
+    await db_session.refresh(user)
+
+    return UserRead.model_validate(user)
 
 
 async def update_user_password(

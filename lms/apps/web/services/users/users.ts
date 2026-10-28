@@ -50,6 +50,28 @@ export async function getCoursesByUser(user_id: string, access_token: string) {
   const res = await getResponseMetadata(result)
   return res
 }
+export async function updateUserBanner(
+  user_id: any,
+  banner_file: any,
+  access_token: any
+) {
+  const formData = new FormData()
+  formData.append('banner_file', banner_file)
+  const result: any = await fetch(
+    `${getAPIUrl()}users/update_banner/${user_id}`,
+    RequestBodyFormWithAuthHeader('PUT', formData, null, access_token)
+  )
+  return await getResponseMetadata(result)
+}
+
+export async function deleteUserBanner(user_id: any, access_token: any) {
+  const result: any = await fetch(
+    `${getAPIUrl()}users/delete_banner/${user_id}`,
+    RequestBodyWithAuthHeader('DELETE', null, null, access_token)
+  )
+  return await getResponseMetadata(result)
+}
+
 export async function updateUserAvatar(
   user_uuid: any,
   avatar_file: any,
