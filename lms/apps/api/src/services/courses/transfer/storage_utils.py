@@ -64,6 +64,20 @@ def get_content_delivery_type() -> str:
     return learnhouse_config.hosting_config.content_delivery.type
 
 
+def _addressing_config() -> dict:
+    """Extra botocore Config kwargs for LEARNHOUSE_S3_API_ADDRESSING_STYLE.
+
+    "virtual" makes presigned URLs use the bucket sub-domain
+    (bucket.s3.example/key). Some providers (Selectel) answer CORS preflight only
+    on that form, and the HLS player needs it. Unset or "auto" keeps botocore's
+    default; "path" forces bucket-in-path URLs.
+    """
+    style = (os.environ.get("LEARNHOUSE_S3_API_ADDRESSING_STYLE") or "").strip().lower()
+    if style in ("virtual", "path"):
+        return {"s3": {"addressing_style": style}}
+    return {}
+
+
 def get_storage_client():
     """
     Get boto3 S3 client if S3 is configured, otherwise return None.
@@ -95,6 +109,7 @@ def get_storage_client():
                 connect_timeout=10,
                 read_timeout=60,
                 retries={"max_attempts": 2},
+                **_addressing_config(),
             ),
         )
         return _s3_client
