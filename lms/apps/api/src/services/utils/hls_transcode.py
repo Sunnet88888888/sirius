@@ -11,10 +11,12 @@ never exceeds the source resolution.
 """
 
 import asyncio
+import contextvars
 import json
 import subprocess
 import logging
 import os
+import re
 import shutil
 import tempfile
 from dataclasses import dataclass
@@ -69,6 +71,57 @@ def encryption_enabled() -> bool:
 PROBE_TIMEOUT_S = 120
 SPRITE_TIMEOUT_S = 30 * 60
 TRANSCODE_TIMEOUT_S = 6 * 60 * 60
+
+
+# Progress reporting. A caller (hls_jobs) sets an async callable taking the
+# percent done (0-99) in this context var; transcode_source_to_hls then asks
+# ffmpeg for `-progress` output and reports every few seconds. Unset (the
+# default) means no progress files and no extra work.
+progress_reporter: contextvars.ContextVar = contextvars.ContextVar(
+    "hls_progress_reporter", default=None
+)
+PROGRESS_POLL_SECONDS = 5
+_OUT_TIME_RE = re.compile(rb"out_time_(?:us|ms)=(\d+)")
+
+
+def _read_progress_fraction(path: str, duration_s: float) -> Optional[float]:
+    """Fraction (0-1) of the source encoded so far, from ffmpeg's -progress
+    file, or None when nothing readable yet. ffmpeg's out_time_us/out_time_ms
+    are both in microseconds."""
+    if duration_s <= 0:
+        return None
+    try:
+        with open(path, "rb") as f:
+            f.seek(0, os.SEEK_END)
+            f.seek(max(0, f.tell() - 4096))
+            tail = f.read()
+    except OSError:
+        return None
+    found = _OUT_TIME_RE.findall(tail)
+    if not found:
+        return None
+    try:
+        return max(0.0, min(1.0, int(found[-1]) / 1_000_000 / duration_s))
+    except ValueError:
+        return None
+
+
+async def _watch_progress(path: str, duration_s: float, reporter) -> None:
+    """Poll the ffmpeg progress file and call reporter(percent) when it moves.
+    Runs until cancelled; a failing reporter never affects the transcode."""
+    last = -1
+    while True:
+        await asyncio.sleep(PROGRESS_POLL_SECONDS)
+        frac = _read_progress_fraction(path, duration_s)
+        if frac is None:
+            continue
+        pct = min(99, int(frac * 100))
+        if pct != last:
+            last = pct
+            try:
+                await reporter(pct)
+            except Exception:
+                logger.debug("HLS progress report failed", exc_info=True)
 
 
 async def _run_subprocess(args, timeout: int):
@@ -356,6 +409,14 @@ async def transcode_source_to_hls(src_path: str, out_dir: str) -> Optional[dict]
     logger.info("Transcoding %s → HLS %s (%s%s)", src_path, out_dir,
                 ",".join(r.name for r in rungs),
                 ", encrypted" if keyinfo_path else "")
+    reporter = progress_reporter.get()
+    progress_path = None
+    watcher = None
+    if reporter is not None and duration > 0:
+        fd, progress_path = tempfile.mkstemp(suffix=".progress")
+        os.close(fd)
+        args[1:1] = ["-progress", progress_path, "-nostats"]
+        watcher = asyncio.create_task(_watch_progress(progress_path, duration, reporter))
     try:
         rc, _, stderr = await _run_subprocess(args, TRANSCODE_TIMEOUT_S)
         if rc != 0:
@@ -366,11 +427,14 @@ async def transcode_source_to_hls(src_path: str, out_dir: str) -> Optional[dict]
         logger.error("HLS transcode error for %s: %s", src_path, e)
         return None
     finally:
-        if keyinfo_path and os.path.exists(keyinfo_path):
-            try:
-                os.remove(keyinfo_path)
-            except OSError:
-                pass
+        if watcher:
+            watcher.cancel()
+        for leftover in (keyinfo_path, progress_path):
+            if leftover and os.path.exists(leftover):
+                try:
+                    os.remove(leftover)
+                except OSError:
+                    pass
 
     master = os.path.join(out_dir, MASTER_PLAYLIST_NAME)
     if not os.path.isfile(master):

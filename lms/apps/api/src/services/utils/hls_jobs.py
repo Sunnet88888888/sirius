@@ -23,6 +23,7 @@ import os
 import shutil
 import tempfile
 import threading
+import time
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -40,7 +41,7 @@ from src.services.courses.transfer.storage_utils import (
     get_s3_bucket_name,
     upload_directory_to_s3_parallel,
 )
-from src.services.utils.hls_transcode import transcode_source_to_hls
+from src.services.utils.hls_transcode import progress_reporter, transcode_source_to_hls
 
 logger = logging.getLogger(__name__)
 
@@ -196,6 +197,37 @@ async def _set_status(activity_uuid: str, status: str, **extra) -> None:
         await db.commit()
 
 
+async def _set_progress(activity_uuid: str, percent: int, elapsed_s: float, eta_s: Optional[int]) -> None:
+    """Merge progress into activity.extra_metadata['hls'] while it is still
+    'processing' (a late report never overwrites ready/failed)."""
+    async with _async_session_factory() as db:
+        activity = (
+            await db.execute(select(Activity).where(Activity.activity_uuid == activity_uuid))
+        ).scalars().first()
+        if not activity:
+            return
+        meta = dict(activity.extra_metadata or {})
+        hls = dict(meta.get("hls") or {})
+        if hls.get("status") != "processing":
+            return
+        hls.update(progress=percent, elapsed_seconds=int(elapsed_s), eta_seconds=eta_s, updated_at=_now())
+        meta["hls"] = hls
+        activity.extra_metadata = meta
+        db.add(activity)
+        await db.commit()
+
+
+async def mark_queued(activity_uuid: str) -> None:
+    """Show 'queued' on the activity right after upload (before a worker picks
+    it up). Never raises; no-op when HLS is disabled."""
+    if not hls_enabled():
+        return
+    try:
+        await _set_status(activity_uuid, "queued", queued_at=_now())
+    except Exception:
+        logger.warning("HLS: could not mark %s queued", activity_uuid, exc_info=True)
+
+
 async def _resolve_source(activity_uuid: str) -> Optional[dict]:
     """Return {org_uuid, course_uuid, filename} for a hosted-video activity."""
     async with _async_session_factory() as db:
@@ -270,7 +302,16 @@ async def transcode_activity(activity_uuid: str) -> bool:
         except Exception:
             heartbeat = None
 
-    await _set_status(activity_uuid, "processing")
+    started_at = _now()
+    started = time.monotonic()
+    await _set_status(activity_uuid, "processing", started_at=started_at)
+
+    async def _report(percent: int) -> None:
+        elapsed = time.monotonic() - started
+        eta = int(elapsed * (100 - percent) / percent) if percent >= 3 else None
+        await _set_progress(activity_uuid, percent, elapsed, eta)
+
+    reporter_token = progress_reporter.set(_report)
     try:
         with scratch_dir() as td:
             # basename() is defensive belt-and-suspenders on top of _safe_filename.
@@ -311,6 +352,7 @@ async def transcode_activity(activity_uuid: str) -> bool:
         await _set_status(activity_uuid, "failed", error="exception")
         return False
     finally:
+        progress_reporter.reset(reporter_token)
         if heartbeat:
             heartbeat.cancel()
         if client:

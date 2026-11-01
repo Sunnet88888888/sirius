@@ -2884,6 +2884,28 @@
           "chapter_name_placeholder": "Chapter name"
         },
         "activity": {
+          "video_processing": {
+            "queued": "In queue",
+            "queued_hint": "The video is waiting for its turn to be processed. It already plays in the original quality.",
+            "processing_start": "Processing…",
+            "processing_pct": "Processing {{pct}}%",
+            "processing_eta": "Processing {{pct}}% · about {{min}} min left",
+            "processing_hint": "Creating adaptive quality versions. The video already plays in the original quality.",
+            "ready": "Ready",
+            "ready_hint": "Adaptive quality is ready.",
+            "unsupported": "Not processed",
+            "unsupported_hint": "This file has no video track, so no quality versions were created.",
+            "failed": "Processing failed: {{reason}}",
+            "failed_hint": "The video still plays in the original quality.",
+            "retry": "Retry",
+            "retry_error": "Could not restart processing",
+            "err_source": "the uploaded file could not be read",
+            "err_transcode": "the video could not be converted",
+            "err_upload": "the result could not be saved to storage",
+            "err_timeout": "processing took too long",
+            "err_exception": "an unexpected error occurred",
+            "err_unknown": "unknown error"
+          },
           "name_placeholder": "Activity name",
           "status": {
             "published": "Published",

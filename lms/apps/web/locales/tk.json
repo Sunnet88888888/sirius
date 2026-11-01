@@ -2791,6 +2791,28 @@
           "chapter_name_placeholder": "Bölümiň ady"
         },
         "activity": {
+          "video_processing": {
+            "queued": "Nobatda",
+            "queued_hint": "Wideo işlenmek üçin nobatyna garaşýar. Ol eýýäm asyl hilinde oýnalýar.",
+            "processing_start": "Işlenýär…",
+            "processing_pct": "Işlenýär {{pct}}%",
+            "processing_eta": "Işlenýär {{pct}}% · takmynan {{min}} min galdy",
+            "processing_hint": "Uýgunlaşýan hilli wersiýalar döredilýär. Wideo eýýäm asyl hilinde oýnalýar.",
+            "ready": "Taýyn",
+            "ready_hint": "Uýgunlaşýan hil taýyn.",
+            "unsupported": "Işlenmedi",
+            "unsupported_hint": "Faýlda wideo ýoly ýok, şonuň üçin hil wersiýalary döredilmedi.",
+            "failed": "Işlemek şowsuz boldy: {{reason}}",
+            "failed_hint": "Wideo henizem asyl hilinde oýnalýar.",
+            "retry": "Gaýtadan synanyş",
+            "retry_error": "Işlemegi gaýtadan başlap bolmady",
+            "err_source": "ýüklenen faýly okap bolmady",
+            "err_transcode": "wideony öwrüp bolmady",
+            "err_upload": "netijäni saklaýjya ýazyp bolmady",
+            "err_timeout": "işlemek gaty uzaga çekdi",
+            "err_exception": "garaşylmadyk ýalňyşlyk ýüze çykdy",
+            "err_unknown": "näbelli ýalňyşlyk"
+          },
           "name_placeholder": "Sapagyň ady",
           "status": {
             "published": "Çap edildi",

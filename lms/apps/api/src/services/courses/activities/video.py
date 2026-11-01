@@ -163,7 +163,9 @@ async def create_video_activity(
     # Kick off HLS transcoding (no-op unless LEARNHOUSE_HLS_ENABLED). The MP4 is
     # served as the fallback until HLS is ready.
     try:
-        from src.services.utils.hls_jobs import enqueue as enqueue_hls
+        from src.services.utils.hls_jobs import enqueue as enqueue_hls, mark_queued
+        # Mark before enqueueing so a fast worker's "processing" is never overwritten.
+        await mark_queued(activity.activity_uuid)
         enqueue_hls(activity.activity_uuid)
     except Exception:
         logger.exception("Failed to enqueue HLS transcode for %s", activity.activity_uuid)
@@ -514,3 +516,47 @@ async def update_external_video_activity(
 
 
 ## 🔒 RBAC Utils ##
+
+
+async def retry_hls_transcode(
+    request: Request,
+    activity_uuid: str,
+    current_user: PublicUser | AnonymousUser,
+    db_session: AsyncSession,
+) -> dict:
+    """Queue a hosted video for HLS transcoding again (after a failure, or for
+    an upload that never got a status). Needs UPDATE rights on the course."""
+    from src.services.utils import hls_jobs
+
+    activity = (
+        await db_session.execute(select(Activity).where(Activity.activity_uuid == activity_uuid))
+    ).scalars().first()
+    if not activity:
+        raise HTTPException(status_code=404, detail="Activity not found")
+    if activity.activity_sub_type != ActivitySubTypeEnum.SUBTYPE_VIDEO_HOSTED:
+        raise HTTPException(status_code=400, detail="Only hosted videos are transcoded")
+
+    course = (
+        await db_session.execute(select(Course).where(Course.id == activity.course_id))
+    ).scalars().first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    await check_resource_access(
+        request, db_session, current_user, course.course_uuid, AccessAction.UPDATE
+    )
+
+    if not hls_jobs.hls_enabled():
+        raise HTTPException(status_code=409, detail="Video processing is not enabled on this server")
+    status_now = ((activity.extra_metadata or {}).get("hls") or {}).get("status")
+    if status_now in ("queued", "processing"):
+        raise HTTPException(status_code=409, detail="This video is already being processed")
+
+    client = hls_jobs.get_redis_client()
+    if client:
+        try:
+            client.delete(hls_jobs._retries_key(activity_uuid))
+        except Exception:
+            pass
+    await hls_jobs._set_status(activity_uuid, "queued", queued_at=hls_jobs._now())
+    hls_jobs.enqueue(activity_uuid)
+    return {"status": "queued"}

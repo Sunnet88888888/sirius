@@ -55,6 +55,7 @@ import {
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu'
 import { ActivityPreviewHoverCard } from '@components/Objects/Activities/ActivityPreview/ActivityPreview'
+import VideoProcessingBadge from './VideoProcessingBadge'
 
 type ActivitiyElementProps = {
   orgslug: string
@@ -323,6 +324,9 @@ function ActivityElement(props: ActivitiyElementProps) {
               </ActivityPreviewHoverCard>
             )}
           </div>
+
+          {/* Video processing (HLS) state, for authors and admins */}
+          <VideoProcessingBadge activity={props.activity} accessToken={access_token} />
 
           {/* Status badge + quick actions */}
           {!props.selectionMode && (

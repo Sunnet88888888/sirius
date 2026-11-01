@@ -33,6 +33,7 @@ from src.services.courses.activities.video import (
     configure_captions,
     create_external_video_activity,
     create_video_activity,
+    retry_hls_transcode,
     update_video_activity,
     update_external_video_activity,
 )
@@ -550,6 +551,24 @@ async def api_configure_video_captions(
     db_session=Depends(get_db_session),
 ) -> dict:
     return await configure_captions(request, activity_uuid, current_user, db_session, config)
+
+
+@router.post(
+    "/video/{activity_uuid}/hls/retry",
+    summary="Retry video processing (HLS) for a hosted video activity",
+    description=(
+        "Queue the video for transcoding again, for example after a failure. "
+        "Requires update rights on the course. Returns 409 while the video is "
+        "already queued or processing, or when processing is disabled."
+    ),
+)
+async def api_retry_video_hls(
+    request: Request,
+    activity_uuid: str,
+    current_user: PublicUser = Depends(get_current_user),
+    db_session=Depends(get_db_session),
+) -> dict:
+    return await retry_hls_transcode(request, activity_uuid, current_user, db_session)
 
 
 @router.put(
