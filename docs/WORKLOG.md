@@ -38,3 +38,13 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - NOT yet measured with the real model: the OpenAI key on the server is rejected (HTTP 401), so the golden-set run (`scripts/ai_code_task_golden.py`) is pending a working key.
 - Rollback: `deploy.sh --rollback 91eab5a`.
 
+## 2026-11-01 - Analytics on our own ClickHouse (branch feat/self-hosted-analytics)
+- Goal: the admin dashboard said analytics needs a hosted service; make it work on our server, and open the Advanced tab.
+- Findings: the application stores events with one call (`POST /v0/events`) and reads them with another (`POST /v0/sql`, raw ClickHouse SQL); one table, `events`. The Advanced queries are blocked in the open-source edition (`analytics_advanced` is Enterprise-only), and the page showed a lock because the plan in OSS mode is `oss`.
+- Done: `deploy/analytics/` (ClickHouse 24.8 + nginx adapter + init SQL + memory limits); `SIRIUS_UNLOCKED_FEATURES` switch (`security/features_utils/unlocked.py`, used by `_check_mode_bypass`); `/analytics/status` now returns `advanced_unlocked`, read by the Analytics page. Docs: `features/analytics.md`, decisions 14-15, changelog, runbook.
+- Server: removed 20 old `sirius-lms` images and stale build cache (disk 92% -> 57%, now 70% after the new build); `.env` got the ClickHouse and analytics variables (backups `.env.bak-analytics-*`, `docker-compose.yml.bak-analytics-*`); compose file now has `include: [analytics/compose.yml]`.
+- Found while testing: ClickHouse 24.8 needs `allow_experimental_join_condition=1` for the cohort retention query (inequality in JOIN); set in the proxy. 64-bit numbers had to be returned as numbers, not strings (`output_format_json_quote_64bit_integers=0`).
+- Checks: 7 new tests plus the existing plan-check and analytics-router tests pass (49); every dashboard query (48: core, advanced, detail, per course) returns 200; an event sent by the application's own code reaches ClickHouse; writing through the read endpoint is refused; the ingest token does not work on the query endpoint. The smoke-test events were removed.
+- Not done: history before today does not exist (no backfill, by choice); real learner traffic still to be watched after a day.
+- Rollback: `deploy.sh --rollback 97cf389` and remove `include:` from the compose file (the data volume `clickhouse_data` stays).
+
