@@ -13,6 +13,7 @@ from src.core.events.database import get_db_session
 from src.db.organization_config import OrganizationConfig
 from src.db.communities.communities import Community
 from src.security.features_utils.plans import PlanLevel, plan_meets_requirement
+from src.security.features_utils.unlocked import is_feature_unlocked
 
 
 def _check_mode_bypass(feature_name: str) -> bool | None:
@@ -31,7 +32,7 @@ def _check_mode_bypass(feature_name: str) -> bool | None:
         return True
     if mode == 'oss':
         feature_key = feature_name.lower().replace(' ', '_')
-        if feature_key in EE_ONLY_FEATURES:
+        if feature_key in EE_ONLY_FEATURES and not is_feature_unlocked(feature_key):
             raise HTTPException(
                 status_code=403,
                 detail=f"{feature_name} is not available in OSS mode. Enterprise Edition is required.",

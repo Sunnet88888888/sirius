@@ -1,0 +1,27 @@
+<!-- Keeps ClickHouse small on a shared 8 GB server: capped memory, no self-logging tables. -->
+<clickhouse>
+    <max_server_memory_usage_to_ram_ratio>0.3</max_server_memory_usage_to_ram_ratio>
+    <mark_cache_size>268435456</mark_cache_size>
+    <uncompressed_cache_size>0</uncompressed_cache_size>
+
+    <logger>
+        <level>warning</level>
+        <log remove="1"/>
+        <errorlog remove="1"/>
+        <console>1</console>
+    </logger>
+
+    <query_log remove="1"/>
+    <query_thread_log remove="1"/>
+    <query_views_log remove="1"/>
+    <part_log remove="1"/>
+    <text_log remove="1"/>
+    <trace_log remove="1"/>
+    <metric_log remove="1"/>
+    <asynchronous_metric_log remove="1"/>
+    <session_log remove="1"/>
+    <processors_profile_log remove="1"/>
+    <opentelemetry_span_log remove="1"/>
+    <asynchronous_insert_log remove="1"/>
+    <crash_log remove="1"/>
+</clickhouse>

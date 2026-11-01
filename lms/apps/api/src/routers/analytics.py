@@ -90,6 +90,9 @@ class PlanInfoResponse(BaseModel):
 
 class AnalyticsStatusResponse(BaseModel):
     configured: bool
+    # True when the advanced analytics tab may be used on this deployment
+    # (Enterprise edition, or unlocked through SIRIUS_UNLOCKED_FEATURES).
+    advanced_unlocked: bool = False
 
 
 # Lazy singleton httpx client for Tinybird Query API
@@ -288,7 +291,20 @@ async def analytics_status(
         raise HTTPException(status_code=401, detail="Authentication required")
 
     config = get_learnhouse_config()
-    return AnalyticsStatusResponse(configured=config.tinybird_config is not None)
+    return AnalyticsStatusResponse(
+        configured=config.tinybird_config is not None,
+        advanced_unlocked=_advanced_unlocked(),
+    )
+
+
+def _advanced_unlocked() -> bool:
+    """Whether the advanced analytics queries are allowed without a plan check."""
+    from src.security.features_utils.plan_check import _check_mode_bypass
+
+    try:
+        return _check_mode_bypass("analytics_advanced") is True
+    except Exception:  # blocked in OSS mode (HTTPException) or config unavailable
+        return False
 
 
 # -------------------------------------------------------------------

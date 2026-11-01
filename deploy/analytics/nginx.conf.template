@@ -1,0 +1,45 @@
+# Thin adapter in front of ClickHouse. The platform's analytics client speaks two HTTP calls:
+#   POST /v0/events?name=events   one JSON event to store          (ingest token)
+#   POST /v0/sql                  raw SQL in the body, JSON result  (read token)
+# This proxy checks the bearer tokens, maps both calls onto ClickHouse's HTTP interface and adds the
+# ClickHouse credentials. ClickHouse itself is not reachable from outside the compose network.
+# ${...} values are filled from the container environment when it starts (nginx image templates).
+
+server {
+    listen 8080;
+    server_name _;
+    client_max_body_size 1m;
+
+    location = /healthz {
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    location = /v0/events {
+        if ($request_method != POST) { return 405; }
+        if ($http_authorization != "Bearer ${ANALYTICS_INGEST_TOKEN}") { return 401; }
+        set $args "database=analytics&date_time_input_format=best_effort&input_format_skip_unknown_fields=1&query=INSERT%20INTO%20events%20FORMAT%20JSONEachRow";
+        rewrite ^ / break;
+        proxy_pass http://clickhouse:8123;
+        proxy_set_header Authorization "";
+        proxy_set_header X-ClickHouse-User "${CLICKHOUSE_USER}";
+        proxy_set_header X-ClickHouse-Key "${CLICKHOUSE_PASSWORD}";
+    }
+
+    location = /v0/sql {
+        if ($request_method != POST) { return 405; }
+        if ($http_authorization != "Bearer ${ANALYTICS_READ_TOKEN}") { return 401; }
+        # readonly=2: no writes, settings below still apply. 64-bit numbers as numbers (not strings).
+        set $args "database=analytics&readonly=2&max_execution_time=25&max_memory_usage=1500000000&output_format_json_quote_64bit_integers=0";
+        rewrite ^ / break;
+        proxy_pass http://clickhouse:8123;
+        proxy_read_timeout 30s;
+        proxy_set_header Authorization "";
+        proxy_set_header X-ClickHouse-User "${CLICKHOUSE_USER}";
+        proxy_set_header X-ClickHouse-Key "${CLICKHOUSE_PASSWORD}";
+    }
+
+    location / {
+        return 404;
+    }
+}

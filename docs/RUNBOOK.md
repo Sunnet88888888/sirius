@@ -20,3 +20,10 @@ Set the previous image tag in the stack's compose file and run `docker compose u
 
 ## Backup
 Database dump (`pg_dump`) plus the content volume. Do this before any schema-affecting deploy.
+
+## Analytics (ClickHouse)
+- Status: `docker compose ps` shows `clickhouse` and `analytics-proxy` healthy.
+- Row count: `docker compose exec clickhouse clickhouse-client --user "$CLICKHOUSE_USER" --password "$CLICKHOUSE_PASSWORD" --query "SELECT count(), max(timestamp) FROM analytics.events"`.
+- Back up before risky changes: dump `analytics.events` as shown in `deploy/analytics/README.md`; the volume is `clickhouse_data`.
+- If the dashboard shows "not configured": the three `LEARNHOUSE_TINYBIRD_*` variables are missing from `.env`, or the app container was not recreated after adding them.
+

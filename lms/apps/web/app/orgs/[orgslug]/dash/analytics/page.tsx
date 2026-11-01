@@ -65,7 +65,10 @@ export default function AnalyticsDashboard() {
   // Advanced analytics is the enterprise tier; usePlan() returns the right
   // pseudo-plan for EE ('enterprise') and OSS ('oss'), so planMeetsRequirement
   // resolves all modes correctly.
-  const isAdvanced = planMeetsRequirement(plan, 'enterprise')
+  // The server also reports when the tier is unlocked for this deployment
+  // (SIRIUS_UNLOCKED_FEATURES), which the plan alone cannot show in OSS mode.
+  const isAdvanced =
+    planMeetsRequirement(plan, 'enterprise') || analyticsStatus?.advanced_unlocked === true
   const isConfigured = analyticsStatus?.configured === true
 
   return (

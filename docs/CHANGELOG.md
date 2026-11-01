@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Analytics in the admin dashboard now works: our own ClickHouse stores the events (`deploy/analytics/`), and the Advanced tab is open through `SIRIUS_UNLOCKED_FEATURES`. See `features/analytics.md`.
 - AI code review for students in code tasks (advice only, 10 per day / 300 per month per student, configurable in `.env`). See `features/ai-code-review.md`.
 - Initial import of the platform source into this repository.
 - Dark theme for the whole app, with a toggle (header, login page, dashboard user menu). Default stays light.
