@@ -1,0 +1,46 @@
+include:
+  - analytics/compose.yml
+name: learnhouse
+services:
+  learnhouse-app:
+    image: sirius-lms:latest   # deploy.sh rewrites this to sirius-lms:<git sha>
+    restart: unless-stopped
+    env_file: [.env]
+    environment:
+      - HOSTNAME=0.0.0.0
+      - LEARNHOUSE_API_URL=http://localhost:9000
+    ports: ["80:80"]
+    volumes: [content:/app/api/content]
+    depends_on:
+      db: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    env_file: [.env]
+    volumes: [db_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U learnhouse"]
+      interval: 5s
+      timeout: 4s
+      retries: 5
+  redis:
+    image: redis:7.2.3-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes: [redis_data:/data]
+    healthcheck:
+      test: ["CMD","redis-cli","ping"]
+      interval: 5s
+      timeout: 4s
+      retries: 5
+volumes:
+  content:
+  db_data:
+  redis_data:
