@@ -18,3 +18,13 @@ Uploaded files live in an S3-compatible bucket (Selectel, bucket `berdinov`, reg
 
 ## Moving the transcoder to its own server (planned, not built)
 Run the same image with ffmpeg on another host with access to the same Redis, Postgres and bucket (over a private tunnel, never open ports), and stop the in-app consumer on the main server. Needs a small code addition: a flag to disable the consumer on the main server and a worker entry point that runs only the consumer.
+
+## Processing status for authors and admins
+In the course structure editor (Dashboard > course > Content) each hosted video shows its processing state next to the title:
+- **In queue**, **Processing 42% · about 6 min left** (with a small progress bar), **Ready**, **Not processed** (file without a video track), or **Processing failed: <reason>** with a **Retry** button.
+- The badge refreshes itself every 10 seconds while a video is queued or processing. The video already plays in the original quality (MP4) meanwhile.
+- Anyone who can edit the course (authors, admins) sees it and can retry; the retry endpoint is `POST /api/v1/activities/video/{activity_uuid}/hls/retry` (update rights on the course; 409 while the video is queued or processing).
+- Data: `activity.extra_metadata.hls` now carries `queued_at`, `started_at`, `progress` (0-99), `elapsed_seconds`, `eta_seconds`; progress comes from ffmpeg's `-progress` output polled every 5 seconds. Failed jobs keep the `error` code (`source_unavailable`, `transcode_failed`, `upload_failed`, `timeout`, `exception`).
+- Texts are in `locales/*.json` under `dashboard.courses.structure.activity.video_processing` (English, Russian, Turkmen; other languages fall back to English). The Turkmen wording is a machine draft and needs a native review.
+- Video blocks inside lessons are not covered yet; only hosted video activities.
+- A deploy restarts the app and restarts any running transcode from the beginning.
