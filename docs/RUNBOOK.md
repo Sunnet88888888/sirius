@@ -27,3 +27,8 @@ Database dump (`pg_dump`) plus the content volume. Do this before any schema-aff
 - Back up before risky changes: dump `analytics.events` as shown in `deploy/analytics/README.md`; the volume is `clickhouse_data`.
 - If the dashboard shows "not configured": the three `LEARNHOUSE_TINYBIRD_*` variables are missing from `.env`, or the app container was not recreated after adding them.
 
+
+## HTTPS (Caddy)
+- Site: https://berdinov.com (www redirects to it). Caddy (`caddy` service, `/opt/learnhouse/Caddyfile`) holds the certificates in the `caddy_data` volume and renews them itself.
+- The app container is published only on 127.0.0.1:8081; `deploy.sh` checks health there.
+- Check: `docker compose logs --tail 50 caddy`. Certificates need ports 80 and 443 open and the DNS A records in place.

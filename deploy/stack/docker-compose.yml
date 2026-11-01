@@ -9,7 +9,7 @@ services:
     environment:
       - HOSTNAME=0.0.0.0
       - LEARNHOUSE_API_URL=http://localhost:9000
-    ports: ["80:80"]
+    ports: ["127.0.0.1:8081:80"]   # only the HTTPS proxy (caddy) is public
     volumes: [content:/app/api/content]
     depends_on:
       db: {condition: service_healthy}
@@ -20,6 +20,16 @@ services:
       timeout: 10s
       retries: 3
       start_period: 90s
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      learnhouse-app: {condition: service_healthy}
   db:
     image: pgvector/pgvector:pg16
     restart: unless-stopped
@@ -44,3 +54,5 @@ volumes:
   content:
   db_data:
   redis_data:
+  caddy_data:
+  caddy_config:

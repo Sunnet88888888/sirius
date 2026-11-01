@@ -17,10 +17,13 @@ git clone https://github.com/Sunnet88888888/sirius.git /opt/learnhouse/src
 cd /opt/learnhouse
 cp src/deploy/stack/docker-compose.yml src/deploy/stack/deploy.sh .
 cp -r src/deploy/analytics analytics
+cp src/deploy/stack/Caddyfile .                            # edit: your domain
 cp src/deploy/stack/env.example .env && chmod 600 .env     # fill every <...>
 ./deploy.sh feat/self-hosted-analytics                     # builds sirius-lms:<sha>, starts, waits for health
 ```
 `deploy.sh --rollback <sha>` returns to a previous image. The first build takes several minutes.
+
+HTTPS: the `caddy` service in the compose file obtains and renews Let's Encrypt certificates. Before the first start, DNS A records for the domain (and `www`) must point at the server and ports 80/443 must be reachable. The app itself listens only on 127.0.0.1:8081.
 
 ## 3. Code execution (optional, needed for code tasks)
 ```

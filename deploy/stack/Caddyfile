@@ -1,0 +1,10 @@
+# HTTPS front door: gets and renews Let's Encrypt certificates by itself (needs DNS A records and ports 80/443).
+# Replace berdinov.com with your domain.
+berdinov.com {
+	encode zstd gzip
+	reverse_proxy learnhouse-app:80
+}
+
+www.berdinov.com {
+	redir https://berdinov.com{uri} permanent
+}
