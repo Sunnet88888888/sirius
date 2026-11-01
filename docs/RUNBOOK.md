@@ -32,3 +32,6 @@ Database dump (`pg_dump`) plus the content volume. Do this before any schema-aff
 - Site: https://berdinov.com (www redirects to it). Caddy (`caddy` service, `/opt/learnhouse/Caddyfile`) holds the certificates in the `caddy_data` volume and renews them itself.
 - The app container is published only on 127.0.0.1:8081; `deploy.sh` checks health there.
 - Check: `docker compose logs --tail 50 caddy`. Certificates need ports 80 and 443 open and the DNS A records in place.
+
+## Disk cleanup on deploy
+After a healthy deploy, `deploy.sh` keeps the 4 newest `sirius-lms` images (current + 3 for rollback), removes older ones and prunes Docker build cache older than 7 days. Rolling back to a removed tag means rebuilding it.
