@@ -48,3 +48,10 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Not done: history before today does not exist (no backfill, by choice); real learner traffic still to be watched after a day.
 - Rollback: `deploy.sh --rollback 97cf389` and remove `include:` from the compose file (the data volume `clickhouse_data` stays).
 
+
+## 2026-11-01 (evening) HTTPS, storage, HLS
+- berdinov.com points at the server; Caddy (Let's Encrypt) is the HTTPS front door, app bound to 127.0.0.1:8081. Disk grown to 109 GB (growpart + resize2fs). deploy.sh prunes old images (keeps 4).
+- Deploy templates added to `deploy/` (stack compose, Caddyfile, deploy.sh, env example, Judge0 stack, README).
+- Selectel S3 bucket `berdinov` (ru-7) connected; CORS set (GET/HEAD from https://berdinov.com). Found CORS answers only on bucket-subdomain URLs, so added `LEARNHOUSE_S3_API_ADDRESSING_STYLE` (3 lines + tests). ffmpeg added to the image; HLS on, concurrency 1.
+- End-to-end test (throwaway course, deleted afterwards, bucket empty again): upload, transcode (30 s clip in 20 s; 120 s 1080p in 126 s), master and rendition playlists, signed segments from the bucket with Range and CORS preflight OK, anonymous requests 401/403, AES key endpoint needs auth. Not tested: real browser playback.
+- Branch `feat/s3-hls-selectel`; deployed image sirius-lms:522e175.

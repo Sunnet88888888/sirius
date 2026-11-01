@@ -35,3 +35,9 @@ Database dump (`pg_dump`) plus the content volume. Do this before any schema-aff
 
 ## Disk cleanup on deploy
 After a healthy deploy, `deploy.sh` keeps the 4 newest `sirius-lms` images (current + 3 for rollback), removes older ones and prunes Docker build cache older than 7 days. Rolling back to a removed tag means rebuilding it.
+
+## Video / HLS
+- Status of a video: the activity's `extra_metadata.hls.status` (`processing`, `ready`, `failed`). Logs: `docker compose logs --tail 100 learnhouse-app | grep -i hls`.
+- Re-queue missing videos: `docker compose exec learnhouse-app /app/api/.venv/bin/python cli.py transcode-backfill`.
+- Bucket CORS must allow the site origin; check with a preflight request to a signed segment URL (see `features/video-storage-hls.md`).
+- Videos longer than about 40 minutes of encode time fail under the current job cap (see capacity notes there).
