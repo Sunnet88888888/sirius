@@ -32,7 +32,7 @@ The admin dashboard needs a place to store and query usage events. Instead of a 
 ## Check it
 ```
 docker compose ps                                   # clickhouse and analytics-proxy healthy
-docker compose exec analytics-proxy wget -qO- http://localhost:8080/healthz
+docker compose exec analytics-proxy wget -qO- http://127.0.0.1:8080/healthz
 docker compose exec clickhouse clickhouse-client --user "$CLICKHOUSE_USER" --password "$CLICKHOUSE_PASSWORD" \
   --query "SELECT count(), max(timestamp) FROM analytics.events"
 ```
