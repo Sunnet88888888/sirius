@@ -2,10 +2,11 @@
 
 import React from 'react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
-import { MessageCircle, ThumbsUp, Reply, Pencil, Trash2, Pin, Send, Lock } from 'lucide-react'
+import { MessageCircle, ThumbsUp, Reply, Pencil, Trash2, Pin, Lock } from 'lucide-react'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import UserAvatar from '@components/Objects/UserAvatar'
 import ConfirmationModal from '@components/Objects/StyledElements/ConfirmationModal/ConfirmationModal'
@@ -21,8 +22,13 @@ import {
   toggleCommentVote,
   updateActivityComment,
 } from '@services/comments/activityComments'
+import { CommentBody, parseCommentDoc } from './CommentRichText'
 
-const MAX_LENGTH = 2000
+// The formatted editor (Tiptap) is only downloaded when someone starts writing.
+const CommentEditor = dynamic(() => import('./CommentEditor'), {
+  ssr: false,
+  loading: () => <div className="h-32 rounded-lg bg-gray-100 animate-pulse" />,
+})
 
 type Props = {
   /** activity.activity_uuid, including the "activity_" prefix */
@@ -33,67 +39,16 @@ type Props = {
 const authorName = (c: ActivityComment) =>
   [c.author.first_name, c.author.last_name].filter(Boolean).join(' ') || c.author.username
 
-/** Textarea + send button, shared by new comments, replies and edits. */
+/** Formatted editor + send button, shared by new comments, replies and edits. */
 function Composer(props: {
-  initial?: string
+  initialDoc?: any
   placeholder: string
   submitLabel: string
   autoFocus?: boolean
-  onSubmit: (text: string) => Promise<void>
+  onSubmit: (content: string) => Promise<void>
   onCancel?: () => void
 }) {
-  const { t } = useTranslation()
-  const [text, setText] = React.useState(props.initial || '')
-  const [busy, setBusy] = React.useState(false)
-  const empty = !text.trim()
-
-  const submit = async () => {
-    if (empty || busy) return
-    setBusy(true)
-    try {
-      await props.onSubmit(text.trim())
-      setText('')
-    } finally {
-      setBusy(false)
-    }
-  }
-
-  return (
-    <div className="space-y-2">
-      <textarea
-        value={text}
-        autoFocus={props.autoFocus}
-        maxLength={MAX_LENGTH}
-        rows={3}
-        placeholder={props.placeholder}
-        aria-label={props.placeholder}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => {
-          if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') submit()
-        }}
-        className="w-full resize-y rounded-lg bg-white nice-shadow px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black/70"
-      />
-      <div className="flex items-center justify-between gap-3">
-        <span className="text-xs text-gray-400">{text.length}/{MAX_LENGTH}</span>
-        <div className="flex items-center gap-2">
-          {props.onCancel && (
-            <button type="button" onClick={props.onCancel} className="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-800 cursor-pointer">
-              {t('common.cancel')}
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={submit}
-            disabled={empty || busy}
-            className="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-neutral-900 text-white text-sm font-semibold hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
-          >
-            <Send className="w-4 h-4" />
-            {props.submitLabel}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
+  return <CommentEditor {...props} />
 }
 
 function CommentItem(props: {
@@ -150,7 +105,7 @@ function CommentItem(props: {
         {isEditing ? (
           <div className="mt-2">
             <Composer
-              initial={c.content}
+              initialDoc={parseCommentDoc(c.content, c.content_format)}
               autoFocus
               placeholder={t('comments.edit_placeholder')}
               submitLabel={t('common.save')}
@@ -159,7 +114,7 @@ function CommentItem(props: {
             />
           </div>
         ) : (
-          <p className="mt-1 text-sm text-gray-800 whitespace-pre-wrap break-words" dir="auto">{c.content}</p>
+          <CommentBody content={c.content} format={c.content_format} />
         )}
 
         {!isEditing && (
@@ -277,7 +232,7 @@ export default function ActivityComments({ activityUuid, orgslug }: Props) {
   }
 
   const post = (text: string, parentUuid: string | null) =>
-    guard(() => createActivityComment(activityUuid, text, parentUuid, token as string))
+    guard(() => createActivityComment(activityUuid, text, parentUuid, token as string, 'tiptap'))
 
   const itemProps = {
     canComment,
@@ -291,7 +246,7 @@ export default function ActivityComments({ activityUuid, orgslug }: Props) {
     onPin: (c: ActivityComment) => guard(() => toggleCommentPin(c.comment_uuid, token as string)).catch(() => {}),
     onDelete: (c: ActivityComment) => guard(() => deleteActivityComment(c.comment_uuid, token as string)).catch(() => {}),
     onSave: async (c: ActivityComment, text: string) => {
-      await guard(() => updateActivityComment(c.comment_uuid, text, token as string))
+      await guard(() => updateActivityComment(c.comment_uuid, text, token as string, 'tiptap'))
       setEditing(null)
     },
     onSubmitReply: async (c: ActivityComment, text: string) => {

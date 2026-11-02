@@ -475,6 +475,18 @@
     "more": "More"
   },
   "comments": {
+    "format": {
+      "toolbar": "Formatting",
+      "bold": "Bold",
+      "italic": "Italic",
+      "code": "Inline code",
+      "link": "Link",
+      "link_url": "Link address",
+      "link_add": "Add",
+      "bullet_list": "Bulleted list",
+      "ordered_list": "Numbered list",
+      "code_block": "Code block"
+    },
     "discussion": "Discussion",
     "placeholder": "Ask a question or share a thought about this lesson…",
     "edit_placeholder": "Edit your comment",

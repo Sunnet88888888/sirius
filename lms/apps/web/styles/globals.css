@@ -2569,3 +2569,27 @@
   display: block;
 }
 
+
+/* ---- Formatted lesson comments (display and editor) ---- */
+.comment-rich p { margin: 0 0 0.5rem; }
+.comment-rich p:last-child { margin-bottom: 0; }
+.comment-rich ul { list-style: disc; padding-inline-start: 1.25rem; margin: 0 0 0.5rem; }
+.comment-rich ol { list-style: decimal; padding-inline-start: 1.5rem; margin: 0 0 0.5rem; }
+.comment-rich li > p { margin: 0; }
+.comment-rich a { color: #2563eb; text-decoration: underline; cursor: pointer; }
+.comment-rich a:hover { color: #1d4ed8; }
+.comment-rich code { background: #f3f4f6; border-radius: 4px; padding: 0.1rem 0.3rem; font-size: 0.85em; font-family: 'JetBrainsMono', monospace; }
+.comment-rich pre { background: #0d0d0d; color: #fff; border-radius: 0.5rem; padding: 0.75rem 1rem; overflow-x: auto; margin: 0 0 0.5rem; font-family: 'JetBrainsMono', monospace; }
+.comment-rich pre code { background: none; color: inherit; font-size: 0.8rem; padding: 0; }
+.comment-rich pre .hljs-comment, .comment-rich pre .hljs-quote { color: #8a8a8a; }
+.comment-rich pre .hljs-variable, .comment-rich pre .hljs-template-variable, .comment-rich pre .hljs-attribute,
+.comment-rich pre .hljs-tag, .comment-rich pre .hljs-name, .comment-rich pre .hljs-regexp, .comment-rich pre .hljs-link,
+.comment-rich pre .hljs-selector-id, .comment-rich pre .hljs-selector-class { color: #f98181; }
+.comment-rich pre .hljs-number, .comment-rich pre .hljs-meta, .comment-rich pre .hljs-built_in, .comment-rich pre .hljs-builtin-name,
+.comment-rich pre .hljs-literal, .comment-rich pre .hljs-type, .comment-rich pre .hljs-params { color: #fbbc88; }
+.comment-rich pre .hljs-string, .comment-rich pre .hljs-symbol, .comment-rich pre .hljs-bullet { color: #b9f18d; }
+.comment-rich pre .hljs-title, .comment-rich pre .hljs-section { color: #faf594; }
+.comment-rich pre .hljs-keyword, .comment-rich pre .hljs-selector-tag { color: #70cff8; }
+.comment-rich pre .hljs-emphasis { font-style: italic; }
+.comment-rich pre .hljs-strong { font-weight: 700; }
+.comment-rich p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: #9ca3af; float: left; height: 0; pointer-events: none; }

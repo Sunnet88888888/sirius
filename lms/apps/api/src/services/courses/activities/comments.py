@@ -23,6 +23,12 @@ from src.db.notifications import NotificationTypeEnum
 from src.db.resource_authors import ResourceAuthor, ResourceAuthorshipStatusEnum
 from src.db.trail_runs import TrailRun
 from src.db.users import AnonymousUser, PublicUser, User, UserReadAuthor
+from src.services.courses.activities.comment_rich_text import (
+    COMMENT_FORMAT_TEXT,
+    COMMENT_FORMAT_TIPTAP,
+    COMMENT_FORMATS,
+    clean_tiptap_comment,
+)
 from src.services.courses.activities.access import (
     can_edit_course,
     verify_activity_reader_access_by_uuid,
@@ -36,13 +42,20 @@ def _require_user(user: PublicUser | AnonymousUser) -> PublicUser:
     return user
 
 
-def _clean_content(raw: str) -> str:
-    content = (raw or "").strip()
-    if not content:
+def _clean_content(raw: str, content_format: str = COMMENT_FORMAT_TEXT) -> tuple[str, str, str]:
+    """Validate a comment body. Returns (content to store, format, plain text).
+    The length limit and the empty check apply to the visible text."""
+    if content_format not in COMMENT_FORMATS:
+        raise HTTPException(status_code=422, detail="Unknown comment format")
+    if content_format == COMMENT_FORMAT_TIPTAP:
+        content, plain = clean_tiptap_comment(raw)
+    else:
+        content = plain = (raw or "").strip()
+    if not plain:
         raise HTTPException(status_code=422, detail="Comment cannot be empty")
-    if len(content) > MAX_COMMENT_LENGTH:
+    if len(plain) > MAX_COMMENT_LENGTH:
         raise HTTPException(status_code=422, detail=f"Comment is longer than {MAX_COMMENT_LENGTH} characters")
-    return content
+    return content, content_format, plain
 
 
 async def _is_enrolled(user_id: int, course_id: int, db_session: AsyncSession) -> bool:
@@ -112,6 +125,7 @@ async def list_activity_comments(
                 comment_uuid=comment.comment_uuid,
                 parent_uuid=uuid_by_id.get(comment.parent_id) if comment.parent_id else None,
                 content=comment.content,
+                content_format=comment.content_format,
                 is_pinned=comment.is_pinned,
                 is_edited=comment.is_edited,
                 upvote_count=comment.upvote_count,
@@ -138,7 +152,7 @@ async def create_activity_comment(
     moderator = await can_edit_course(request, course.course_uuid, user, db_session)
     if not moderator and not await _is_enrolled(user.id, course.id, db_session):
         raise HTTPException(status_code=403, detail="Start the course to join the discussion")
-    content = _clean_content(data.content)
+    content, content_format, plain = _clean_content(data.content, data.content_format)
 
     replied: Optional[ActivityComment] = None
     root_id: Optional[int] = None
@@ -163,6 +177,7 @@ async def create_activity_comment(
         user_id=user.id,
         parent_id=root_id,
         content=content,
+        content_format=content_format,
         creation_date=now,
         update_date=now,
     )
@@ -176,7 +191,7 @@ async def create_activity_comment(
         activity_uuid=activity.activity_uuid,
         activity_name=activity.name,
         comment_uuid=comment.comment_uuid,
-        snippet=content,
+        snippet=plain,
     )
     if replied is not None:
         add_notifications(db_session, [replied.user_id], type=NotificationTypeEnum.COMMENT_REPLY, **notify)
@@ -200,6 +215,7 @@ async def create_activity_comment(
         comment_uuid=comment.comment_uuid,
         parent_uuid=root_uuid,
         content=comment.content,
+        content_format=comment.content_format,
         is_pinned=False,
         is_edited=False,
         upvote_count=0,
@@ -230,9 +246,10 @@ async def update_activity_comment(
     await verify_activity_reader_access_by_uuid(request, activity.activity_uuid, user, db_session)
     if comment.user_id != user.id:
         raise HTTPException(status_code=403, detail="You can only edit your own comments")
-    content = _clean_content(data.content)
-    if content != comment.content:
+    content, content_format, _plain = _clean_content(data.content, data.content_format or comment.content_format)
+    if content != comment.content or content_format != comment.content_format:
         comment.content = content
+        comment.content_format = content_format
         comment.is_edited = True
         comment.update_date = str(datetime.now(timezone.utc))
         db_session.add(comment)

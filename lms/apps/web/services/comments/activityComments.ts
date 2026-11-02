@@ -14,6 +14,8 @@ export type ActivityComment = {
   comment_uuid: string
   parent_uuid: string | null
   content: string
+  /** 'text' for older plain comments, 'tiptap' for formatted ones (JSON document) */
+  content_format?: 'text' | 'tiptap'
   is_pinned: boolean
   is_edited: boolean
   upvote_count: number
@@ -48,13 +50,13 @@ export async function getActivityComments(activityUuid: string, token?: string):
   return await errorHandling(res)
 }
 
-export async function createActivityComment(activityUuid: string, content: string, parentUuid: string | null, token: string): Promise<ActivityComment> {
-  const res = await send('POST', `${base()}/activity/${activityUuid}`, { content, parent_uuid: parentUuid }, token)
+export async function createActivityComment(activityUuid: string, content: string, parentUuid: string | null, token: string, format: 'text' | 'tiptap' = 'text'): Promise<ActivityComment> {
+  const res = await send('POST', `${base()}/activity/${activityUuid}`, { content, content_format: format, parent_uuid: parentUuid }, token)
   return await res.json()
 }
 
-export async function updateActivityComment(commentUuid: string, content: string, token: string) {
-  await send('PUT', `${base()}/${commentUuid}`, { content }, token)
+export async function updateActivityComment(commentUuid: string, content: string, token: string, format: 'text' | 'tiptap' = 'text') {
+  await send('PUT', `${base()}/${commentUuid}`, { content, content_format: format }, token)
 }
 
 export async function deleteActivityComment(commentUuid: string, token: string) {

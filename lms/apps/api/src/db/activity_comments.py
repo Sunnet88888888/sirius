@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from sqlalchemy import Boolean, Column, ForeignKey, Index, Integer, Text, UniqueConstraint
+from sqlalchemy import Boolean, Column, ForeignKey, Index, Integer, String, Text, UniqueConstraint
 from sqlmodel import Field, SQLModel
 
 from src.db.users import UserReadAuthor
@@ -31,6 +31,8 @@ class ActivityComment(SQLModel, table=True):
         sa_column=Column(Integer, ForeignKey("activitycomment.id", ondelete="CASCADE"), nullable=True),
     )
     content: str = Field(sa_column=Column(Text, nullable=False))
+    # 'text' = plain text (older comments); 'tiptap' = formatted comment stored as a validated Tiptap JSON document
+    content_format: str = Field(default="text", sa_column=Column(String(16), nullable=False, server_default="text"))
     is_pinned: bool = Field(default=False, sa_column=Column(Boolean, default=False, nullable=False))
     is_edited: bool = Field(default=False, sa_column=Column(Boolean, default=False, nullable=False))
     upvote_count: int = 0
@@ -56,18 +58,22 @@ class ActivityCommentVote(SQLModel, table=True):
 
 class ActivityCommentCreate(SQLModel):
     content: str
+    content_format: str = "text"
     # Comment being answered. Answering a reply attaches to its thread.
     parent_uuid: Optional[str] = None
 
 
 class ActivityCommentUpdate(SQLModel):
     content: str
+    # None keeps the comment's current format
+    content_format: Optional[str] = None
 
 
 class ActivityCommentRead(SQLModel):
     comment_uuid: str
     parent_uuid: Optional[str] = None
     content: str
+    content_format: str = "text"
     is_pinned: bool
     is_edited: bool
     upvote_count: int

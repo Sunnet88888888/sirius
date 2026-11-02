@@ -1675,6 +1675,18 @@
     "more": "Köp"
   },
   "comments": {
+    "format": {
+      "toolbar": "Formatlamak",
+      "bold": "Galyň",
+      "italic": "Ykjam",
+      "code": "Setirdäki kod",
+      "link": "Baglanyşyk",
+      "link_url": "Baglanyşyk salgysy",
+      "link_add": "Goş",
+      "bullet_list": "Belgili sanaw",
+      "ordered_list": "Belgilenen sanaw",
+      "code_block": "Kod bloky"
+    },
     "discussion": "Çekişme",
     "placeholder": "Bu sapak barada sorag beriň ýa-da pikiriňizi paýlaşyň…",
     "edit_placeholder": "Teswiriňizi üýtgediň",
