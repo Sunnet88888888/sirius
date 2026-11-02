@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Formatted lesson comments (bold, italic, code, links, lists, code blocks) with a small editor; stored as validated JSON, 2000 visible characters. Needs the new column `activitycomment.content_format`. See `features/lesson-comments.md`.
 - Video processing status for authors and admins in the course editor: queue, progress with time left, ready, failure reason and a Retry button. See `features/video-storage-hls.md`.
 - Uploads and video now use Selectel S3 storage; videos are transcoded to encrypted adaptive HLS on the main server and streamed to students straight from the bucket. New option `LEARNHOUSE_S3_API_ADDRESSING_STYLE`, ffmpeg added to the image, HTTPS through Caddy on berdinov.com, deploy.sh prunes old images. See `features/video-storage-hls.md` and `deploy/README.md`.
 - Analytics in the admin dashboard now works: our own ClickHouse stores the events (`deploy/analytics/`), and the Advanced tab is open through `SIRIUS_UNLOCKED_FEATURES`. See `features/analytics.md`.

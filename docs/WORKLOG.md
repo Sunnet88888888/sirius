@@ -55,3 +55,7 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Selectel S3 bucket `berdinov` (ru-7) connected; CORS set (GET/HEAD from https://berdinov.com). Found CORS answers only on bucket-subdomain URLs, so added `LEARNHOUSE_S3_API_ADDRESSING_STYLE` (3 lines + tests). ffmpeg added to the image; HLS on, concurrency 1.
 - End-to-end test (throwaway course, deleted afterwards, bucket empty again): upload, transcode (30 s clip in 20 s; 120 s 1080p in 126 s), master and rendition playlists, signed segments from the bucket with Range and CORS preflight OK, anonymous requests 401/403, AES key endpoint needs auth. Not tested: real browser playback.
 - Branch `feat/s3-hls-selectel`; deployed image sirius-lms:522e175.
+
+## 2026-11-03 Formatted lesson comments
+- Branch `feat/rich-comments`: Tiptap editor for lesson comments, stored as server-validated JSON (`content_format`), drawn as React elements. Column added on the live DB by hand before deploy (no alembic_version table on this server; create_all never adds columns). Deployed as sirius-lms:19c0aae.
+- Checks: 18 unit tests for the validator; live API run on a throwaway course (plain and formatted comments, javascript: links, headings, images, over-limit, empty, bad JSON, unknown format, edits, replies, anonymous 401): all behaviours correct (the two edit checks returned 204, which is the endpoint's normal answer). Test course deleted. Not tested: the editor in a real browser.
