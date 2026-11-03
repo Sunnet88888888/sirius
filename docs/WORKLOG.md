@@ -62,4 +62,5 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 
 ## 2026-11-03 Course language
 - Branch `feat/course-language` (from `feat/rich-comments`): `course.language` column, validation, optional `language` filter on the list and search API, language in the anonymous cache key, language field in create and settings, browser-side filter with a remembered "other languages" switch on the Courses page, home and featured courses.
-- Column and index added on the live DB by hand before the deploy (no alembic_version on this server).
+- Column and index added on the live DB by hand before the deploy (no alembic_version on this server).- Deployed as sirius-lms:6b501b6 (first build failed on a TypeScript error: `language` missing from the card's own Course type; fixed). Checks: 28 unit tests; live API run on 3 throwaway courses (ru, en, none) as anonymous and admin, twice each to cover the cache: filter, normalization, bad codes, update/clear, clone, search, direct link; 25/25 pass after fixing the casing of a region code (`pt-br` -> `pt-BR`). Test courses deleted. Not tested: the UI in a real browser.
+
