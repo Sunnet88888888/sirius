@@ -14,6 +14,7 @@ Run the deploy script on the server (see `docs/WORKLOG.md` for the current proce
 Set the previous image tag in the stack's compose file and run `docker compose up -d app`. Previous tags are kept on the server.
 
 ## Judge0 checks
+Judge0 runs on its own server (`judge0.nodehost.ru`, 191.44.109.64) behind a WireGuard tunnel (main 10.10.0.1, Judge0 10.10.0.2); setup, firewall and rollback are in `deploy/judge0/remote/README.md`. The old local stack on the main server is stopped (files and volume kept). If code tasks fail: `ping 10.10.0.2` from the main server, `systemctl status wg-quick@wg0` on both, and `docker compose ps` in `/opt/judge0` on the Judge0 host.
 - Without the client headers the API must return 401.
 - A trivial Python submission must return `Accepted`.
 - An infinite loop must return `Time Limit Exceeded`.

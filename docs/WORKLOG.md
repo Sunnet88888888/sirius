@@ -81,3 +81,12 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Branch `feat/legal` (from `feat/backups`). Texts drafted from the real data flows (Resend, Google, OpenAI, Selectel, self-hosted analytics, Judge0), operator ИП Berdinov Farkhad. Not deployed: INN, OGRNIP, address and public e-mail are still empty (pages show a DRAFT banner until filled), and the owner has not reviewed the texts yet.
 - Findings: the default font is already self-hosted (next/font), so visitors do not contact Google for it; the only Google resource on the auth pages was the logo on the Google button, now `/google-g.svg`. Loops (marketing sync) is a no-op without a key.
 
+## 2026-11-03 Judge0 on its own server
+- New KVM server judge0.nodehost.ru (191.44.109.64), Node Host Frankfurt like the main one; 2 vCPU, 2 GB RAM, 20 GB, Ubuntu 24.04. Main server geolocated: also Germany/Frankfurt (Node Host), not Russia.
+- Set cgroup v1 (`systemd.unified_cgroup_hierarchy=0`, same as the main server), rebooted. Installed Docker, WireGuard (tunnel 10.10.0.0/24, 11 ms), ufw (default deny; 22/tcp, 51820/udp from the main IP, 2358/tcp only on wg0 from 10.10.0.1). Judge0 1.13.1 with fresh secrets (copy: `server-secrets/judge0-remote.conf`).
+- Found: the container user could not read a 600 conf file (`Permission denied`), fixed with 644 inside a root-only directory.
+- Sandbox tests on the new Judge0: hello/stdin/C Accepted; infinite loop and 15 s sleep Time Limit Exceeded; 700 MB allocation killed; fork bomb stopped; network connect blocked; 500 MB write refused (File too large); host files not visible; anonymous request 401.
+- Platform switched (`.env` backup `.env.bak-judge0-remote-*`, app recreated, healthy in 6 s). Checked through the platform's own Judge0 client: Accepted and Time Limit Exceeded; submission counter on the new server rose from 11 to 13, the old one stayed at 42. Old local Judge0 stopped (`docker compose down`, volume `judge0_data` kept): 0 privileged containers on the main server, about 470 MB RAM freed.
+- Rebooted the Judge0 host again: tunnel, firewall, Docker and Judge0 came back by themselves; platform test passed again.
+- Not done: end-to-end code task through the browser (admin login by script failed: the admin password in the container env is no longer the current one); root password of the new server was printed in the chat and should be changed.
+

@@ -1,0 +1,17 @@
+# /etc/wireguard/wg0.conf  (chmod 600). One file per host; swap the addresses and keys.
+# Generate a key pair on each host:  umask 077; wg genkey | tee private.key | wg pubkey > public.key
+
+# ---- on the Judge0 host ----
+[Interface]
+Address = 10.10.0.2/24
+ListenPort = 51820
+PrivateKey = <judge0 host private key>
+
+[Peer]
+PublicKey = <main server public key>
+AllowedIPs = 10.10.0.1/32
+Endpoint = <main server public IP>:51820
+PersistentKeepalive = 25
+
+# ---- on the main server the same file has Address = 10.10.0.1/24, the Judge0 host's public key,
+#      AllowedIPs = 10.10.0.2/32 and Endpoint = <judge0 host public IP>:51820 ----

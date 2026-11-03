@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Judge0 (student code execution) moved to its own server behind a WireGuard tunnel; the main server no longer runs privileged containers. See `deploy/judge0/remote/README.md`.
 - Legal pages (Privacy Policy, Terms of Use, consent to personal-data processing, Public Offer, Contacts) in Russian and English, footer links, cookie notice, required consent checkboxes at sign-up with the accepted version stored on the user. Needs the new columns `user.legal_consent_version` / `legal_consent_at` and the operator details in `lib/legal/operator.ts`. See `features/legal.md`.
 - Nightly encrypted backups to a separate Selectel bucket (Postgres, configuration, weekly analytics), 35-day retention, email on failure, restore tested. See `deploy/backup/README.md`.
 - Email through Resend (forgot password works) and Google sign-in are configured through `.env`; no code change. See `features/sign-in-and-email.md`.
