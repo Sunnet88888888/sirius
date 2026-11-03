@@ -101,3 +101,7 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Course thumbnail (generated cover image) uploaded; it removed the broken thumbnail request.
 - Checked in a real headless Chrome as admin: the page renders, the table of contents is generated from the headings, all four iframes run their scripts, flip cards flip, "Run Code" runs through the platform and Judge0 ("3 of 4 passed" on the slow starter). The only 404 left is the admin's missing avatar file. Not checked: mobile layout, dark theme, a student account's view.
 
+## 2026-11-03 New OpenAI key
+- Replaced `LEARNHOUSE_AI_API_KEY` in the server `.env` (backup `.env.bak-aikey-*`), app recreated, healthy in 3 s. The earlier key had expired, which made AI indexing and the AI helpers fail.
+- Checked from inside the app container: chat with `gpt-4.1-mini` and `gpt-4.1`, and embeddings with `text-embedding-3-small` (768 dimensions) all return HTTP 200; the RAG backfill scheduler started without errors. Not checked: an AI feature used from the browser (hints, code review, Ask AI).
+
