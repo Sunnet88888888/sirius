@@ -9,6 +9,9 @@ The platform sends mail through Resend or SMTP, chosen in `.env` (`deploy/stack/
 - Resend: the From address must be on a domain verified in Resend (DNS records: DKIM, SPF, MX for the sending subdomain). A key with "Sending access" is enough for the app. Until a domain is verified, only `onboarding@resend.dev` works, and only for the Resend account owner's address.
 - Check: send a code and look at the app log for `Password reset code sent` and the absence of an email error.
 
+## Links inside emails
+Sign-in links and invitations are built by the backend. It takes the address from the request's Origin when that matches `LEARNHOUSE_DOMAIN` or `LEARNHOUSE_FRONTEND_DOMAIN`, and otherwise from `LEARNHOUSE_FRONTEND_DOMAIN`, whose default is `localhost:3000`. So both `LEARNHOUSE_FRONTEND_DOMAIN` and `LEARNHOUSE_SSL=true` must be set on a server, or emailed links point to `http://localhost:3000` (this happened on berdinov.com until 2026-11-03). Foreign Origins are ignored.
+
 ## Google sign-in
 Needs `LEARNHOUSE_GOOGLE_CLIENT_ID` and `LEARNHOUSE_GOOGLE_CLIENT_SECRET`. In Google Cloud Console: OAuth client of type "Web application", authorized JavaScript origin `https://<domain>`, redirect URI `https://<domain>/auth/callback/google`. The consent screen must be published ("In production") or only listed test users can sign in; with only the `openid`, `email` and `profile` scopes no Google review is needed. The button shows when the organization allows the `google` method.
 
