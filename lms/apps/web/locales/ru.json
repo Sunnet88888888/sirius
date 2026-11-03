@@ -269,6 +269,7 @@
     "create_account": "Создать аккаунт",
     "create_account_and_join": "Создать аккаунт и присоединиться",
     "account_created_success": "Ваш аккаунт был успешно создан",
+    "signing_you_in": "Выполняем вход…",
     "login_to_your_account": "Войдите в свой аккаунт",
     "authenticate_to_contribute": "Авторизуйтесь, чтобы внести свой вклад",
     "sign_up_to_contribute": "Зарегистрируйтесь, чтобы внести свой вклад",

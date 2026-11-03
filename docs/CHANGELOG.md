@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- After sign-up (open and invite-only) a user whose email is verified is signed in automatically with the password just typed and sent on, instead of seeing a "go to the login page" message. The old message stays as the fallback when the automatic sign-in fails or when the email still has to be verified.
 - Course language: each course can have a language; public lists show visitors courses in their interface language, with a "show courses in other languages" switch. Needs the new column `course.language`. See `features/course-language.md`.
 - Formatted lesson comments (bold, italic, code, links, lists, code blocks) with a small editor; stored as validated JSON, 2000 visible characters. Needs the new column `activitycomment.content_format`. See `features/lesson-comments.md`.
 - Video processing status for authors and admins in the course editor: queue, progress with time left, ready, failure reason and a Retry button. See `features/video-storage-hls.md`.

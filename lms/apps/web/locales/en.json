@@ -280,6 +280,7 @@
     "create_account": "Create an account",
     "create_account_and_join": "Create an account & Join",
     "account_created_success": "Your account was successfully created",
+    "signing_you_in": "Signing you in…",
     "login_to_your_account": "Login to your account",
     "authenticate_to_contribute": "Authenticate to contribute",
     "sign_up_to_contribute": "Sign up to contribute",

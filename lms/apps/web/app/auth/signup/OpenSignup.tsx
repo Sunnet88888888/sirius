@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { signup, resendVerificationEmail } from '@services/auth/auth'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { signIn } from '@components/Contexts/AuthContext'
+import { signInAfterSignup } from '@services/auth/signInAfterSignup'
 import { getLEARNHOUSE_TOP_DOMAIN_VAL, isOnCustomDomain } from '@services/config/config'
 import { getErrorMessage } from '@services/utils/ts/errorMessage'
 import { useTranslation } from 'react-i18next'
@@ -74,6 +75,7 @@ function OpenSignUpComponent({ org: propOrg }: OpenSignUpComponentProps = {}) {
   const org = (contextOrg && (contextOrg.id || contextOrg.slug)) ? contextOrg : propOrg
   const _router = useRouter()
   const [error, setError] = React.useState('')
+  const [signingIn, setSigningIn] = React.useState(false)
   const [message, setMessage] = React.useState<{ email_verified: boolean } | null>(null)
   const [resendState, setResendState] = React.useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const turnstileRef = React.useRef<TurnstileWidgetHandle>(null)
@@ -113,12 +115,25 @@ function OpenSignUpComponent({ org: propOrg }: OpenSignUpComponentProps = {}) {
       setError('')
       setMessage(null)
       setIsSubmitting(true)
+      let redirecting = false
       track(AnalyticsEvent.SignupSubmitted, { invite_code_present: false, has_bio: !!values.bio })
       try {
         let res = await signup(values)
         let message = await res.json().catch(() => ({}))
         if (res.status == 200) {
           track(AnalyticsEvent.SignupSucceeded, { email_verified: message.email_verified })
+          // Verified accounts are signed in with the password just typed, no detour through the
+          // login page. If that fails, or the email still has to be verified, show the message.
+          if (message.email_verified) {
+            setSigningIn(true)
+            const callbackUrl = buildCallbackUrl()
+            if (await signInAfterSignup({ email: values.email, password: values.password, orgSlug: org?.slug, callbackUrl })) {
+              redirecting = true
+              window.location.href = callbackUrl
+              return
+            }
+            setSigningIn(false)
+          }
           setMessage(message)
         } else {
           // Surface the backend's actual error detail for ANY non-2xx (incl. 409
@@ -136,7 +151,7 @@ function OpenSignUpComponent({ org: propOrg }: OpenSignUpComponentProps = {}) {
         setError(getErrorMessage((err as any)?.detail, t('common.something_went_wrong')))
         turnstileRef.current?.reset()
       } finally {
-        setIsSubmitting(false)
+        if (!redirecting) setIsSubmitting(false)
       }
     },
   })
@@ -225,6 +240,15 @@ function OpenSignUpComponent({ org: propOrg }: OpenSignUpComponentProps = {}) {
               <User size={14} />
               <span>{t('auth.login')}</span>
             </Link>
+          </div>
+        )}
+
+        {signingIn && (
+          <div className="flex items-center gap-2 bg-green-50 rounded-xl text-green-700 p-4 mb-6 border border-green-100">
+            <Mail size={18} />
+            <div className="font-semibold text-sm">
+              {t('auth.account_created_success')} {t('auth.signing_you_in', { defaultValue: 'Signing you in…' })}
+            </div>
           </div>
         )}
 
