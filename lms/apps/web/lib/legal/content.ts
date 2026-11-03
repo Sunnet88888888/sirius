@@ -73,7 +73,7 @@ const ru: Record<DocKey, LegalDoc> = {
           'Мы не продаём персональные данные и не передаём их для рекламы. Данные получают только те, кто нужен для работы Платформы:',
         ],
         ul: [
-          'хостинг-провайдер сервера (Россия) и облачное хранилище Selectel (Россия) — размещение базы данных, файлов и видео;',
+          'хостинг-провайдер сервера Node Host (Германия, Франкфурт-на-Майне) — размещение приложения и базы данных, и облачное хранилище Selectel (Россия) — файлы и видео;',
           'Resend (за пределами РФ) — отправка электронных писем: получает адрес получателя и текст письма;',
           'Google (за пределами РФ) — только если вы входите или регистрируетесь через Google;',
           'OpenAI (за пределами РФ) — функции искусственного интеллекта (подсказки, проверка кода, помощник): получает текст, код и вопросы, которые вы вводите в этих функциях; ваш адрес почты и пароль не передаются;',
@@ -84,7 +84,7 @@ const ru: Record<DocKey, LegalDoc> = {
       {
         h: '6. Трансграничная передача',
         p: [
-          'Передача данных Resend, Google и OpenAI означает передачу в иностранные государства, где защита данных может отличаться от российской. Она осуществляется только в объёме, необходимом для соответствующей функции, и на основании вашего согласия. Вы можете не пользоваться этими функциями (например, войти по паролю вместо Google).',
+          'Размещение сервера и базы данных в Германии, а также передача данных Resend, Google и OpenAI означают передачу в иностранные государства, где защита данных может отличаться от российской. Она осуществляется только в объёме, необходимом для соответствующей функции, и на основании вашего согласия. Вы можете не пользоваться этими функциями (например, войти по паролю вместо Google).',
         ],
       },
       {
@@ -237,7 +237,7 @@ const ru: Record<DocKey, LegalDoc> = {
       {
         h: 'Передача за пределы России',
         p: [
-          'Я согласен(на) на передачу данных за пределы Российской Федерации в объёме, необходимом для работы соответствующих функций: Resend (отправка писем), Google (вход через Google), OpenAI (функции искусственного интеллекта). Я понимаю, что в этих государствах уровень защиты данных может отличаться от российского.',
+          'Я согласен(на) на передачу данных за пределы Российской Федерации в объёме, необходимом для работы соответствующих функций: размещение на сервере в Германии (Node Host), Resend (отправка писем), Google (вход через Google), OpenAI (функции искусственного интеллекта). Я понимаю, что в этих государствах уровень защиты данных может отличаться от российского.',
         ],
       },
       {
@@ -369,7 +369,7 @@ const en: Record<DocKey, LegalDoc> = {
         h: '5. Who receives your data',
         p: ['We do not sell personal data and do not share it for advertising. Only those needed to run the Platform receive data:'],
         ul: [
-          'the server hosting provider (Russia) and Selectel cloud storage (Russia): the database, files and videos;',
+          'the server hosting provider Node Host (Germany, Frankfurt am Main): the application and the database, and Selectel cloud storage (Russia): files and videos;',
           'Resend (outside Russia): sending e-mail; receives the recipient address and the message text;',
           'Google (outside Russia): only if you sign in or register with Google;',
           'OpenAI (outside Russia): AI features (hints, code review, assistant); receives the text, code and questions you enter into these features; your e-mail and password are not sent;',
@@ -380,7 +380,7 @@ const en: Record<DocKey, LegalDoc> = {
       {
         h: '6. Transfer outside Russia',
         p: [
-          'Sending data to Resend, Google and OpenAI is a transfer to foreign countries where data protection may differ from Russian law. It is limited to what each feature needs and is based on your consent. You can avoid these features (for example, sign in with a password instead of Google).',
+          'Hosting the server and database in Germany, and sending data to Resend, Google and OpenAI, is a transfer to foreign countries where data protection may differ from Russian law. It is limited to what each feature needs and is based on your consent. You can avoid these features (for example, sign in with a password instead of Google).',
         ],
       },
       {
@@ -526,7 +526,7 @@ const en: Record<DocKey, LegalDoc> = {
       {
         h: 'Transfer outside Russia',
         p: [
-          'I agree to the transfer of data outside the Russian Federation to the extent needed for the relevant features: Resend (sending e-mail), Google (Google sign-in), OpenAI (AI features). I understand that data protection in those countries may differ from Russian law.',
+          'I agree to the transfer of data outside the Russian Federation to the extent needed for the relevant features: hosting on a server in Germany (Node Host), Resend (sending e-mail), Google (Google sign-in), OpenAI (AI features). I understand that data protection in those countries may differ from Russian law.',
         ],
       },
       {

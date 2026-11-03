@@ -30,6 +30,7 @@ ALTER TABLE "user" ADD COLUMN IF NOT EXISTS legal_consent_at varchar;
 `LEARNHOUSE_REQUIRE_LEGAL_CONSENT=true` in `.env` (see `deploy/stack/env.example`).
 
 ## Known gaps
+- Hosting location: the main server is in Germany (Frankfurt, Node Host); the owner chose to stay there (2026-11-03). The texts say so. Russian law (152-FZ art. 18 p. 5) expects first storage of Russian citizens' data in Russia, so this is an accepted legal risk; revisit with a lawyer. The files and videos are in Selectel (Russia).
 - Accounts created by "Sign in with Google" have no stored consent version (the Google flow creates the account outside the sign-up form). The login page shows the "By continuing you agree" line.
 - The texts are drafts written from the platform's real behaviour; have a lawyer review them. In particular check: refund rules in the offer (14 days / 20% default), retention periods (backups 60 days, analytics 365 days), the list of recipients and the cross-border paragraph.
 - The operator must notify Roskomnadzor that it processes personal data (done on their site by the owner).
