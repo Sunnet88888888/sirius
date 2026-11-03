@@ -39,6 +39,7 @@ type Course = {
   public?: boolean
   published?: boolean
   tags?: string | null
+  language?: string | null
   authors?: Array<{
     user: {
       id: string
