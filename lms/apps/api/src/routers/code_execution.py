@@ -79,6 +79,9 @@ class ExecuteBatchRequest(BaseModel):
     language_id: int
     source_code: str = Field(max_length=MAX_SOURCE_CODE_CHARS)
     test_cases: list[TestCase]
+    # When set and the task has a hidden harness, the server wraps the code with it and runs the task's own test cases
+    # (visible ones only for students); the test cases and additional files sent here are then ignored.
+    assignment_task_uuid: Optional[str] = Field(default=None, max_length=255)
     sqlite_db_path: Optional[str] = Field(default=None, max_length=1024)
     additional_files: Optional[list[AdditionalFile]] = Field(default=None, max_length=MAX_ADDITIONAL_FILES)
 
@@ -412,12 +415,36 @@ async def execute_batch(
     language_id = body.language_id
     source_code = body.source_code
     additional_files_b64 = None
+    test_cases = body.test_cases
 
     zip_files = None
     if body.additional_files:
         zip_files = [{"name": f.name, "content": f.content} for f in body.additional_files]
 
-    if language_id == SQL_LANGUAGE_ID and body.sqlite_db_path:
+    task_contents = None
+    if body.assignment_task_uuid:
+        from src.services.code.harness import apply_harness, harness_of
+        from src.services.courses.activities.assignments import load_code_task_for_run
+
+        task_contents, is_instructor = await load_code_task_for_run(
+            request, body.assignment_task_uuid, current_user, db_session
+        )
+        if harness_of(task_contents):
+            source_code, harness_files = apply_harness(task_contents, body.source_code)
+            language_id = int(task_contents.get("language_id") or language_id)
+            zip_files = harness_files   # the client's own additional files never apply to a harness task
+            stored = [tc for tc in (task_contents.get("test_cases") or []) if isinstance(tc, dict) and (is_instructor or not tc.get("hidden"))]
+            test_cases = [
+                TestCase(
+                    id=str(tc.get("id") or i), label=str(tc.get("label") or f"Test {i + 1}"), stdin=tc.get("stdin") or "",
+                    expected_stdout=tc.get("expectedStdout") or tc.get("expected_stdout") or "",
+                )
+                for i, tc in enumerate(stored)
+            ]
+        else:
+            task_contents = None
+
+    if task_contents is None and language_id == SQL_LANGUAGE_ID and body.sqlite_db_path:
         # Authorize against the activity that owns the sqlite file.
         sqlite_path = _canonical_sqlite_path(body.sqlite_db_path)
         await _require_sqlite_reader(request, current_user, sqlite_path, db_session)
@@ -472,7 +499,7 @@ async def execute_batch(
             "memory": r.get("memory"),
         }
 
-    results = await asyncio.gather(*[run_test(tc) for tc in body.test_cases])
+    results = await asyncio.gather(*[run_test(tc) for tc in test_cases])
     return {"results": list(results)}
 
 

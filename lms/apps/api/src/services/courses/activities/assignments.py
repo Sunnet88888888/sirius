@@ -267,6 +267,8 @@ def _strip_answer_key(contents, keep_answer_keys: bool = False):
     # Teacher-facing evidence from the AI code-task generator (model, Judge0 run
     # counts, warnings); never part of a student payload.
     c.pop("ai_validation", None)
+    # The CODE test harness (hidden code wrapped around the student's program) is server-side only.
+    c.pop("harness", None)
     test_cases = c.get("test_cases")
     if isinstance(test_cases, list):
         for tc in test_cases:
@@ -741,6 +743,35 @@ def _normalize_code_output(s):
     return "\n".join(lines)
 
 
+async def load_code_task_for_run(
+    request: Request,
+    assignment_task_uuid: str,
+    current_user: PublicUser | AnonymousUser | APITokenUser,
+    db_session: AsyncSession,
+):
+    """Load a task's FULL stored contents for server-side execution (harness included).
+
+    Never returned to the caller: the code endpoint uses it to wrap the student's program and to pick the test cases.
+    Authorized exactly like reading the task. Returns ``(contents, is_instructor)``.
+    """
+    task = (await db_session.execute(
+        select(AssignmentTask).where(AssignmentTask.assignment_task_uuid == assignment_task_uuid)
+    )).scalars().first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Assignment Task not found")
+    assignment = (await db_session.execute(select(Assignment).where(Assignment.id == task.assignment_id))).scalars().first()
+    if not assignment:
+        raise HTTPException(status_code=404, detail="Assignment not found")
+    course = (await db_session.execute(select(Course).where(Course.id == assignment.course_id))).scalars().first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    await authorize_assignment_access(
+        request, db_session, current_user, course.course_uuid, AccessAction.READ, activity_id=assignment.activity_id,
+    )
+    is_instructor = await _is_assignment_instructor(request, current_user, course.course_uuid, db_session)
+    return (task.contents or {}), is_instructor
+
+
 async def _grade_code_task_async(task, task_submission):
     """
     Re-grade a CODE task server-side by running the student's stored
@@ -759,7 +790,8 @@ async def _grade_code_task_async(task, task_submission):
     Judge0 outage never zeroes a student out on correct work.
     """
     # Deferred import to avoid a circular dependency at module load time
-    from src.routers.code_execution import _get_judge0_config, _submit_single
+    from src.routers.code_execution import _get_judge0_config, _submit_single, _make_additional_files_zip
+    from src.services.code.harness import apply_harness
 
     if task_submission is None:
         return 0
@@ -774,6 +806,11 @@ async def _grade_code_task_async(task, task_submission):
     # Prefer the language_id the student actually submitted with; falls back
     # to the task's configured language if missing.
     language_id = submission_data.get("language_id") or contents.get("language_id")
+    # A task with a hidden harness is only meaningful in its own language.
+    from src.services.code.harness import harness_of
+
+    if harness_of(contents) and contents.get("language_id") is not None:
+        language_id = contents.get("language_id")
     if language_id is None:
         return 0
 
@@ -807,8 +844,10 @@ async def _grade_code_task_async(task, task_submission):
         # frontend contents schema. Tolerate both spellings.
         expected = tc.get("expectedStdout") or tc.get("expected_stdout") or ""
         try:
+            run_source, harness_files = apply_harness(contents, source_code)
+            extra = _make_additional_files_zip(text_files=harness_files) if harness_files else None
             r = await _submit_single(
-                judge0_cfg, int(language_id), source_code, stdin
+                judge0_cfg, int(language_id), run_source, stdin, extra
             )
         except Exception:
             logger.exception(
@@ -1556,6 +1595,16 @@ async def delete_assignment_from_activity_uuid(
 ## > Assignments Tasks CRUD
 
 
+def _check_harness(contents):
+    """Reject a CODE task whose hidden harness is malformed or oversized (HTTP 422)."""
+    if isinstance(contents, dict) and "harness" in contents:
+        from src.services.code.harness import validate_harness
+
+        problem = validate_harness(contents.get("harness"))
+        if problem:
+            raise HTTPException(status_code=422, detail=problem)
+
+
 async def create_assignment_task(
     request: Request,
     assignment_uuid: str,
@@ -1587,6 +1636,7 @@ async def create_assignment_task(
     await authorize_assignment_access(request, db_session, current_user, course.course_uuid, AccessAction.CREATE)
 
     # Create Assignment Task
+    _check_harness(assignment_task_object.contents)
     assignment_task = AssignmentTask(**assignment_task_object.model_dump())
 
     assignment_task.assignment_task_uuid = str(f"assignmenttask_{uuid4()}")
@@ -1945,6 +1995,7 @@ async def update_assignment_task(
     # its max points) invalidates the grades already stored for it. The delete
     # path re-grades for exactly this reason; an in-place edit is the same
     # hazard, so detect a scoring-relevant change and re-grade the same way.
+    _check_harness(assignment_task_object.contents)
     _SCORING_FIELDS = ("assignment_type", "contents", "max_grade_value")
     scoring_changed = any(
         getattr(assignment_task_object, f, None) is not None

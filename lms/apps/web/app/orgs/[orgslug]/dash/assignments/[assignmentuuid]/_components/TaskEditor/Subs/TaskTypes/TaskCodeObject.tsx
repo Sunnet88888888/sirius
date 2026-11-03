@@ -108,6 +108,8 @@ type CodeTaskContents = {
   // The teacher-facing toggle was removed (it silently did nothing), but the
   // field is kept on the type so existing stored contents round-trip unchanged.
   show_solution_after_submit?: boolean
+  // Hidden test harness (code wrapped around the student's program on the server). Not editable here.
+  harness?: { prefix?: string; suffix?: string; files?: Array<{ name: string; content: string }> }
 }
 
 type CodeTestResult = {
@@ -178,6 +180,8 @@ function normalizeCodeContents(raw: any): CodeTaskContents {
     show_hidden_test_count: raw?.show_hidden_test_count ?? true,
     require_passing_to_submit: raw?.require_passing_to_submit ?? false,
     show_solution_after_submit: raw?.show_solution_after_submit ?? false,
+    // Server-side only for students; teachers receive it and must send it back unchanged when they save.
+    ...(raw?.harness ? { harness: raw.harness } : {}),
   }
 }
 
@@ -522,6 +526,8 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
         body: JSON.stringify({
           language_id: contents.language_id,
           source_code: code,
+          // lets the server apply the task's hidden harness and its own test cases
+          assignment_task_uuid: assignmentTaskUUID,
           test_cases: testCasesToRun.map((tc) => ({
             id: tc.id,
             label: tc.label,
@@ -599,6 +605,8 @@ function TaskCodeObject({ view, assignmentTaskUUID, user_id, onGraded }: TaskCod
           // stdin/expectedStdout are present. Do not filter here.
           language_id: contents.language_id,
           source_code: code,
+          // lets the server apply the task's hidden harness and its own test cases
+          assignment_task_uuid: assignmentTaskUUID,
           test_cases: contents.test_cases.map((tc) => ({
             id: tc.id,
             label: tc.label,
