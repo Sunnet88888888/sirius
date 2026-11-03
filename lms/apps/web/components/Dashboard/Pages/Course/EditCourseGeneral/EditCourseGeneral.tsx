@@ -21,6 +21,7 @@ import {
   CustomSelectValue,
 } from "./CustomSelect";
 import { useTranslation } from 'react-i18next';
+import { AVAILABLE_LANGUAGES } from '@/lib/languages';
 
 type EditCourseStructureProps = {
   orgslug: string
@@ -120,11 +121,12 @@ function EditCourseGeneral(props: EditCourseStructureProps) {
       about: courseStructure?.about || '',
       learnings: initializeLearnings(courseStructure?.learnings || ''),
       tags: courseStructure?.tags || '',
+      language: courseStructure?.language || '',
       public: courseStructure?.public || false,
       thumbnail_type: thumbnailType,
     };
   }, [courseStructure?.name, courseStructure?.description, courseStructure?.about,
-      courseStructure?.learnings, courseStructure?.tags, courseStructure?.public,
+      courseStructure?.learnings, courseStructure?.tags, courseStructure?.language, courseStructure?.public,
       courseStructure?.thumbnail_type, initializeLearnings]);
 
   const formik = useFormik({
@@ -300,6 +302,38 @@ function EditCourseGeneral(props: EditCourseStructureProps) {
                     value={formik.values.tags}
                   />
                 </Form.Control>
+              </FormField>
+
+              <FormField name="language">
+                <FormLabelAndMessage label={t('dashboard.courses.general.form.language_label')} />
+                <Form.Control asChild>
+                  <CustomSelect
+                    value={formik.values.language || 'any'}
+                    onValueChange={(value) => {
+                      if (!value) return;
+                      formik.setFieldValue('language', value === 'any' ? '' : value);
+                    }}
+                    disabled={isSaving}
+                  >
+                    <CustomSelectTrigger className="w-full bg-white">
+                      <CustomSelectValue>
+                        {formik.values.language
+                          ? (AVAILABLE_LANGUAGES.find((l) => l.code === formik.values.language)?.nativeName || String(formik.values.language).toUpperCase())
+                          : t('dashboard.courses.general.form.language_any')}
+                      </CustomSelectValue>
+                    </CustomSelectTrigger>
+                    <CustomSelectContent>
+                      <CustomSelectItem value="any">{t('dashboard.courses.general.form.language_any')}</CustomSelectItem>
+                      {AVAILABLE_LANGUAGES.map((l) => (
+                        <CustomSelectItem key={l.code} value={l.code}>{l.nativeName}</CustomSelectItem>
+                      ))}
+                      {formik.values.language && !AVAILABLE_LANGUAGES.some((l) => l.code === formik.values.language) && (
+                        <CustomSelectItem value={formik.values.language}>{String(formik.values.language).toUpperCase()}</CustomSelectItem>
+                      )}
+                    </CustomSelectContent>
+                  </CustomSelect>
+                </Form.Control>
+                <p className="text-xs text-gray-500 mt-1">{t('dashboard.courses.general.form.language_help')}</p>
               </FormField>
 
               <FormField name="thumbnail_type">

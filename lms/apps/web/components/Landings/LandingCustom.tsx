@@ -5,6 +5,7 @@ import { LandingPageSettings, LandingSection } from '@components/Dashboard/Pages
 import { useQuery } from '@tanstack/react-query'
 import { queryKeys } from '@/lib/query/keys'
 import { getOrgCourses } from '@services/courses/courses'
+import { useCourseLanguageFilter } from '@/hooks/useCourseLanguageFilter'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import CourseThumbnailLanding from '@components/Objects/Thumbnails/CourseThumbnailLanding'
 import UserAvatar from '@components/Objects/UserAvatar'
@@ -56,6 +57,9 @@ function LandingCustom({ landing, orgslug }: LandingCustomProps) {
     enabled: !!orgslug,
     staleTime: 60_000,
   })
+
+  // Featured courses follow the visitor's language (home-client offers the "other languages" switch)
+  const languageFilter = useCourseLanguageFilter()
 
   // Pricing plans can link to store offers. Fetch the public listing once, and
   // only when some plan actually links to one.
@@ -277,11 +281,12 @@ function LandingCustom({ landing, orgslug }: LandingCustomProps) {
           )
         }
 
+        const languageCourses = languageFilter.filter(allCourses as any[])
         const featuredCourses = section.mode === 'latest'
-          ? [...allCourses]
+          ? [...languageCourses]
               .sort((a: any, b: any) => String(b.creation_date || '').localeCompare(String(a.creation_date || '')))
               .slice(0, section.limit || 8)
-          : allCourses.filter((course: any) =>
+          : languageCourses.filter((course: any) =>
               (section.courses as unknown as string[]).includes(course.course_uuid)
             )
 

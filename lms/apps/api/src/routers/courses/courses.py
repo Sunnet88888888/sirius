@@ -21,6 +21,7 @@ from src.db.courses.courses import (
     CourseUpdate,
     FullCourseRead,
     ThumbnailType,
+    normalize_language,
 )
 from src.security.auth import get_current_user
 from src.security.features_utils.dependencies import require_courses_feature
@@ -306,6 +307,7 @@ async def api_create_course(
     about: str = Form(),
     thumbnail_type: ThumbnailType = Form(default=ThumbnailType.IMAGE),
     extra_metadata: Optional[str] = Form(default=None),
+    language: Optional[str] = Form(default=None),
     current_user: PublicUser = Depends(get_current_user),
     db_session: AsyncSession = Depends(get_db_session),
     thumbnail: UploadFile | None = None,
@@ -322,6 +324,11 @@ async def api_create_course(
         if not isinstance(parsed_metadata, dict):
             raise HTTPException(status_code=422, detail="extra_metadata must be a JSON object")
 
+    try:
+        language = normalize_language(language)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+
     course = CourseCreate(
         name=name,
         description=description,
@@ -334,6 +341,7 @@ async def api_create_course(
         learnings=learnings,
         tags=tags,
         open_to_contributors=False,
+        language=language,
         extra_metadata=parsed_metadata,
     )
     return await create_course(
@@ -490,6 +498,11 @@ async def api_get_course_by_orgslug(
     limit: int,
     org_slug: str,
     include_unpublished: bool = False,
+    language: Optional[str] = Query(
+        default=None,
+        max_length=10,
+        description="Only courses in this language (plus courses without a language), e.g. 'ru'.",
+    ),
     db_session: AsyncSession = Depends(get_db_session),
     current_user: PublicUser = Depends(get_current_user),
 ) -> List[CourseRead]:
@@ -497,7 +510,7 @@ async def api_get_course_by_orgslug(
     Get courses by page and limit
     """
     return await get_courses_orgslug(
-        request, current_user, org_slug, db_session, page, limit, include_unpublished
+        request, current_user, org_slug, db_session, page, limit, include_unpublished, language
     )
 
 
@@ -545,6 +558,11 @@ async def api_search_courses(
     query: str = Query(..., min_length=1, max_length=200, description="Search query"),
     page: int = Query(default=1, ge=1, description="Page number"),
     limit: int = Query(default=10, ge=1, le=50, description="Items per page (max 50)"),
+    language: Optional[str] = Query(
+        default=None,
+        max_length=10,
+        description="Only courses in this language (plus courses without a language), e.g. 'ru'.",
+    ),
     db_session: AsyncSession = Depends(get_db_session),
     current_user: PublicUser = Depends(get_current_user),
 ) -> List[CourseRead]:
@@ -557,7 +575,7 @@ async def api_search_courses(
     - Uses parameterized SQL queries (SQL injection protected)
     """
     return await search_courses(
-        request, current_user, org_slug, query, db_session, page, limit
+        request, current_user, org_slug, query, db_session, page, limit, language
     )
 
 

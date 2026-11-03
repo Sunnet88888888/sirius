@@ -3,11 +3,33 @@ from sqlalchemy import Column, Enum as SAEnum, ForeignKey, Index, Integer
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlmodel import Field, SQLModel
 from enum import Enum
-from pydantic import BaseModel
+import re
+from pydantic import BaseModel, field_validator
 from src.db.users import UserReadAuthor
 from src.db.trails import TrailRead
 from src.db.courses.chapters import ChapterRead
 from src.db.resource_authors import ResourceAuthorshipEnum, ResourceAuthorshipStatusEnum
+
+
+_LANGUAGE_RE = re.compile(r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})?$")
+
+
+def normalize_language(value: Optional[str]) -> Optional[str]:
+    """Course language code: 'ru', 'en', 'pt-BR'... Empty means 'any language' (None).
+
+    The primary subtag is lowercased so 'RU' and 'ru' are the same language.
+    """
+    if value is None:
+        return None
+    value = value.strip()
+    if not value:
+        return None
+    value = value.replace("_", "-")
+    primary, sep, rest = value.partition("-")
+    value = primary.lower() + (f"-{rest}" if sep else "")
+    if not _LANGUAGE_RE.match(value):
+        raise ValueError("language must be a code like 'ru', 'en' or 'pt-BR'")
+    return value
 
 
 class CourseSEO(BaseModel):
@@ -60,6 +82,8 @@ class CourseBase(SQLModel):
     public: bool
     published: bool = Field(default=False)
     open_to_contributors: bool
+    # ISO-style code ('ru', 'en'). None = any language: shown to every visitor.
+    language: Optional[str] = Field(default=None, max_length=10, index=True)
 
 
 class Course(CourseBase, table=True):
@@ -88,7 +112,11 @@ class CourseCreate(CourseBase):
     thumbnail_image: Optional[str] = Field(default="")
     thumbnail_video: Optional[str] = Field(default="")
     extra_metadata: Optional[dict] = None
-    pass
+
+    @field_validator("language")
+    @classmethod
+    def _check_language(cls, v: Optional[str]) -> Optional[str]:
+        return normalize_language(v)
 
 
 class CourseUpdate(SQLModel):
@@ -103,8 +131,17 @@ class CourseUpdate(SQLModel):
     public: Optional[bool] = None
     published: Optional[bool] = None
     open_to_contributors: Optional[bool] = None
+    # '' clears the language (course becomes "any language").
+    language: Optional[str] = None
     seo: Optional[dict] = None
     extra_metadata: Optional[dict] = None
+
+    @field_validator("language")
+    @classmethod
+    def _check_language(cls, v: Optional[str]) -> Optional[str]:
+        if v is not None and not v.strip():
+            return ""
+        return normalize_language(v)
 
 
 class CourseRead(CourseBase):

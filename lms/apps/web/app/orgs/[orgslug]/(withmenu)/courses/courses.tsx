@@ -10,7 +10,7 @@ import CourseThumbnail from '@components/Objects/Thumbnails/CourseThumbnail'
 import NewCourseButton from '@components/Objects/StyledElements/Buttons/NewCourseButton'
 import useAdminStatus from '@components/Hooks/useAdminStatus'
 import { useTranslation } from 'react-i18next'
-import { BookCopy, Search, X, Users, Info, LogIn, Heart } from 'lucide-react'
+import { BookCopy, Search, X, Users, Info, LogIn, Heart, Languages } from 'lucide-react'
 import Link from 'next/link'
 import { getUriWithOrg } from '@services/config/config'
 import FeatureGate from '@components/Dashboard/Shared/FeatureGate/FeatureGate'
@@ -20,6 +20,8 @@ import { searchMatchesAny } from '@/lib/search/normalize'
 import { getUserGroups, getUserGroupResources } from '@services/usergroups/usergroups'
 import { useCourses } from '@/hooks/queries/useCourses'
 import { useFavoriteCourseUuids } from '@/hooks/queries/useFavoriteCourses'
+import { useCourseLanguageFilter } from '@/hooks/useCourseLanguageFilter'
+import CourseLanguageToggle from '@components/Objects/Catalog/CourseLanguageToggle'
 import { useLHAnalytics, AnalyticsEvent } from '@services/analytics'
 import CatalogPagination, { useCatalogPagination } from '@components/Objects/Catalog/CatalogPagination'
 import { asArray } from '@services/utils/ts/requests'
@@ -42,7 +44,11 @@ function Courses(props: CourseProps) {
   const { track } = useLHAnalytics('learner')
   const { data: coursesData, isLoading: coursesLoading } = useCourses(orgslug)
 
-  const allCourses = coursesData || []
+  // The org's courses, and the part of them in the visitor's language (plus courses without one)
+  const orgCourses = useMemo(() => coursesData || [], [coursesData])
+  const languageFilter = useCourseLanguageFilter()
+  const allCourses = useMemo(() => languageFilter.filter(orgCourses), [languageFilter.filter, orgCourses])
+  const hiddenByLanguage = languageFilter.hiddenCount(orgCourses)
 
   // Favorites filter; /courses?favorites=1 opens the list already filtered
   const { data: favoriteUuids } = useFavoriteCourseUuids()
@@ -248,7 +254,7 @@ function Courses(props: CourseProps) {
           </div>
 
           {/* Search and Usergroup Filter */}
-          {allCourses.length > 0 && (
+          {orgCourses.length > 0 && (
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <div className="relative w-full sm:w-80">
                 <Search className="absolute start-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -284,6 +290,12 @@ function Courses(props: CourseProps) {
                   {t('courses.favorites')}
                 </button>
               )}
+
+              <CourseLanguageToggle
+                showOther={languageFilter.showOther}
+                onChange={languageFilter.setShowOther}
+                hiddenCount={hiddenByLanguage}
+              />
 
               {/* Usergroup Filter */}
               {usergroupsAvailable && usergroups.length > 0 && (
@@ -321,7 +333,7 @@ function Courses(props: CourseProps) {
           )}
 
           {/* Tag chips, sort and result count */}
-          {allCourses.length > 0 && (
+          {orgCourses.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 mb-4">
               {tagList.length > 0 && (
                 <div className="flex flex-wrap gap-2" role="group" aria-label={t('courses.filter_by_tag')}>
@@ -368,7 +380,7 @@ function Courses(props: CourseProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {paginatedCourses.map((course: any, index: number) => (
               <div key={course.course_uuid} className="">
-                <CourseThumbnail course={course} orgslug={orgslug} isPriority={currentPage === 1 && index < 3} />
+                <CourseThumbnail course={course} orgslug={orgslug} isPriority={currentPage === 1 && index < 3} showLanguage={languageFilter.showOther} />
               </div>
             ))}
             {onlyFavorites && !searchQuery && filteredCourses.length === 0 && allCourses.length > 0 && (
@@ -388,7 +400,13 @@ function Courses(props: CourseProps) {
                 </p>
               </div>
             )}
-            {allCourses.length === 0 && !searchQuery && (
+            {orgCourses.length > 0 && allCourses.length === 0 && !searchQuery && !onlyFavorites && (
+              <div className="col-span-full flex flex-col justify-center items-center py-12 px-4">
+                <Languages className="w-12 h-12 text-gray-300 mb-4" />
+                <p className="text-gray-500 text-center max-w-sm">{t('courses.language.none_in_language')}</p>
+              </div>
+            )}
+            {orgCourses.length === 0 && !searchQuery && (
               <div className="col-span-full flex flex-col justify-center items-center py-12 px-4 border-2 border-dashed border-gray-100 rounded-2xl bg-gray-50/30">
                 <div className="p-4 bg-white rounded-full nice-shadow mb-4">
                   {isAuthenticated ? (

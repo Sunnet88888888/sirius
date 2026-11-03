@@ -25,6 +25,7 @@ from src.db.courses.courses import (
     FullCourseRead,
     AuthorWithRole,
     ThumbnailType,
+    normalize_language,
 )
 from src.security.api_token_utils import require_token_right
 from src.security.auth import resolve_acting_user_id
@@ -282,7 +283,10 @@ async def get_courses_orgslug(
     page: int = 1,
     limit: int = 10,
     include_unpublished: bool = False,
+    language: str | None = None,
 ) -> List[CourseRead]:
+    # `language` keeps courses in that language plus courses without a language.
+    language = normalize_language(language)
     # Cap limit to prevent excessive DB reads
     limit = min(limit, 100)
 
@@ -294,7 +298,11 @@ async def get_courses_orgslug(
     is_anon = isinstance(current_user, AnonymousUser)
     if is_anon and not include_unpublished:
         from src.services.courses.cache import get_cached_courses_list
-        cached = get_cached_courses_list(org_slug, page, limit)
+        cached = (
+            get_cached_courses_list(org_slug, page, limit, language)
+            if language
+            else get_cached_courses_list(org_slug, page, limit)
+        )
         if cached is not None:
             return [CourseRead.model_validate(c) for c in cached]
 
@@ -341,6 +349,8 @@ async def get_courses_orgslug(
         .join(Organization)
         .where(Organization.slug == org_slug)
     )
+    if language:
+        query = query.where(or_(Course.language == language, Course.language.is_(None)))  # type: ignore[union-attr]
 
     if isinstance(current_user, AnonymousUser):
         # For anonymous users, only show public AND published courses
@@ -445,7 +455,8 @@ async def get_courses_orgslug(
         from src.services.courses.cache import set_cached_courses_list
         set_cached_courses_list(
             org_slug, page, limit,
-            [cr.model_dump() for cr in course_reads]
+            [cr.model_dump() for cr in course_reads],
+            *([language] if language else []),
         )
 
     return course_reads
@@ -528,6 +539,7 @@ async def search_courses(
     db_session: AsyncSession,
     page: int = 1,
     limit: int = 10,
+    language: str | None = None,
 ) -> List[CourseRead]:
     """
     Search courses within an organization.
@@ -540,6 +552,7 @@ async def search_courses(
     offset = (page - 1) * limit
 
     pattern = build_like_pattern(search_query)
+    language = normalize_language(language)
 
     needs_distinct = False
     query = (
@@ -556,6 +569,9 @@ async def search_courses(
             )
         )
     )
+
+    if language:
+        query = query.where(or_(Course.language == language, Course.language.is_(None)))  # type: ignore[union-attr]
 
     search_acting_user_id = resolve_acting_user_id(current_user)
 
@@ -951,6 +967,10 @@ async def update_course(
         if value is not None:
             setattr(course, var, value)
 
+    # '' clears the language (the loop above skips it only when it is None)
+    if course_object.language == "":
+        course.language = None
+
     # Complete the course object
     course.update_date = str(datetime.now())
 
@@ -1345,6 +1365,7 @@ async def clone_course(
         about=original_course.about,
         learnings=original_course.learnings,
         tags=original_course.tags,
+        language=original_course.language,
         thumbnail_type=original_course.thumbnail_type,
         thumbnail_image="",
         thumbnail_video="",

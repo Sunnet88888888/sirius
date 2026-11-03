@@ -22,6 +22,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import {  UploadCloud, Clipboard } from 'lucide-react'
 import AIImageButton from '@components/Objects/AI/AIImageButton'
+import { AVAILABLE_LANGUAGES } from '@/lib/languages'
 import FormTagInput from "@components/Objects/StyledElements/Form/TagInput"
 import { useTranslation } from "react-i18next"
 import { useLHAnalytics, AnalyticsEvent } from '@services/analytics'
@@ -40,7 +41,10 @@ const _validationSchema = Yup.object().shape({
 })
 
 function CreateCourseModal({ closeModal, orgslug }: any) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  // New courses start in the author's interface language (visitors are shown courses in their language)
+  const uiLanguage = String(i18n.resolvedLanguage || i18n.language || '').split('-')[0].toLowerCase()
+  const defaultLanguage = AVAILABLE_LANGUAGES.some((l) => l.code === uiLanguage) ? uiLanguage : ''
   const { track } = useLHAnalytics('dashboard')
   const router = useRouter()
   const session = useLHSession() as any
@@ -70,6 +74,7 @@ function CreateCourseModal({ closeModal, orgslug }: any) {
       learnings: '',
       visibility: true,
       tags: '',
+      language: defaultLanguage,
       thumbnail: null
     },
     validationSchema,
@@ -84,7 +89,8 @@ function CreateCourseModal({ closeModal, orgslug }: any) {
             description: values.description,
             learnings: values.learnings,
             tags: values.tags,
-            visibility: values.visibility
+            visibility: values.visibility,
+            language: values.language
           },
           values.thumbnail,
           session.data?.tokens?.access_token
@@ -346,6 +352,24 @@ function CreateCourseModal({ closeModal, orgslug }: any) {
           <SelectContent>
             <SelectItem value="true">{t('courses.public')} ({t('courses.public_desc')})</SelectItem>
             <SelectItem value="false">{t('courses.private')} ({t('courses.private_desc')})</SelectItem>
+          </SelectContent>
+        </Select>
+      </FormField>
+
+      <FormField name="language">
+        <FormLabelAndMessage label={t('dashboard.courses.general.form.language_label')} />
+        <Select
+          value={formik.values.language || 'any'}
+          onValueChange={(value) => formik.setFieldValue('language', value === 'any' ? '' : value)}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="any">{t('dashboard.courses.general.form.language_any')}</SelectItem>
+            {AVAILABLE_LANGUAGES.map((l) => (
+              <SelectItem key={l.code} value={l.code}>{l.nativeName}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </FormField>

@@ -20,13 +20,21 @@ CACHE_TTL_COURSES_LIST = 60  # 1 min, public course list
 _KEY_PREFIX = "courses_cache"
 
 
-def get_cached_courses_list(org_slug: str, page: int, limit: int) -> Optional[list]:
+def _list_key(org_slug: str, page: int, limit: int, language: Optional[str]) -> str:
+    # The language is part of the key: a Russian visitor must never get the English list.
+    suffix = f":{language}" if language else ""
+    return f"{_KEY_PREFIX}:list:{org_slug}:{page}:{limit}{suffix}"
+
+
+def get_cached_courses_list(
+    org_slug: str, page: int, limit: int, language: Optional[str] = None
+) -> Optional[list]:
     """Return cached public course list for an org, or None."""
     r = get_redis_client()
     if r is None:
         return None
     try:
-        key = f"{_KEY_PREFIX}:list:{org_slug}:{page}:{limit}"
+        key = _list_key(org_slug, page, limit, language)
         raw = r.get(key)
         if raw:
             return json.loads(raw)
@@ -35,13 +43,15 @@ def get_cached_courses_list(org_slug: str, page: int, limit: int) -> Optional[li
     return None
 
 
-def set_cached_courses_list(org_slug: str, page: int, limit: int, data: list) -> None:
+def set_cached_courses_list(
+    org_slug: str, page: int, limit: int, data: list, language: Optional[str] = None
+) -> None:
     """Cache public course list for an org."""
     r = get_redis_client()
     if r is None:
         return
     try:
-        key = f"{_KEY_PREFIX}:list:{org_slug}:{page}:{limit}"
+        key = _list_key(org_slug, page, limit, language)
         r.setex(key, CACHE_TTL_COURSES_LIST, json.dumps(data, default=str))
     except Exception:
         logger.debug("Courses cache write failed for %s", org_slug, exc_info=True)

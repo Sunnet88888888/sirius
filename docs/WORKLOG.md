@@ -59,3 +59,7 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 ## 2026-11-03 Formatted lesson comments
 - Branch `feat/rich-comments`: Tiptap editor for lesson comments, stored as server-validated JSON (`content_format`), drawn as React elements. Column added on the live DB by hand before deploy (no alembic_version table on this server; create_all never adds columns). Deployed as sirius-lms:19c0aae.
 - Checks: 18 unit tests for the validator; live API run on a throwaway course (plain and formatted comments, javascript: links, headings, images, over-limit, empty, bad JSON, unknown format, edits, replies, anonymous 401): all behaviours correct (the two edit checks returned 204, which is the endpoint's normal answer). Test course deleted. Not tested: the editor in a real browser.
+
+## 2026-11-03 Course language
+- Branch `feat/course-language` (from `feat/rich-comments`): `course.language` column, validation, optional `language` filter on the list and search API, language in the anonymous cache key, language field in create and settings, browser-side filter with a remembered "other languages" switch on the Courses page, home and featured courses.
+- Column and index added on the live DB by hand before the deploy (no alembic_version on this server).

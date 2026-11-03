@@ -61,11 +61,13 @@ type PropsType = {
   isSelected?: boolean
   onToggleSelect?: (_courseUuid: string) => void
   isPriority?: boolean
+  /** Public lists: label the card with its language (used when courses of other languages are shown). */
+  showLanguage?: boolean
 }
 
 export const removeCoursePrefix = (course_uuid: string) => course_uuid.replace('course_', '')
 
-function CourseThumbnail({ course, orgslug, customLink, isDashboard = false, isSelected = false, onToggleSelect, isPriority = false }: PropsType) {
+function CourseThumbnail({ course, orgslug, customLink, isDashboard = false, isSelected = false, onToggleSelect, isPriority = false, showLanguage = false }: PropsType) {
   const { t, i18n } = useTranslation()
   const org = useOrg() as any
   const session = useLHSession() as any
@@ -165,7 +167,8 @@ function CourseThumbnail({ course, orgslug, customLink, isDashboard = false, isS
     : tags[0]
       ? { label: tags[0], off: false }
       : null
-  const extraTags = (isDashboard ? tags : tags.slice(1)).slice(0, 2)
+  const languageTag = course.language && (isDashboard || showLanguage) ? [String(course.language).toUpperCase()] : []
+  const extraTags = [...languageTag, ...(isDashboard ? tags : tags.slice(1))].slice(0, 2)
 
   return (
     <div onMouseEnter={handleMouseEnter} className={`scard group ${isSelected ? 'scard--selected' : ''}`}>

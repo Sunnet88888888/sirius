@@ -565,6 +565,11 @@
     "sort_updated": "Недавно обновлённые",
     "sort_name": "По алфавиту",
     "results_count": "Курсов: {{count}}",
+    "language": {
+      "show_other": "Показать курсы на других языках ({{count}})",
+      "hide_other": "Показаны все языки",
+      "none_in_language": "Пока нет курсов на вашем языке."
+    },
     "favorites": "Избранное",
     "favorites_empty": "В избранном пока нет курсов. Нажмите на сердечко у курса, чтобы сохранить его здесь.",
     "login_to_favorite": "Войдите, чтобы сохранять курсы в избранное",
@@ -1713,6 +1718,9 @@
           "tags_label": "Теги",
           "tags_placeholder": "Нажмите Enter, чтобы добавить...",
           "thumbnail_type_label": "Тип миниатюры",
+          "language_label": "Язык курса",
+          "language_any": "Любой язык",
+          "language_help": "Посетители видят курсы на своём языке. Курс без языка виден всем.",
           "thumbnail_type_image": "Изображение",
           "thumbnail_type_video": "Видео",
           "thumbnail_type_both": "Оба",

@@ -111,6 +111,7 @@ export async function createNewCourse(
   formData.append('public', course_body.visibility)
   formData.append('learnings', course_body.learnings || '')
   formData.append('tags', course_body.tags || '')
+  if (course_body.language) formData.append('language', course_body.language)
   formData.append('about', course_body.description || '')
 
   if (thumbnail) {

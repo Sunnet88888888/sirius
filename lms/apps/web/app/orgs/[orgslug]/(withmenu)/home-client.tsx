@@ -2,6 +2,8 @@
 import React from 'react'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { useCourses } from '@/hooks/queries/useCourses'
+import { useCourseLanguageFilter } from '@/hooks/useCourseLanguageFilter'
+import CourseLanguageToggle from '@components/Objects/Catalog/CourseLanguageToggle'
 import LandingClassic from '@components/Landings/LandingClassic'
 import LandingCustom from '@components/Landings/LandingCustom'
 import { JsonLd } from '@components/SEO/JsonLd'
@@ -12,6 +14,8 @@ import GeneralWrapperStyled from '@components/Objects/StyledElements/Wrappers/Ge
 export default function HomeClient({ orgslug }: { orgslug: string }) {
   const org = useOrg() as any
   const { data: courses, isLoading: coursesLoading } = useCourses(orgslug)
+  const languageFilter = useCourseLanguageFilter()
+  const hiddenByLanguage = languageFilter.hiddenCount(courses || [])
 
   const landingConfig = org?.config?.config?.customization?.landing || org?.config?.config?.landing
   const hasCustomLanding = landingConfig?.enabled
@@ -53,11 +57,20 @@ export default function HomeClient({ orgslug }: { orgslug: string }) {
   return (
     <div className="w-full">
       {orgJsonLd && <JsonLd data={orgJsonLd} />}
+      {(hiddenByLanguage > 0 || languageFilter.showOther) && (
+        <div className="mx-2 sm:mx-4 lg:mx-16 pt-4 flex justify-end">
+          <CourseLanguageToggle
+            showOther={languageFilter.showOther}
+            onChange={languageFilter.setShowOther}
+            hiddenCount={hiddenByLanguage}
+          />
+        </div>
+      )}
       {hasCustomLanding ? (
         <LandingCustom landing={landingConfig} orgslug={orgslug} />
       ) : (
         <LandingClassic
-          courses={courses || []}
+          courses={languageFilter.filter(courses || [])}
           orgslug={orgslug}
           org_id={org.id}
         />

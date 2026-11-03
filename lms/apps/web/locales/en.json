@@ -579,6 +579,11 @@
     "sort_updated": "Recently updated",
     "sort_name": "A–Z",
     "results_count": "Courses: {{count}}",
+    "language": {
+      "show_other": "Show courses in other languages ({{count}})",
+      "hide_other": "Showing all languages",
+      "none_in_language": "No courses in your language yet."
+    },
     "favorites": "Favorites",
     "favorites_empty": "You have no favorite courses yet. Tap the heart on a course to save it here.",
     "login_to_favorite": "Log in to save courses to favorites",
@@ -2283,6 +2288,9 @@
           "tags_label": "Tags",
           "tags_placeholder": "Enter to add...",
           "thumbnail_type_label": "Thumbnail Type",
+          "language_label": "Course language",
+          "language_any": "Any language",
+          "language_help": "Visitors see courses in their own language. A course with no language is shown to everyone.",
           "thumbnail_type_image": "Image",
           "thumbnail_type_video": "Video",
           "thumbnail_type_both": "Both",
