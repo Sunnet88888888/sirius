@@ -95,3 +95,9 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Checks: every expected output was produced by a reference solution on the real Judge0 (22/22), each starter file alone fails; after creation the same solutions were run through the platform's `/code/execute-batch` as admin: 22/22. Not checked in a browser; the student view (solution code stripped, hidden tests) was not tested.
 - This is test data: delete the course in the dashboard when finished.
 
+## 2026-11-03 Lecture "How fast is your code?" (algorithm complexity)
+- Added as the first activity (dynamic page) of the test course: `activity_6171980b-98a1-40bc-922f-08389f5e97ce`, 81 blocks, 71 KB. Built with a Python script that emits Tiptap JSON and four hand-written interactive visuals stored in "magic" blocks (sandboxed iframes, `htmlContent` attribute; no external libraries): hero banner, search race (linear vs binary), growth explorer (canvas chart, log/zoom, time estimates), sorting race (bubble vs merge). Other blocks used: callouts (info, tip, warning, error, success), KaTeX math, tables, highlighted code, flip cards, badges-free layout, quiz (5 questions), two code playgrounds with complexity badges, a button.
+- Playground exercises were validated on the real Judge0: the fast solutions pass; the slow starters pass small inputs and hit Time Limit Exceeded on the large one (sum 1..1e12, naive Fibonacci n=40 and 90).
+- Course thumbnail (generated cover image) uploaded; it removed the broken thumbnail request.
+- Checked in a real headless Chrome as admin: the page renders, the table of contents is generated from the headings, all four iframes run their scripts, flip cards flip, "Run Code" runs through the platform and Judge0 ("3 of 4 passed" on the slow starter). The only 404 left is the admin's missing avatar file. Not checked: mobile layout, dark theme, a student account's view.
+
