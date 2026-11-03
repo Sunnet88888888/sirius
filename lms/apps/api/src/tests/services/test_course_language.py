@@ -19,6 +19,9 @@ class TestNormalizeLanguage:
             (" en ", "en"),
             ("pt-BR", "pt-BR"),
             ("pt_BR", "pt-BR"),
+            ("pt-br", "pt-BR"),
+            ("PT_br", "pt-BR"),
+            ("zh-Hans", "zh-Hans"),
             ("tk", "tk"),
         ],
     )

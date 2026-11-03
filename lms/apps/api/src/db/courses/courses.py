@@ -17,7 +17,7 @@ _LANGUAGE_RE = re.compile(r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})?$")
 def normalize_language(value: Optional[str]) -> Optional[str]:
     """Course language code: 'ru', 'en', 'pt-BR'... Empty means 'any language' (None).
 
-    The primary subtag is lowercased so 'RU' and 'ru' are the same language.
+    The primary subtag is lowercased and a 2-letter region is capitalized, so 'RU' and 'ru', or 'pt-br' and 'pt-BR', are the same language.
     """
     if value is None:
         return None
@@ -26,6 +26,9 @@ def normalize_language(value: Optional[str]) -> Optional[str]:
         return None
     value = value.replace("_", "-")
     primary, sep, rest = value.partition("-")
+    # 2-letter region in capitals ('pt-br' -> 'pt-BR') so one language has one spelling
+    if len(rest) == 2 and rest.isalpha():
+        rest = rest.upper()
     value = primary.lower() + (f"-{rest}" if sep else "")
     if not _LANGUAGE_RE.match(value):
         raise ValueError("language must be a code like 'ru', 'en' or 'pt-BR'")
