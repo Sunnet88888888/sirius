@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Lecture table of contents: the lecture uses the full page width and the contents slide in from the left edge while the pointer is over a small tab (tap on touch screens). It lists h1-h3, highlights the section being read, scrolls smoothly, and gives repeated headings distinct links. No server change. See `features/lecture-toc.md`.
 - Code tasks can carry a hidden server-side harness (test code wrapped around the student's program, with helper files), so FastAPI routes, Pydantic models and SQLAlchemy queries can be graded. Judge0 language 71 now runs Python 3.11 with FastAPI, Pydantic 2 and SQLAlchemy 2.0. See `features/code-harness.md`.
 - Email through Resend (forgot password works) and Google sign-in are configured through `.env`; no code change. See `features/sign-in-and-email.md`.
 - After sign-up (open and invite-only) a user whose email is verified is signed in automatically with the password just typed and sent on, instead of seeing a "go to the login page" message. The old message stays as the fallback when the automatic sign-in fails or when the email still has to be verified.

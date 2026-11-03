@@ -75,3 +75,10 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Checked through the platform's Judge0 client: a FastAPI app exercised with TestClient (0.56 s, 33 MB) and an async SQLAlchemy+aiosqlite query (0.41 s).
 - Platform (branch `feat/code-harness`, based on the running build): `services/code/harness.py`, `execute-batch` accepts `assignment_task_uuid`, grading applies the harness, `_strip_answer_key` removes it, the editor sends the task id and keeps the field on save. 21 new unit tests; the existing assignment, grading and code tests (358) pass.
 
+
+## 2026-11-04 - Lecture table of contents as a hover panel (branch feat/lecture-toc)
+- Goal: lecture text at full width; the contents appear from the left edge on hover. Decisions: no pinning, all dynamic pages, h1-h3.
+- Done: new `TableOfContents.tsx` + `tocHeadings.ts`, layout and CSS changes, unique heading ids, dark theme styles, tests, `features/lecture-toc.md`.
+- Checked: type check of the changed files, 8 unit tests, headless Chrome on a standalone preview (hover open/close, click scroll, highlight, keyboard, phone tap).
+- Not yet checked on a real imported lecture after deploy.
+- Rollback: revert the commit and redeploy the previous image.
