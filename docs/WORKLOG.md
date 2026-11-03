@@ -70,3 +70,10 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Sender switched to noreply@mail.berdinov.com after the domain was verified in Resend (backup `.env.bak-sender-*`, app recreated with `docker compose up -d`, no new image). Google consent screen published by the owner.
 - Magic-link email pointed at http://localhost:3000: the backend falls back to `LEARNHOUSE_FRONTEND_DOMAIN` (default localhost:3000) when the request has no matching Origin (the login goes through the Next.js server). Set `LEARNHOUSE_FRONTEND_DOMAIN=berdinov.com` and `LEARNHOUSE_SSL=true` (backup `.env.bak-linkdomain-*`), app recreated. Checked inside the container: without Origin, with Origin and with a foreign Origin all give https://berdinov.com. A fresh magic link was sent to the owner address; the link in that mail still has to be opened to confirm.
 
+## 2026-11-03 Backups
+- Branch `feat/backups` (from `feat/auth-flow`). `deploy/backup/`: backup.sh, systemd service and timer, env example, README. Installed on the server under `/opt/learnhouse/backup`, timer enabled (next run 2026-11-04 03:33).
+- Bucket `berdinov-backups` (ru-7): key can list, write, read, delete; versioning already on; Selectel ignores lifecycle rules set via the API, so the script prunes (35 days, including versions).
+- Encryption: GnuPG RSA 4096 key pair generated on the server in a temp dir, only the public key stays there; private key and passphrase moved to `~/Desktop/server-secrets/backup-gpg/` and shredded on the server.
+- Found: the aws-cli image does not trust the Selectel certificate chain (GlobalSign R6); fixed by mounting the host CA bundle (verification stays on).
+- Checks: first run ok (users=5, courses=2); restore test into a throwaway Postgres: 8 tables identical; sha256 sums ok; config archive lists the expected files; ClickHouse backup is byte-identical in size to a fresh export (4009 bytes, 280 rows when read back); a deliberately failing run exited 1, cleaned up, did not touch last-success and sent the alert request (arrival of the email to be confirmed by the owner).
+

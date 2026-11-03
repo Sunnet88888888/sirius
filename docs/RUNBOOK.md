@@ -19,7 +19,7 @@ Set the previous image tag in the stack's compose file and run `docker compose u
 - An infinite loop must return `Time Limit Exceeded`.
 
 ## Backup
-Database dump (`pg_dump`) plus the content volume. Do this before any schema-affecting deploy.
+A nightly timer (`sirius-backup.timer`, about 03:30) uploads an encrypted Postgres dump, the configuration files and (Sundays) the ClickHouse events to the private bucket `berdinov-backups`; failures email the owner. Details, retention, key custody and the restore procedure: `deploy/backup/README.md`. Run `/opt/learnhouse/backup/backup.sh` by hand before any risky deploy. Uploaded files live in the media bucket and are not part of this backup.
 
 ## Analytics (ClickHouse)
 - Status: `docker compose ps` shows `clickhouse` and `analytics-proxy` healthy.
