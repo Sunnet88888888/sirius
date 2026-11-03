@@ -1,5 +1,7 @@
 'use client'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import dynamic from 'next/dynamic'
@@ -18,6 +20,25 @@ import {
   Terminal,
   XCircle,
 } from 'lucide-react'
+
+// Task statements are Markdown (lists, `inline code`, fenced examples); plain text still renders as before.
+const statementComponents = {
+  p: ({ children }: any) => <p className="text-sm leading-relaxed text-slate-700 mb-2 last:mb-0">{children}</p>,
+  strong: ({ children }: any) => <strong className="font-semibold text-slate-900">{children}</strong>,
+  h1: ({ children }: any) => <h4 className="text-sm font-semibold text-slate-900 mt-3 mb-1">{children}</h4>,
+  h2: ({ children }: any) => <h4 className="text-sm font-semibold text-slate-900 mt-3 mb-1">{children}</h4>,
+  h3: ({ children }: any) => <h4 className="text-sm font-semibold text-slate-900 mt-3 mb-1">{children}</h4>,
+  ul: ({ children }: any) => <ul className="list-disc ps-5 text-sm text-slate-700 mb-2 space-y-1">{children}</ul>,
+  ol: ({ children }: any) => <ol className="list-decimal ps-5 text-sm text-slate-700 mb-2 space-y-1">{children}</ol>,
+  a: ({ children, href }: any) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{children}</a>,
+  pre: ({ children }: any) => <pre className="my-2 overflow-x-auto rounded-md border border-slate-200 bg-slate-50 p-3 text-xs leading-relaxed">{children}</pre>,
+  code: ({ className, children }: any) =>
+    className ? (
+      <code className={`${className} font-mono text-slate-800`}>{children}</code>
+    ) : (
+      <code className="rounded bg-slate-100 px-1 py-0.5 font-mono text-[12px] text-rose-600">{children}</code>
+    ),
+}
 
 const CodeMirror = dynamic(() => import('@uiw/react-codemirror'), {
   ssr: false,
@@ -299,9 +320,11 @@ export default function CodeTaskWorkspace(props: CodeTaskWorkspaceProps) {
       {title && title.trim() && title.trim() !== description.trim() ? (
         <>
           <h3 className="text-base font-semibold leading-snug break-words">{title}</h3>
-          <p className="mt-3 text-sm leading-relaxed whitespace-pre-wrap break-words text-slate-700">
-            {description}
-          </p>
+          <div className="mt-3 break-words">
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={statementComponents}>
+              {description}
+            </ReactMarkdown>
+          </div>
         </>
       ) : (
         <h3 className="text-base font-semibold leading-snug whitespace-pre-wrap break-words">{description}</h3>
