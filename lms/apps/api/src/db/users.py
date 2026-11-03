@@ -49,6 +49,8 @@ class UserCreate(UserBase):
     # request could write an arbitrary blob. Values here are validated against
     # the org's declared fields before anything is stored.
     custom_fields: Optional[dict] = None
+    # Version (YYYY-MM-DD) of the Terms / Privacy Policy / consent text the user accepted at sign-up.
+    legal_version: Optional[str] = Field(default=None, max_length=16)
 
     _cap_profile_fields = field_validator("bio", "details", "profile")(
         _check_profile_field_size
@@ -251,6 +253,9 @@ class User(UserBase, table=True):
     signup_method: Optional[str] = None
     is_superadmin: bool = Field(default=False)
     password_changed_at: Optional[datetime] = Field(default=None)
+    # Which version of the legal texts the user accepted, and when (set at sign-up).
+    legal_consent_version: Optional[str] = Field(default=None, max_length=16)
+    legal_consent_at: Optional[str] = None
     creation_date: str = ""
     update_date: str = ""
 

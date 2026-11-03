@@ -31,6 +31,8 @@ interface SignupBody {
   custom_fields?: Record<string, unknown>
   turnstileToken?: string | null
   inviteCode?: string
+  /** Version (YYYY-MM-DD) of the legal texts the user accepted; validated and stored by the backend. */
+  legal_version?: string
 }
 
 export async function POST(request: NextRequest) {
@@ -53,6 +55,7 @@ export async function POST(request: NextRequest) {
     last_name,
     bio,
     custom_fields,
+    legal_version,
   } = body
 
   if (!email || !password || !username) {
@@ -107,6 +110,7 @@ export async function POST(request: NextRequest) {
     last_name,
     bio,
     ...(custom_fields ? { custom_fields } : {}),
+    ...(typeof legal_version === 'string' && legal_version ? { legal_version } : {}),
   }
 
   // org_id is interpolated into the backend path, so it must be a plain id.

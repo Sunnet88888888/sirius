@@ -13,8 +13,9 @@ import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import { getPlatformUrl } from '@services/config/config'
 
-const TERMS_URL = getPlatformUrl('/terms') || ''
-const PRIVACY_URL = getPlatformUrl('/privacy') || ''
+// The legal pages are served by this site itself; a configured platform URL (SaaS) takes precedence.
+const TERMS_URL = getPlatformUrl('/terms') || '/terms'
+const PRIVACY_URL = getPlatformUrl('/privacy') || '/privacy'
 
 export function AuthFooter({ className = '' }: { className?: string }) {
   const { t } = useTranslation()

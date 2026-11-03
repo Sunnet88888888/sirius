@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Legal pages (Privacy Policy, Terms of Use, consent to personal-data processing, Public Offer, Contacts) in Russian and English, footer links, cookie notice, required consent checkboxes at sign-up with the accepted version stored on the user. Needs the new columns `user.legal_consent_version` / `legal_consent_at` and the operator details in `lib/legal/operator.ts`. See `features/legal.md`.
 - Nightly encrypted backups to a separate Selectel bucket (Postgres, configuration, weekly analytics), 35-day retention, email on failure, restore tested. See `deploy/backup/README.md`.
 - Email through Resend (forgot password works) and Google sign-in are configured through `.env`; no code change. See `features/sign-in-and-email.md`.
 - After sign-up (open and invite-only) a user whose email is verified is signed in automatically with the password just typed and sent on, instead of seeing a "go to the login page" message. The old message stays as the fallback when the automatic sign-in fails or when the email still has to be verified.

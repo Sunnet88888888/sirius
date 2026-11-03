@@ -3,6 +3,7 @@ import '../styles/dark.css'
 import '../styles/course-card.css'
 import React from 'react'
 import Providers from '@components/Providers'
+import CookieNotice from '@components/Legal/CookieNotice'
 import { Wix_Madefor_Text, Tajawal, Unbounded } from 'next/font/google'
 
 const wixMadeforText = Wix_Madefor_Text({
@@ -74,6 +75,7 @@ export default function RootLayout({
           <main className="animate-fade-in">
             {children}
           </main>
+          <CookieNotice />
         </Providers>
       </body>
     </html>

@@ -6856,5 +6856,21 @@
       "from": "from",
       "subscription": "subscription"
     }
+  },
+  "legal": {
+    "accept_terms_pre": "I have read and accept the",
+    "terms_link": "Terms of Use",
+    "and": "and",
+    "privacy_link": "Privacy Policy",
+    "consent_pre": "I consent to the processing of my personal data, including transfer abroad, as described in the",
+    "consent_link": "Consent to personal data processing",
+    "consent_link_short": "Consent",
+    "offer_link": "Public Offer",
+    "contacts_link": "Contacts",
+    "must_accept": "Please accept the Terms, the Privacy Policy and the consent to continue.",
+    "cookie_text": "We only use cookies that the site needs to work (sign-in, language) and our own analytics. Details in the",
+    "cookie_ok": "OK",
+    "draft_banner": "DRAFT: the operator details are not filled in yet ({{fields}}). Do not rely on this page.",
+    "version_label": "Version {{version}}"
   }
 }

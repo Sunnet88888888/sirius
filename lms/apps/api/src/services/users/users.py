@@ -16,6 +16,7 @@ from src.security.features_utils.usage import (
 )
 from src.core.deployment_mode import get_deployment_mode
 from src.services.users.usergroups import add_users_to_usergroup
+from src.services.users.legal_consent import apply_legal_consent
 from src.services.users.emails import (
     send_account_creation_email,
 )
@@ -199,6 +200,10 @@ async def create_user(
     )
 
     user = User.model_validate(user_object)
+    # Public password sign-ups must carry the accepted legal version when the instance requires it.
+    apply_legal_consent(
+        user, user_object.legal_version, enforce=(not is_oauth and isinstance(current_user, AnonymousUser))
+    )
 
     # RBAC check
     await rbac_check(request, current_user, "create", "user_x", db_session)
@@ -446,6 +451,10 @@ async def create_user_without_org(
     )
 
     user = User.model_validate(user_object)
+    # Public password sign-ups must carry the accepted legal version when the instance requires it.
+    apply_legal_consent(
+        user, user_object.legal_version, enforce=(not is_oauth and isinstance(current_user, AnonymousUser))
+    )
 
     # RBAC check
     await rbac_check(request, current_user, "create", "user_x", db_session)

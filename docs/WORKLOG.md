@@ -77,3 +77,7 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Found: the aws-cli image does not trust the Selectel certificate chain (GlobalSign R6); fixed by mounting the host CA bundle (verification stays on).
 - Checks: first run ok (users=5, courses=2); restore test into a throwaway Postgres: 8 tables identical; sha256 sums ok; config archive lists the expected files; ClickHouse backup is byte-identical in size to a fresh export (4009 bytes, 280 rows when read back); a deliberately failing run exited 1, cleaned up, did not touch last-success and sent the alert request (arrival of the email to be confirmed by the owner).
 
+## 2026-11-03 Legal pages
+- Branch `feat/legal` (from `feat/backups`). Texts drafted from the real data flows (Resend, Google, OpenAI, Selectel, self-hosted analytics, Judge0), operator ИП Berdinov Farkhad. Not deployed: INN, OGRNIP, address and public e-mail are still empty (pages show a DRAFT banner until filled), and the owner has not reviewed the texts yet.
+- Findings: the default font is already self-hosted (next/font), so visitors do not contact Google for it; the only Google resource on the auth pages was the logo on the Google button, now `/google-g.svg`. Loops (marketing sync) is a no-op without a key.
+

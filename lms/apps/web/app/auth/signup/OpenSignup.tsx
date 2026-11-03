@@ -24,6 +24,8 @@ import CustomSignupFields, {
   validateCustomFields,
 } from '@components/Auth/CustomSignupFields'
 import { readSignupFields, type SignupFieldItem } from '@services/settings/org'
+import LegalConsentBoxes from '@components/Legal/LegalConsentBoxes'
+import { LEGAL_VERSION } from '@/lib/legal/version'
 
 const validate = (values: any, t: any, customFields: SignupFieldItem[]) => {
   const errors: any = {}
@@ -52,6 +54,10 @@ const validate = (values: any, t: any, customFields: SignupFieldItem[]) => {
   // Bio is optional - no validation required
 
   // The org's admin-defined fields. Client-side only; the server revalidates.
+  if (!values.accept_terms || !values.accept_data) {
+    errors.accept_legal = t('legal.must_accept')
+  }
+
   const customFieldErrors = validateCustomFields(customFields, values.custom_fields, t)
   if (Object.keys(customFieldErrors).length > 0) {
     errors.custom_fields = customFieldErrors
@@ -108,6 +114,8 @@ function OpenSignUpComponent({ org: propOrg }: OpenSignUpComponentProps = {}) {
       last_name: '',
       custom_fields: initialCustomFieldValues(customFields),
       turnstileToken: null as string | null,
+      accept_terms: false,
+      accept_data: false,
     },
     validate: (values) => validate(values, t, customFields),
     enableReinitialize: true,
@@ -118,7 +126,7 @@ function OpenSignUpComponent({ org: propOrg }: OpenSignUpComponentProps = {}) {
       let redirecting = false
       track(AnalyticsEvent.SignupSubmitted, { invite_code_present: false, has_bio: !!values.bio })
       try {
-        let res = await signup(values)
+        let res = await signup({ ...values, legal_version: LEGAL_VERSION })
         let message = await res.json().catch(() => ({}))
         if (res.status == 200) {
           track(AnalyticsEvent.SignupSucceeded, { email_verified: message.email_verified })
@@ -396,6 +404,13 @@ function OpenSignUpComponent({ org: propOrg }: OpenSignUpComponentProps = {}) {
 
           <CustomSignupFields fields={customFields} formik={formik} />
 
+          <LegalConsentBoxes
+            terms={formik.values.accept_terms}
+            data={formik.values.accept_data}
+            onChange={(field, value) => formik.setFieldValue(field, value)}
+            error={formik.submitCount > 0 ? (formik.errors as any).accept_legal : undefined}
+          />
+
           <TurnstileWidget
             ref={turnstileRef}
             onToken={(token) => formik.setFieldValue('turnstileToken', token)}
@@ -432,14 +447,23 @@ function OpenSignUpComponent({ org: propOrg }: OpenSignUpComponentProps = {}) {
           </div>
         )}
 
-        {/* Google Sign In */}
+        {/* Google Sign In: needs the same two consents as the password form */}
+        {!passwordAllowed && googleAllowed && (
+          <div className="mb-4">
+            <LegalConsentBoxes
+              terms={formik.values.accept_terms}
+              data={formik.values.accept_data}
+              onChange={(field, value) => formik.setFieldValue(field, value)}
+            />
+          </div>
+        )}
         {googleAllowed && (
         <button
           onClick={handleGoogleSignIn}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !(formik.values.accept_terms && formik.values.accept_data)}
           className="flex justify-center items-center w-full bg-white hover:bg-neutral-50 text-black space-x-3 font-medium p-3 rounded-lg border border-neutral-200 transition-all text-sm disabled:opacity-50"
         >
-          <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="" className="w-4 h-4" />
+          <img src="/google-g.svg" alt="" className="w-4 h-4" />
           <span>{t('auth.sign_in_with_google')}</span>
         </button>
         )}

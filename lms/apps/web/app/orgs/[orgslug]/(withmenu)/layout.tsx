@@ -16,6 +16,7 @@ import { PageViewTracker } from '@components/Analytics/PageViewTracker'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { usePlan } from '@components/Hooks/usePlan'
 import { getGoogleFontUrl, DEFAULT_FONT } from '@/lib/fonts'
+import LegalLinks from '@components/Legal/LegalLinks'
 
 // Helper to convert hex to rgba
 const hexToRgba = (hex: string, alpha: number): string => {
@@ -38,6 +39,7 @@ function OrgFooter() {
     <footer className="w-full py-8 mt-12">
       <div className="flex flex-col items-center justify-center space-y-4">
         {footerText && <p className="text-sm text-gray-500">{footerText}</p>}
+        <LegalLinks />
         {showWatermark && (
           <Link href="https://learnhouse.app" target="_blank" rel="noopener noreferrer">
             <Logo size={24} className="opacity-15 hover:opacity-40 transition-opacity duration-300 cursor-pointer" />

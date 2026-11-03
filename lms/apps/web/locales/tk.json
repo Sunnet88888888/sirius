@@ -6848,5 +6848,21 @@
     "content_required": "Mazmuny hökmany",
     "invalid_number": "San bolmaly",
     "invalid_option": "Elýeterli saýlawlaryň birini saýlaň"
+  },
+  "legal": {
+    "accept_terms_pre": "Men okadym we kabul edýärin:",
+    "terms_link": "Ulanyş şertleri",
+    "and": "we",
+    "privacy_link": "Gizlinlik syýasaty",
+    "consent_pre": "Şahsy maglumatlarymyň, şol sanda daşary ýurtlara geçirilmeginiň, şu resminamada beýan edilişi ýaly işlenmegine razylyk berýärin:",
+    "consent_link": "Şahsy maglumatlary işlemäge razylyk",
+    "consent_link_short": "Razylyk",
+    "offer_link": "Köpçülik oferta",
+    "contacts_link": "Habarlaşmak",
+    "must_accept": "Dowam etmek üçin Şertleri, Gizlinlik syýasatyny kabul ediň we maglumatlary işlemäge razylyk beriň.",
+    "cookie_text": "Biz diňe sahypanyň işlemegi üçin zerur cookie-leri (girmek, dil) we öz analitikamyzy ulanýarys. Giňişleýin:",
+    "cookie_ok": "Düşnükli",
+    "draft_banner": "GARALAMA: operatoryň maglumatlary entek doldurylmady ({{fields}}). Bu sahypa daýanmaň.",
+    "version_label": "Wersiýa {{version}}"
   }
 }

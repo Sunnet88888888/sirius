@@ -830,7 +830,7 @@ const LoginClient = (props: LoginClientProps) => {
                   disabled={isSubmitting}
                   className="flex justify-center items-center w-full bg-white hover:bg-neutral-50 text-black space-x-3 font-medium p-3 rounded-lg border border-neutral-200 transition-all text-sm disabled:opacity-50"
                 >
-                  <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="" className="w-4 h-4" />
+                  <img src="/google-g.svg" alt="" className="w-4 h-4" />
                   <span>{t('auth.sign_in_with_google')}</span>
                 </button>
                 )}
