@@ -9,7 +9,8 @@ In the task's `contents` (stored on the server, never sent to students):
 "harness": {
   "suffix": "<code appended after the student's code>",
   "prefix": "<optional code placed before it>",
-  "files":  [{"name": "db.py", "content": "..."}]      # helper modules written next to the script
+  "files":  [{"name": "db.py", "content": "..."}],     # helper modules written next to the script
+  "embed":  true                                       # optional, see below
 }
 ```
 The test cases keep their normal meaning: `stdin` is the **scenario name** (the harness reads it with `sys.stdin.read()`), `expectedStdout` is what the harness prints when that scenario passes (for example `OK`), `hidden` hides a case from students as usual.
@@ -19,6 +20,7 @@ The test cases keep their normal meaning: `stdin` is the **scenario name** (the 
 - **Run tests.** The editor sends the task id with `POST /code/execute-batch` (`assignment_task_uuid`). For a task with a harness the server loads the stored task, wraps the code, uses the task's own language and test cases (the visible ones for students, all for instructors) and ignores the test cases and files sent by the browser. Without a harness the old behaviour is unchanged.
 - **Grading.** The server-side grader (`_grade_code_task_async`) applies the same harness, so visible and hidden tests run exactly the same code, and uses the task's language.
 - **Authoring.** Set `harness` through the API (`POST/PUT /assignments/{uuid}/tasks`, validated: sizes, file names). The editor keeps the field when a teacher saves the task; it has no editor for it.
+- `embed: true` does not paste the student's code between prefix and suffix; it is passed as the string `__student_source__`. The harness compiles it itself, so it can allow top-level `await` (for example `result = await session.scalars(...)` in async SQLAlchemy exercises), turn a syntax error into a readable message and run the code in a namespace of its own.
 - Limits: 64 KB per part, 10 files, plain file names only.
 
 ## Limits and honesty

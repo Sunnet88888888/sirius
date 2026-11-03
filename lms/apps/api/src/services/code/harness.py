@@ -7,7 +7,8 @@ model or an SQLAlchemy query has to be *called* by test code. A task may therefo
     "harness": {
         "suffix": "<python appended after the student's code; reads the test name from stdin and prints the result>",
         "prefix": "<optional code placed before the student's code>",
-        "files":  [{"name": "db.py", "content": "..."}]      # helper modules written next to the script
+        "files":  [{"name": "db.py", "content": "..."}],     # helper modules written next to the script
+        "embed":  true                                       # optional: pass the student's code as the string `__student_source__`
     }
 
 The harness is stored on the server only. It is removed from every student payload (see ``_strip_answer_key``) and is
@@ -42,7 +43,12 @@ def apply_harness(contents, source_code: str) -> tuple[str, Optional[list[dict]]
     h = harness_of(contents)
     if h is None:
         return source_code, None
-    parts = [str(h.get("prefix") or ""), source_code, str(h.get("suffix") or "")]
+    if h.get("embed"):
+        # The student's code is not pasted into the program but handed over as the string `__student_source__`, so the
+        # harness can compile it itself (top-level await, readable syntax errors, its own namespace).
+        parts = [str(h.get("prefix") or ""), f"__student_source__ = {source_code!r}", str(h.get("suffix") or "")]
+    else:
+        parts = [str(h.get("prefix") or ""), source_code, str(h.get("suffix") or "")]
     final = "\n".join(p for p in parts if p != "")
     files = []
     for f in (h.get("files") or [])[:MAX_HARNESS_FILES]:
@@ -65,6 +71,8 @@ def validate_harness(h) -> Optional[str]:
         v = h.get(key)
         if v is not None and (not isinstance(v, str) or len(v) > MAX_HARNESS_CHARS):
             return f"harness.{key} must be a string of at most {MAX_HARNESS_CHARS} characters"
+    if h.get("embed") is not None and not isinstance(h.get("embed"), bool):
+        return "harness.embed must be true or false"
     files = h.get("files")
     if files is not None:
         if not isinstance(files, list) or len(files) > MAX_HARNESS_FILES:

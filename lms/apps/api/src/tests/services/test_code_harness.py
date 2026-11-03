@@ -49,6 +49,15 @@ class TestHelpers:
         src, _ = apply_harness({"harness": {"prefix": "import os", "suffix": "print(1)"}}, "x = 1")
         assert src.splitlines() == ["import os", "x = 1", "print(1)"]
 
+    def test_embed_passes_the_code_as_a_string(self):
+        h = {"embed": True, "prefix": "import ast", "suffix": "print(len(__student_source__.splitlines()))"}
+        student = "x = 'a'\nawait y"          # would be a SyntaxError if it were pasted into the program
+        src, _ = apply_harness({"harness": h}, student)
+        assert src.splitlines() == ["import ast", "__student_source__ = " + repr(student), h["suffix"]]
+        ns = {}
+        exec(compile(src, "t", "exec"), ns)
+        assert ns["__student_source__"] == student
+
     @pytest.mark.parametrize("name", ["../x.py", "a/b.py", ".hidden", "a\\b"])
     def test_unsafe_file_names_are_dropped(self, name):
         _, files = apply_harness({"harness": {"suffix": "x", "files": [{"name": name, "content": "c"}]}}, "s")
@@ -60,6 +69,8 @@ class TestHelpers:
         assert validate_harness("x")
         assert validate_harness({"suffix": 5})
         assert validate_harness({"suffix": "x" * (64 * 1024 + 1)})
+        assert validate_harness({"embed": "yes"})
+        assert validate_harness({"embed": True, "suffix": "x"}) is None
         assert validate_harness({"files": "nope"})
         assert validate_harness({"files": [{"name": "../x", "content": "c"}]})
         assert validate_harness({"files": [{"name": "a.py", "content": 1}]})
