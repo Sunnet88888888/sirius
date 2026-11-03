@@ -90,3 +90,8 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 - Rebooted the Judge0 host again: tunnel, firewall, Docker and Judge0 came back by themselves; platform test passed again.
 - Not done: end-to-end code task through the browser (admin login by script failed: the admin password in the container env is no longer the current one); root password of the new server was printed in the chat and should be changed.
 
+## 2026-11-03 Test course for code execution
+- Created through the API as admin (login from the Mac): course "TEST: Code execution" (`course_478d5bef-fe6b-415b-b790-493eb3e48b48`, language en, published, not public), one chapter, one assignment activity ("Five code tasks", PERCENTAGE, auto-grading on, retries allowed) and five CODE tasks: Sum of two numbers (Python), FizzBuzz (Python), Factorial (C), Count the words (JavaScript), Palindrome (Java); 22 test cases, 9 of them hidden.
+- Checks: every expected output was produced by a reference solution on the real Judge0 (22/22), each starter file alone fails; after creation the same solutions were run through the platform's `/code/execute-batch` as admin: 22/22. Not checked in a browser; the student view (solution code stripped, hidden tests) was not tested.
+- This is test data: delete the course in the dashboard when finished.
+
