@@ -67,4 +67,5 @@ Append-only. One entry per job, written while working: goal, files, commands, re
 ## 2026-11-03 Sign-up signs the user in
 - Branch `feat/auth-flow` (from `feat/course-language`): `signInAfterSignup` helper used by `OpenSignup.tsx` and `InviteOnlySignUp.tsx`; fallback to the old message. Strings `auth.signing_you_in` (en, ru, tk). Deployed as sirius-lms:e9bb4d4.
 - Server `.env` got the Resend and Google variables (backup `.env.bak-email-google-*`). Checks: Resend accepted a test mail to the owner address; forgot-password API logged `Password reset code sent`; Google authorize step returns a valid accounts.google.com URL with the right client and redirect URI. Not tested: arrival in the inbox, the full reset, the full Google sign-in, the new sign-up redirect (browser steps for the user). Sender is still onboarding@resend.dev.
+- Sender switched to noreply@mail.berdinov.com after the domain was verified in Resend (backup `.env.bak-sender-*`, app recreated with `docker compose up -d`, no new image). Google consent screen published by the owner.
 
