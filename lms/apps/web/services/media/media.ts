@@ -118,6 +118,14 @@ export function getAudioBlockStreamUrl(
   return `${getApiUrl()}api/v1/stream/block/audio/${orgUUID}/${courseUUID}/${activityUUID}/${blockUUID}/${filename}`
 }
 
+export function getCourseAboutImageUrl(
+  orgUUID: string,
+  courseUUID: string,
+  fileId: string
+) {
+  return `${getMediaUrl()}content/orgs/${orgUUID}/courses/${courseUUID}/about/${fileId}`
+}
+
 export function getCourseThumbnailMediaDirectory(
   orgUUID: string,
   courseUUID: string,

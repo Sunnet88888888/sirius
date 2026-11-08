@@ -98,6 +98,17 @@ export async function updateCourseThumbnail(course_uuid: any, formData: FormData
   return res
 }
 
+export async function uploadCourseAboutImage(course_uuid: string, file: File, access_token: any) {
+  const formData = new FormData()
+  formData.append('image', file)
+  const result: any = await fetch(
+    `${getAPIUrl()}courses/${course_uuid}/about-image`,
+    RequestBodyFormWithAuthHeader('POST', formData, null, access_token)
+  )
+  const res = await getResponseMetadata(result)
+  return res
+}
+
 export async function createNewCourse(
   org_id: string,
   course_body: any,

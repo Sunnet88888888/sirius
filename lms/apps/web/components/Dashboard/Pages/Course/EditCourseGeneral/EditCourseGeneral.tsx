@@ -3,7 +3,6 @@ import FormLayout, {
   FormField,
   FormLabelAndMessage,
   Input,
-  Textarea,
 } from '@components/Objects/StyledElements/Form/Form';
 import { useFormik } from 'formik';
 import { AlertTriangle } from 'lucide-react';
@@ -22,6 +21,9 @@ import {
 } from "./CustomSelect";
 import { useTranslation } from 'react-i18next';
 import { AVAILABLE_LANGUAGES } from '@/lib/languages';
+import CourseAboutEditor from '@components/Objects/Courses/CourseAbout/CourseAboutEditor';
+import { useOrg } from '@components/Contexts/OrgContext';
+import { isAboutEmpty } from '@/lib/aboutContent';
 
 type EditCourseStructureProps = {
   orgslug: string
@@ -41,6 +43,10 @@ const validate = (values: any, t: any) => {
     errors.description = t('dashboard.courses.general.form.description_required');
   } else if (values.description.length > 1000) {
     errors.description = t('dashboard.courses.general.form.description_max_length');
+  }
+
+  if (isAboutEmpty(values.about)) {
+    errors.about = t('dashboard.courses.general.form.about_required', { defaultValue: 'About is required' });
   }
 
   if (!values.learnings) {
@@ -69,6 +75,7 @@ const validate = (values: any, t: any) => {
 
 function EditCourseGeneral(props: EditCourseStructureProps) {
   const { t } = useTranslation()
+  const org = useOrg() as any
   const [error, setError] = useState('');
 
   // Use the new field sync hook
@@ -268,15 +275,14 @@ function EditCourseGeneral(props: EditCourseStructureProps) {
 
               <FormField name="about">
                 <FormLabelAndMessage label={t('dashboard.courses.general.form.about_label')} message={formik.errors.about} />
-                <Form.Control asChild>
-                  <Textarea
-                    style={{ backgroundColor: 'white', height: '200px', minHeight: '200px' }}
-                    onChange={formik.handleChange}
-                    value={formik.values.about}
-                    required
-                    disabled={isSaving}
-                  />
-                </Form.Control>
+                <CourseAboutEditor
+                  value={initialValues.about}
+                  orgUuid={org?.org_uuid}
+                  courseUuid={courseStructure?.course_uuid || props.course_uuid}
+                  editable
+                  disabled={isSaving}
+                  onChange={(v) => formik.setFieldValue('about', v)}
+                />
               </FormField>
 
               <FormField name="learnings">

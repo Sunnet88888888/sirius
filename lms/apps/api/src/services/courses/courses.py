@@ -42,7 +42,7 @@ from src.security.rbac import (
 from src.security.rbac.constants import ADMIN_OR_MAINTAINER_ROLE_IDS
 from src.security.superadmin import is_user_superadmin
 from src.services.ai.rag.queue import enqueue_course, index_course
-from src.services.courses.thumbnails import upload_thumbnail
+from src.services.courses.thumbnails import upload_about_image, upload_thumbnail
 from src.services.search.normalization import LIKE_ESCAPE_CHAR, build_like_pattern
 from src.services.webhooks.dispatch import dispatch_webhooks
 from fastapi import HTTPException, Request, UploadFile, status
@@ -793,6 +793,31 @@ async def create_course(
 
     course_data = {key: getattr(course, key) for key in course.model_fields}
     return CourseRead.model_validate({**course_data, "authors": authors})
+
+
+async def upload_course_about_image(
+    request: Request,
+    course_uuid: str,
+    current_user: PublicUser | AnonymousUser,
+    db_session: AsyncSession,
+    image_file: UploadFile,
+) -> dict:
+    """Store an image for the course About text and return its file name."""
+    statement = select(Course).where(Course.course_uuid == course_uuid)
+    course = (await db_session.execute(statement)).scalars().first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+
+    await check_resource_access(request, db_session, current_user, course.course_uuid, AccessAction.UPDATE)
+
+    org_statement = select(Organization).where(Organization.id == course.org_id)
+    org = (await db_session.execute(org_statement)).scalars().first()
+
+    if not image_file or not image_file.filename:
+        raise HTTPException(status_code=422, detail="No image provided")
+
+    name_in_disk = await upload_about_image(image_file, org.org_uuid, course.course_uuid)  # type: ignore
+    return {"file": name_in_disk}
 
 
 async def update_course_thumbnail(

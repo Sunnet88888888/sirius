@@ -13,6 +13,7 @@ import {
 import { ArrowRight, Backpack, Check, File, StickyNote, Video, Square, Image as ImageIcon, Layers, BookCopy, Lock, Globe, Package, Puzzle } from 'lucide-react'
 import { MarkdownLogo } from '@phosphor-icons/react'
 import { useOrg } from '@components/Contexts/OrgContext'
+import CourseAboutEditor from '@components/Objects/Courses/CourseAbout/CourseAboutEditor'
 import { CourseProvider } from '@components/Contexts/CourseContext'
 import { useMediaQuery } from 'usehooks-ts'
 import CoursesActions from '@components/Objects/Courses/CourseActions/CoursesActions'
@@ -476,7 +477,7 @@ const CourseClient = (props: any) => {
 
                 <div className="course_metadata_left space-y-2">
                   <div className="">
-                    <p className="py-5 whitespace-pre-line break-words w-full leading-relaxed tracking-normal text-pretty hyphens-auto">{course.about}</p>
+                    <div className="py-5 w-full"><CourseAboutEditor value={course.about || ''} orgUuid={org?.org_uuid} courseUuid={course.course_uuid} /></div>
                   </div>
                 </div>
               </div>

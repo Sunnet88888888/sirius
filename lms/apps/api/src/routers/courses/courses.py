@@ -36,6 +36,7 @@ from src.services.courses.courses import (
     update_course,
     delete_course,
     update_course_thumbnail,
+    upload_course_about_image,
     search_courses,
     get_course_user_rights,
     clone_course,
@@ -374,6 +375,29 @@ async def api_create_course_thumbnail(
     """
     return await update_course_thumbnail(
         request, course_uuid, current_user, db_session, thumbnail, thumbnail_type
+    )
+
+
+@router.post(
+    "/{course_uuid}/about-image",
+    summary="Upload an image for the course About text",
+    description="Store an image used inside the rich About text and return its file name.",
+    responses={
+        200: {"description": "Image stored"},
+        403: {"description": "User lacks permission to update the course"},
+        404: {"description": "Course not found"},
+        422: {"description": "Invalid image file"},
+    },
+)
+async def api_upload_course_about_image(
+    request: Request,
+    course_uuid: str,
+    image: UploadFile,
+    db_session: AsyncSession = Depends(get_db_session),
+    current_user: PublicUser = Depends(get_current_user),
+) -> dict:
+    return await upload_course_about_image(
+        request, course_uuid, current_user, db_session, image
     )
 
 
